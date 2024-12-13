@@ -11,6 +11,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        magilio: ['var(--font-magilio)'],
+        cylburn: ['var(--font-cylburn)'],
+      },
     },
   },
   plugins: [],
