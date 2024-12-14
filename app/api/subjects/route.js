@@ -1,39 +1,17 @@
-import Groq from "groq-sdk";
+import { namesSchema } from '@/utils/AiData';
+import { groq } from '@ai-sdk/groq';
+import { streamObject } from 'ai';
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+export const maxDuration = 30;
+const model = groq('gemma2-9b-it');
 
 
 export async function POST(req) {
   const data = await req.json();
-  if (req.method !== "POST") return res.status(405).json({ message: "Only POST requests are allowed" });
 
-  try {
-    let prompt = `give me a list of subjects or topics of interest related to '${data.input}'. `;
-    prompt += 'The list should be academic and professional sounding, just one or two words each. ';
-    prompt += 'return just the list of names, sperated by commas. without any other text.';
+  let prompt = `list subjects or topics of interest related to '${data.input}'. `;
+  prompt += 'The list should be academic and professional sounding, just one or two words each. ';
 
-
-    const chatCompletion = await reqGroqAI(prompt);
-    const text = chatCompletion.choices[0]?.message?.content || "";
-    const names = text.split(',').map(name => name.trim());
-    return Response.json({ names });
-  } catch (error) {
-    return Response.json({ message: "Internal Server Error" });
-  }
+  const result = streamObject({ model, schema: namesSchema, prompt });
+  return result.toTextStreamResponse();
 }
-
-
-const reqGroqAI = async (content) => {
-  const res = await groq.chat.completions.create({
-    messages: [
-      {
-        role: "user",
-        content,
-      },
-    ],
-    model: "llama-3.1-8b-instant",
-  });
-  return res;
-};
