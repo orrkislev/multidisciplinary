@@ -7,11 +7,15 @@ import { useState } from 'react';
 export default function SubjectPage() {
     const [selected, setSelected] = useState([])
 
-    
+
     return (
-        <div className='bg-white'>
-            <Subjects onUpdate = {(newSelected) => setSelected(newSelected)} />
-            <SelectedSubjects subject1={selected[0]} subject2={selected[1]} />
+        <div className='bg-white flex w-full h-full'>
+            <div className='flex-[1]'>
+                <Subjects onUpdate={(newSelected) => setSelected(newSelected)} />
+            </div>
+            <div className='flex-[2]'>
+                <SelectedSubjects subject1={selected[0]} subject2={selected[1]} />
+            </div>
         </div>
     );
 }

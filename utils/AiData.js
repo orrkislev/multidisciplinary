@@ -7,7 +7,8 @@ export const namesSchema = z.object({
 export const descriptionSchema = z.object({
     title: z.string(),
     subtitle: z.string(),
-    description: z.string()
+    description: z.string(),
+    funFact: z.string()
 });
 
 export const projectsSchema = z.object({
@@ -16,4 +17,3 @@ export const projectsSchema = z.object({
         description: z.string()
     }))
 });
-

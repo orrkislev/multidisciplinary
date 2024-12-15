@@ -11,7 +11,10 @@ export async function POST(req) {
     prompt += 'pastel colors, soft, dreamy. ';
     prompt += 'no text, no logos, no watermarks. ';
 
-    const url = 'https://api.getimg.ai/v1/flux-schnell/text-to-image';
+    
+    // const url = 'https://api.getimg.ai/v1/flux-schnell/text-to-image';
+    const url = 'https://api.getimg.ai/v1/stable-diffusion-xl/text-to-image';
+
     const options = {
         method: 'POST',
         headers: { 

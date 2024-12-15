@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { SingleSubject } from "./Subjects";
 import { experimental_useObject as useObject } from 'ai/react';
-import { descriptionSchema, namesSchema, projectsSchema } from "@/utils/AiData";
+import { descriptionSchema, linksSchema, namesSchema, projectsSchema } from "@/utils/AiData";
 
 export default function SelectedSubjects({ subject1, subject2 }) {
     const { object, submit } = useObject({
@@ -31,8 +31,8 @@ export default function SelectedSubjects({ subject1, subject2 }) {
     }
 
     return (
-        <div className='flex flex-col gap-4 px-16 py-2'>
-            <div className='flex flex-row gap-4' >
+        <div className='flex flex-col gap-4 px-4 py-2 h-[100vh] overflow-y-scroll'>
+            <div className='flex flex-col gap-4' >
                 <SubjectCard subject1={subject1} subject2={subject2} name={names && names[0]} />
                 <div className="bg-gray-100 p-4">
                     <SubjectDescription name={names && names[0]} subject1={subject1} subject2={subject2} />
@@ -99,10 +99,15 @@ function SubjectDescription({ name, subject1, subject2 }) {
     }, [name])
 
     return (
-        <div>
-            <h2 className="text-2xl font-bold">{object?.title}</h2>
-            <h3 className="text-lg font-bold">{object?.subtitle}</h3>
-            <p className="text-lg text-gray-800">{object?.description}</p>
+        <div className='flex flex-row justify-between gap-8'>
+            <div className="rounded-lg">
+                <h2 className="text-2xl font-bold">{object?.title}</h2>
+                <h3 className="text-lg font-bold">{object?.subtitle}</h3>
+                <p className="text-lg text-gray-800">{object?.description}</p>
+            </div>
+            <div className="rounded-lg border-white border-2 p-2 flex flex-col items-center justify-center">
+                <p className="text-gray-800 italic font-sans text-center text-orange-800">{object?.funFact}</p>
+            </div>
         </div>
     )
 }
@@ -119,8 +124,9 @@ function SubjectProjects({ subject1, subject2, name }) {
 
     return (
         <div>
+            <strong>Suggested Project in the field of {name}</strong>
             {object?.projects?.map((project, index) => (
-                <div key={index} className="bg-gray-100 p-2 my-2 text-black">
+                <div key={index} className="bg-gray-100 p-2 my-2 text-black rounded-lg">
                     <h2 className="text-xl font-bold">{project.name}</h2>
                     <p>{project.description}</p>
                 </div>

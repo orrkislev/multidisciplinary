@@ -1,4 +1,4 @@
-import { descriptionSchema, namesSchema, projectsSchema } from '@/utils/AiData';
+import { descriptionSchema, linksSchema, namesSchema, projectsSchema } from '@/utils/AiData';
 import { google } from '@ai-sdk/google';
 import { streamObject } from 'ai';
 
