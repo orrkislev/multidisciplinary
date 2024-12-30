@@ -1,4 +1,4 @@
-import { namesSchema } from '@/utils/AiData';
+import { namesSchema } from '@/utils/Schema';
 import { groq } from '@ai-sdk/groq';
 import { streamObject } from 'ai';
 
