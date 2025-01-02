@@ -1,5 +1,5 @@
 import { experimental_useObject as useObject } from 'ai/react';
-import { descriptionSchema, namesSchema, projectsSchema, terminologySchema } from './Schema';
+import { descriptionSchema, namesSchema, projectsSchema, questionsSchema, terminologySchema } from './Schema';
 import { create } from 'zustand';
 import { useEffect, useState } from 'react';
 import { object } from 'zod';
@@ -17,31 +17,30 @@ export const useAiData = create((set) => ({
     description: null,
     projects: null,
     terminology: null,
+    questions: null,
     setName: (name) => set({ name }),
     setNames: (names) => set({ names }),
     setDescription: (description) => set({ description }),
     setProjects: (projects) => set({ projects }),
     setTerminology: (terminology) => set({ terminology }),
+    setQuestions: (questions) => set({ questions }),
+    reset: () => set({ name: null, names: null, description: null, projects: null, terminology: null, questions: null })
 }));
 
 export default function useAIManager() {
     const { subject1, subject2 } = useSubjects();
-    const { name, names, description, projects, terminology, setName, setNames, setDescription, setProjects, setTerminology } = useAiData();
-    const get_names = useObjectZustand({ api: '/api/name', schema: namesSchema, onUpdate: (object) => setNames(object?.subjects) });
-    const get_description = useObjectZustand({ api: '/api/name', schema: descriptionSchema, onUpdate: setDescription });
-    const get_projects = useObjectZustand({ api: '/api/name', schema: projectsSchema, onUpdate: (object) => setProjects(object?.projects) });
-    const get_terms = useObjectZustand({ api: '/api/name', schema: terminologySchema, onUpdate: setTerminology });
+    const ai = useAiData();
+    const get_names = useObjectZustand({ api: '/api/name', schema: namesSchema, onUpdate: (object) => ai.setNames(object?.subjects) });
+    const get_description = useObjectZustand({ api: '/api/name', schema: descriptionSchema, onUpdate: ai.setDescription });
+    const get_projects = useObjectZustand({ api: '/api/name', schema: projectsSchema, onUpdate: (object) => ai.setProjects(object?.projects) });
+    const get_terms = useObjectZustand({ api: '/api/name', schema: terminologySchema, onUpdate: ai.setTerminology });
+    const get_questions = useObjectZustand({ api: '/api/name', schema: questionsSchema, onUpdate: (object) => ai.setQuestions(object?.questions) });
 
     useEffect(() => {
         if (subject1 && subject2) {
-            console.log(`got subjects: ${subject1} and ${subject2}, submitting names`);
             get_names.submit({ action: 'name', subject1, subject2 });
         } else {
-            setNames(null);
-            setNames(null);
-            setDescription(null);
-            setProjects(null);
-            setTerminology(null);
+            ai.reset()
             get_names.reset();
             get_description.reset();
             get_projects.reset();
@@ -50,33 +49,33 @@ export default function useAIManager() {
     }, [subject1, subject2])
 
     useEffect(() => {
-        if (!names) return;
-        console.log(`got names: ${names}`);
-        setName(names[0]);
+        if (!ai.names) return;
+        ai.setName(ai.names[0]);
     }, [get_names.finished])
 
-    useEffect(()=>{
-        if (!name) return;
-        console.log(`new name is: ${name}`);
-        get_description.submit({ action: 'description', subject1, subject2, name });
-        get_projects.submit({ action: 'projects', subject1, subject2, name });
-    },[name])
+    useEffect(() => {
+        if (!ai.name) return;
+        get_description.submit({ action: 'description', subject1, subject2, name: ai.name });
+        get_projects.submit({ action: 'projects', subject1, subject2, name: ai.name });
+    }, [ai.name])
 
     useEffect(() => {
-        if (!description) return;
-        console.log('got description',description);
-        get_terms.submit({ action: 'terms', subject1, subject2, name, description: description[0] });
+        if (!ai.description) return;
+        get_terms.submit({ action: 'terms', subject1, subject2, name: ai.name, description: ai.description[0] });
+        get_questions.submit({ action: 'questions', subject1, subject2, name: ai.name, description: ai.description[0] });
     }, [get_description.finished])
 
     useEffect(() => {
-        if (!projects) return
-        console.log(`got projects: ${projects}`);
+        if (!ai.projects) return
     }, [get_projects.finished])
 
     useEffect(() => {
-        if (!terminology) return
-        console.log(`got terminology: ${terminology}`);
+        if (!ai.terminology) return
     }, [get_terms.finished])
+
+    useEffect(() => {
+        if (!ai.questions) return
+    }, [get_questions.finished])
 }
 
 

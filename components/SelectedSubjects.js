@@ -6,6 +6,7 @@ import Projects from "./Projects";
 import useAI, { useAiData, useSubjects } from "@/utils/useAI";
 import useAIManager from "@/utils/useAI";
 import Terminology from "./Terminology";
+import Questions from "./Questions";
 
 
 
@@ -39,6 +40,7 @@ export default function SelectedSubjects() {
                 </div>
             </div>
             <Terminology />
+            <Questions />
             <Projects />
         </div>
     )

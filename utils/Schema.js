@@ -33,3 +33,7 @@ export const terminologySchema = z.object({
         definition: z.string()
     })),
 });
+
+export const questionsSchema = z.object({
+    questions: z.array(z.string())
+});

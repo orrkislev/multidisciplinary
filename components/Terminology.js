@@ -5,10 +5,12 @@ import { useAiData } from '@/utils/useAI';
 import { useState } from 'react';
 
 export default function Terminology() {
+    const name = useAiData(state => state.name);
     const terminology = useAiData(state => state.terminology);
 
     return (
         <div>
+            <div><strong>Key Terminology in the field of {name}</strong></div>
             Concepts:
             <div className='flex gap-2 flex-wrap w-full'>
                 {terminology?.concepts?.map((term, index) => (

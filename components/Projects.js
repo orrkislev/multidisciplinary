@@ -9,7 +9,7 @@ export default function Projects() {
 
     return (
         <div>
-            <strong>Suggested Project in the field of {name}</strong>
+            <div><strong>Suggested Project in the field of {name}</strong></div>
             {projects?.map((project, index) => (
                 <div key={index} className="bg-gray-100 p-2 my-2 text-black rounded-lg">
                     {project.emoji} <span className="font-sans text-xl">{project.name}</span>
