@@ -50,35 +50,36 @@ export default function Subjects() {
     }
 
     return (
-        <div className={`bg-gradient-to-br from-slate-100 to-gray-200 relative h-[100vh] flex flex-col pt-4 overflow-hidden transition-all duration-300`}>
-            <div className='flex items-center justify-center h-16 bg-gradient-to-br from-slate-100 to-gray-200 mb-4'>
-                <input type="text" className='w-1/2 p-2 text-lg text-center bg-transparent border-b-2 border-white focus:outline-none text-black text-xl font-mono'
-                    placeholder='Type a subject' value={input} onChange={(e) => setInput(e.target.value)} />
-            </div>
-            <div className='mx-2 overflow-scroll overflow-x-scroll'>
-                <div className='flex gap-2 flex-wrap space-between'>
-                    {selected.map((subject, index) => (
-                        <SingleSubject key={index} onClick={() => addSubject(subject)} className='bg-gradient-to-br from-red-500 to-yellow-500'>
-                            {subject}
-                        </SingleSubject>
-                    ))}
-
-                    {aiSubjects.map((subject, index) => (
-                        <SingleSubject key={index} onClick={() => addSubject(subject)} className='bg-gradient-to-br from-lime-500 to-orange-500'>
-                            {subject}
-                        </SingleSubject>
-                    ))}
-
-                    {topics.filter(t => !selected.includes(t)).map((subject, index) => {
-                        return (
-                            <SingleSubject key={index} onClick={() => addSubject(subject)}>
+        <div className={`transition-all duration-300 ${selected.length < 2 ? 'flex-[4]' : 'flex-1'}`}>
+            <div className={`bg-gradient-to-br from-slate-100 to-gray-200 relative h-[100vh] flex flex-col pt-4 overflow-hidden transition-all duration-300`}>
+                <div className='flex items-center justify-center h-16 bg-gradient-to-br from-slate-100 to-gray-200 mb-4'>
+                    <input type="text" className='w-1/2 p-2 text-lg text-center bg-transparent border-b-2 border-white focus:outline-none text-black text-xl font-mono'
+                        placeholder='Type a subject' value={input} onChange={(e) => setInput(e.target.value)} />
+                </div>
+                <div className='mx-2 overflow-scroll overflow-x-scroll'>
+                    <div className='flex gap-2 flex-wrap space-between'>
+                        {selected.map((subject, index) => (
+                            <SingleSubject key={index} onClick={() => addSubject(subject)} className='bg-gradient-to-br from-red-500 to-yellow-500'>
                                 {subject}
                             </SingleSubject>
-                        )
-                    })}
+                        ))}
+
+                        {aiSubjects.map((subject, index) => (
+                            <SingleSubject key={index} onClick={() => addSubject(subject)} className='bg-gradient-to-br from-lime-500 to-orange-500'>
+                                {subject}
+                            </SingleSubject>
+                        ))}
+
+                        {topics.filter(t => !selected.includes(t)).map((subject, index) => {
+                            return (
+                                <SingleSubject key={index} onClick={() => addSubject(subject)}>
+                                    {subject}
+                                </SingleSubject>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
-
         </div>
     );
 }

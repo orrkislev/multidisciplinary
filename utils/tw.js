@@ -1,17 +1,22 @@
 import React from 'react';
 
 export function tw(strings, ...values) {
-  // Combine the template strings and values
-  const className = strings.reduce((acc, str, i) => {
-    return acc + str + (values[i] || '');
-  }, '').trim();
-
   // Create a component that will render with these classes
   return React.forwardRef(({ children, className: additionalClasses = '', ...props }, ref) => {
+    // Resolve dynamic values based on props
+    const resolvedClassName = strings.reduce((acc, str, i) => {
+      const value = values[i];
+      const resolvedValue = typeof value === 'function' ? value(props) : value;
+      return acc + str + (resolvedValue || '');
+    }, '').trim();
+
+    // Combine all classnames
+    const finalClassName = [resolvedClassName, additionalClasses].filter(Boolean).join(' ');
+
     return React.createElement(
       'div', // default element is div
       {
-        className: `${className} ${additionalClasses}`.trim(),
+        className: finalClassName.trim(),
         ref,
         ...props
       },

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { SingleSubject } from "./Subjects";
 import Projects from "./Projects";
-import useAI, { useAiData, useSubjects } from "@/utils/useAI";
+import { useAiData, useSubjects } from "@/utils/useAI";
 import useAIManager from "@/utils/useAI";
 import Terminology from "./Terminology";
 import Questions from "./Questions";
@@ -39,8 +39,10 @@ export default function SelectedSubjects() {
                     )}
                 </div>
             </div>
-            <Terminology />
-            <Questions />
+            <div className="grid grid-cols-2 gap-4">
+                <Terminology />
+                <Questions />
+            </div>
             <Projects />
         </div>
     )

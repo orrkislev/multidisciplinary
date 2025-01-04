@@ -23,7 +23,6 @@ export async function POST(req) {
     prompt = `write a brief wikipedia-like description about ${data.name}. (the fusion between ${data.subject1} and ${data.subject2}). `;
     prompt += 'The subtile should be intriguing and the description should be professional, short, and easy to understand. ';
     prompt += 'Include a fun fact about the topic. ';
-
   } else if (data.action == 'projects') {
     schema = projectsSchema;
     prompt = `List some beginner level projects that can be done in the field of ${data.name} (the fusion between ${data.subject1} and ${data.subject2}). `;

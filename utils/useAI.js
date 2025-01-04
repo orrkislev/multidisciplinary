@@ -1,5 +1,5 @@
 import { experimental_useObject as useObject } from 'ai/react';
-import { descriptionSchema, namesSchema, projectsSchema, questionsSchema, terminologySchema } from './Schema';
+import { descriptionSchema, namesSchema, projectsSchema, questionsSchema, terminologySchema, sourcesSchema } from './Schema';
 import { create } from 'zustand';
 import { useEffect, useState } from 'react';
 import { object } from 'zod';
@@ -45,6 +45,7 @@ export default function useAIManager() {
             get_description.reset();
             get_projects.reset();
             get_terms.reset();
+            get_questions.reset();
         }
     }, [subject1, subject2])
 
@@ -64,18 +65,6 @@ export default function useAIManager() {
         get_terms.submit({ action: 'terms', subject1, subject2, name: ai.name, description: ai.description[0] });
         get_questions.submit({ action: 'questions', subject1, subject2, name: ai.name, description: ai.description[0] });
     }, [get_description.finished])
-
-    useEffect(() => {
-        if (!ai.projects) return
-    }, [get_projects.finished])
-
-    useEffect(() => {
-        if (!ai.terminology) return
-    }, [get_terms.finished])
-
-    useEffect(() => {
-        if (!ai.questions) return
-    }, [get_questions.finished])
 }
 
 
