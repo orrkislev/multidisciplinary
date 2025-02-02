@@ -6,11 +6,9 @@ import { useState } from 'react';
 
 export default function SubjectPage() {
     return (
-        <div className='bg-white flex w-full h-full'>
+        <div className='bg-white flex w-full h-full justify-center items-center bg-slate-200 transition-all duration-300'>
             <Subjects/>
-            <div className='flex-[3]'>
-                <SelectedSubjects />
-            </div>
+            <SelectedSubjects />
         </div>
     );
 }

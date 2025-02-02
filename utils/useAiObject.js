@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useSubjects } from './useAI';
 import { aiConfig } from './ai-config';
 
-export function useAiObject({ cfg, key, onFinish}) {
+export function useAiObject({ cfg, key, onFinish }) {
     const { subject1, subject2 } = useSubjects()
     const aiStore = cfg.store()
     const { object, submit } = useObject({
@@ -23,14 +23,13 @@ export function useAiObject({ cfg, key, onFinish}) {
     }
 
     const run = () => {
-        console.log('running', key)
         const context = Object.keys(aiConfig).reduce((acc, key) => {
             acc[key] = aiConfig[key].store.getState().data;
             return acc;
         }, {})
         const names = aiConfig.names.store.getState().data
         if (names) context.name = names[0]
-        const prompt = cfg.prompt({...context, subject1, subject2})
+        const prompt = cfg.prompt({ ...context, subject1, subject2 })
         submit({ prompt, key })
     }
 
@@ -44,5 +43,5 @@ export function useAiObject({ cfg, key, onFinish}) {
         return true
     }
 
-    return { object, run, reset, cfg, checkDependencies }
+    return { object: aiStore.data, run, reset, cfg, checkDependencies }
 }

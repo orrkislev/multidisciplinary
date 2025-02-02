@@ -9,7 +9,6 @@ export async function POST(req) {
   const data = await req.json();
 
   const prompt = data.prompt
-  console.log('api', prompt)
   const key = data.key
   const schema = aiConfig[key].schema
 

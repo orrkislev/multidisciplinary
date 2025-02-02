@@ -28,7 +28,7 @@ export default function SelectedSubjects() {
     if (!names) return null;
 
     return (
-        <div className='flex flex-col gap-4 px-4 py-2 h-[100vh] overflow-y-scroll'>
+        <div className='flex flex-col gap-4 px-4 py-2 h-[100vh] overflow-y-scroll w-[70vw]'>
             <div className='flex flex-col gap-4' >
                 <SubjectCard />
                 <div className={`bg-gray-100 p-4 backdrop-blur-lg rounded-lg`}>
