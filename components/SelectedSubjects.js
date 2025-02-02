@@ -3,22 +3,25 @@
 import { useEffect, useState } from "react";
 import { SingleSubject } from "./Subjects";
 import Projects from "./Projects";
-import { useAiData, useSubjects } from "@/utils/useAI";
+import { useSubjects } from "@/utils/useAI";
 import useAIManager from "@/utils/useAI";
+import { aiConfig } from "@/utils/ai-config";
 import Terminology from "./Terminology";
 import Questions from "./Questions";
+import Quiz from "./Quiz";
 
 
 
 export default function SelectedSubjects() {
     const { subject1, subject2 } = useSubjects();
-    const ai = useAIManager()
-    const names = useAiData((state) => state.names);
-    const name = useAiData((state) => state.name);
-    const setName = useAiData((state) => state.setName);
+    const ai = useAIManager();
+    const names = aiConfig.names.store((state) => state.data);
 
-    const pickName = (name) => {
-        setName(name);
+    const pickName = (newName) => {
+        aiConfig.names.store.setState(state => ({
+            ...state,
+            data: [newName, ...(state.data || []).filter(n => n !== newName)]
+        }));
     }
 
     if (!subject1 || !subject2) return null;
@@ -32,7 +35,7 @@ export default function SelectedSubjects() {
                     <SubjectDescription />
                     {names && (
                         <div className='flex gap-2 flex-wrap mt-8'>
-                            {names.filter(n => n != name).map((name, index) => (
+                            {names.slice(1).map((name, index) => (
                                 <SingleSubject key={index} onClick={() => pickName(name)}>{name}</SingleSubject>
                             ))}
                         </div>
@@ -44,13 +47,15 @@ export default function SelectedSubjects() {
                 <Questions />
             </div>
             <Projects />
+            <Quiz />
         </div>
     )
 }
 
 function SubjectCard() {
     const { subject1, subject2 } = useSubjects();
-    const name = useAiData(state => state.name);
+    const names = aiConfig.names.store(state => state.data);
+    const name = names?.[0];
     const [img, setImg] = useState(null);
 
     useEffect(() => {
@@ -91,7 +96,7 @@ function SubjectCard() {
 }
 
 function SubjectDescription() {
-    const description = useAiData((state) => state.description);
+    const description = aiConfig.description.store((state) => state.data);
 
     return (
         <div className='flex flex-row justify-between gap-8'>

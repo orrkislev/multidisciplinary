@@ -1,6 +1,6 @@
 'use client'
 
-import { useAiData } from '@/utils/useAI';
+import { aiConfig } from '@/utils/ai-config';
 import { useEffect, useState } from 'react';
 import { tw } from '@/utils/tw';
 
@@ -10,8 +10,9 @@ const Term = tw`bg-slate-300 p-2 text-black transition-all duration-300 cursor-p
 `;
 
 export default function Terminology() {
-    const name = useAiData(state => state.name);
-    const terminology = useAiData(state => state.terminology);
+    const names = aiConfig.names.store((state) => state.data);
+    const terminology = aiConfig.terminology.store((state) => state.data);
+
     const [selected, setSelected] = useState({ name: '', definition: '' });
     const [type, setType] = useState('concepts');
     const [userSelected, setUserSelected] = useState(false);

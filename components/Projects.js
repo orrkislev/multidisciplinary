@@ -1,15 +1,16 @@
 'use client'
 
-import { useAiData } from '@/utils/useAI';
-
+import { aiConfig } from "@/utils/ai-config";
 
 export default function Projects() {
-    const name = useAiData(state => state.name);
-    const projects = useAiData(state => state.projects);
+    const names = aiConfig.names.store((state) => state.data);
+    const projects = aiConfig.projects.store((state) => state.data);
+
+    if (!names || !projects) return null;
 
     return (
         <div>
-            <div><strong>Suggested Project in the field of {name}</strong></div>
+            <div><strong>Suggested Project in the field of {names[0]}</strong></div>
             <div className='grid grid-cols-4 gap-4'>
                 {projects?.map((project, index) => (
                     <div key={index} className="bg-gray-100 p-2 text-black rounded-lg">
