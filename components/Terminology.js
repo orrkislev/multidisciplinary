@@ -19,27 +19,29 @@ export default function Terminology() {
 
     useEffect(() => {
         if (userSelected) return;
-        if (!terminology || !terminology?.concepts) return;
+        if (!terminology || !terminology.concepts) return;
         const timeout = setTimeout(() => {
-            const allOptions = []
-            if (terminology?.concepts) allOptions.push(...terminology?.concepts)
-            if (terminology?.methodologies) allOptions.push(...terminology?.methodologies)
-            if (terminology?.technicalTerms) allOptions.push(...terminology?.technicalTerms)
-            setSelected(allOptions[Math.floor(Math.random() * allOptions.length)])
-        }, 5000)
-        return () => clearTimeout(timeout)
-    }, [userSelected, selected, terminology])
+            const allOptions = [];
+            if (terminology.concepts) allOptions.push(...terminology.concepts);
+            if (terminology.methodologies) allOptions.push(...terminology.methodologies);
+            if (terminology.technicalTerms) allOptions.push(...terminology.technicalTerms);
+            setSelected(allOptions[Math.floor(Math.random() * allOptions.length)]);
+        }, 5000);
+        return () => clearTimeout(timeout);
+    }, [userSelected, selected, terminology]);
 
     const select = (term, termType) => {
         setType(termType);
         setSelected(term);
         setUserSelected(true);
-    }
+    };
 
     return (
         <div className='bg-gray-100 p-4 rounded-lg flex flex-col gap-4'>
             <div>
-                <div className="text-uppercase font-mono font-bold">{type} - {selected.name}</div>
+                <div className="text-uppercase font-mono font-bold">
+                    {type} - {selected.term || selected.name}
+                </div>
                 <div className="text-italic text-lg">
                     {selected.definition}
                 </div>
@@ -47,9 +49,13 @@ export default function Terminology() {
             <div>
                 Fundamental Concepts:
                 <div className='flex gap-2 flex-wrap w-full'>
-                    {terminology?.concepts?.map((term, index) => (
-                        <Term key={index} onClick={() => select(term,'concept')} selected={selected.name === term.name}>
-                            {term.name}
+                    {terminology?.concepts && terminology.concepts.map((term, index) => (
+                        <Term 
+                          key={index} 
+                          onClick={() => select(term, 'Concept')}
+                          selected={selected.term ? selected.term === term.term : false}
+                        >
+                            {term.term}
                         </Term>
                     ))}
                 </div>
@@ -67,13 +73,18 @@ export default function Terminology() {
             <div>
                 Technical Terms:
                 <div className='flex gap-2 flex-wrap w-full'>
-                    {terminology?.technicalTerms?.map((term, index) => (
-                        <Term key={index} onClick={() => select(term,'Technical Term')} selected={selected.name === term.name}>
-                            {term.name}
+                    {terminology?.technicalTerms && terminology.technicalTerms.map((term, index) => (
+                        <Term 
+                          key={index} 
+                          onClick={() => select(term, 'Technical Term')}
+                          selected={selected.term ? selected.term === term.term : false}
+                        >
+                            {term.term}
                         </Term>
                     ))}
                 </div>
             </div>
         </div>
-    )
+    );
 }
+

@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
 import { tw } from '@/utils/tw';
 import { namesSchema } from '@/utils/Schema';
-import { useSubjects } from '@/utils/useAI';
+import { useUserData } from '@/utils/ai-config';
 
 export const SingleSubject = tw`text-md p-1 px-2 border-2 border-white rounded-full cursor-pointer 
     text-black hover:text-white 
@@ -21,7 +21,7 @@ function search(s, input) {
 
 
 export default function Subjects() {
-    const { subject1, subject2, setSubjects } = useSubjects()
+    const { subject1, subject2, setSubjects } = useUserData()
     const { error, object, submit } = useObject({ api: '/api/subjects', schema: namesSchema });
     const [aiSubjects, setAiSubjects] = useState([])
     const [input, setInput] = useState('')
@@ -44,6 +44,7 @@ export default function Subjects() {
     }, [object])
 
     const selected = [subject1, subject2].filter(s => s)
+    const isIncomplete = selected.length < 2
 
     const addSubject = (newSub) => {
         if (subject1 && subject2) {
@@ -57,33 +58,34 @@ export default function Subjects() {
     }
 
     return (
-        <div className={`transition-all duration-300 ${selected.length < 2 ? 'w-[50vw]' : 'w-[30vw]'}`}>
-            <div className={`bg-slate-200 relative h-[100vh] flex flex-col pt-4 overflow-hidden transition-all duration-300`}>
-                <div className='flex items-center justify-center h-16 bg-gradient-to-br from-slate-100 to-gray-200 mb-4'>
-                    <input type="text" className='w-1/2 p-2 text-lg text-center bg-transparent border-b-2 border-white focus:outline-none text-black text-xl font-mono'
-                        placeholder='Type a subject' value={input} onChange={(e) => setInput(e.target.value)} />
+        <div className="transition-all duration-300">
+            <div className="bg-slate-200 relative flex flex-col pt-4">
+                <div className="flex items-center justify-center h-16 bg-gradient-to-br from-slate-100 to-gray-200 mb-4">
+                    <input 
+                        type="text" 
+                        className="w-1/2 p-2 text-lg text-center bg-transparent border-b-2 border-white focus:outline-none text-black text-xl font-mono"
+                        placeholder="Type a subject" 
+                        value={input} 
+                        onChange={(e) => setInput(e.target.value)} 
+                    />
                 </div>
-                <div className='mx-2 overflow-scroll overflow-x-scroll'>
-                    <div className='flex gap-2 flex-wrap space-between'>
+                <div className="mx-2">
+                    <div className="flex gap-2 flex-wrap">
                         {selected.map((subject, index) => (
-                            <SingleSubject key={index} onClick={() => addSubject(subject)} className='bg-rose-200 hover:bg-rose-400'>
+                            <SingleSubject key={index} onClick={() => addSubject(subject)} className="bg-rose-200 hover:bg-rose-400">
                                 {subject}
                             </SingleSubject>
                         ))}
-
                         {aiSubjects.map((subject, index) => (
-                            <SingleSubject key={index} onClick={() => addSubject(subject)} className='bg-indigo-200 hover:bg-indigo-400'>
+                            <SingleSubject key={index} onClick={() => addSubject(subject)} className="bg-indigo-200 hover:bg-indigo-400">
                                 {subject}
                             </SingleSubject>
                         ))}
-
-                        {topics.filter(t => !selected.includes(t)).map((subject, index) => {
-                            return (
-                                <SingleSubject key={index} onClick={() => addSubject(subject)}>
-                                    {subject}
-                                </SingleSubject>
-                            )
-                        })}
+                        {topics.filter(t => !selected.includes(t)).map((subject, index) => (
+                            <SingleSubject key={index} onClick={() => addSubject(subject)}>
+                                {subject}
+                            </SingleSubject>
+                        ))}
                     </div>
                 </div>
             </div>

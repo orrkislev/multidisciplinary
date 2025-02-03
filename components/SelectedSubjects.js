@@ -3,17 +3,17 @@
 import { useEffect, useState } from "react";
 import { SingleSubject } from "./Subjects";
 import Projects from "./Projects";
-import { useSubjects } from "@/utils/useAI";
 import useAIManager from "@/utils/useAI";
-import { aiConfig } from "@/utils/ai-config";
+import { aiConfig, useUserData } from "@/utils/ai-config";
 import Terminology from "./Terminology";
 import Questions from "./Questions";
 import Quiz from "./Quiz";
+import Timeline from "./Timeline";
 
 
 
 export default function SelectedSubjects() {
-    const { subject1, subject2 } = useSubjects();
+    const { subject1, subject2 } = useUserData()
     const ai = useAIManager();
     const names = aiConfig.names.store((state) => state.data);
 
@@ -25,37 +25,40 @@ export default function SelectedSubjects() {
     }
 
     if (!subject1 || !subject2) return null;
-    if (!names) return null;
+    if (!names || !names.names) return null;
 
     return (
-        <div className='flex flex-col gap-4 px-4 py-2 h-[100vh] overflow-y-scroll w-[70vw]'>
-            <div className='flex flex-col gap-4' >
+        <div className="flex flex-col gap-4 px-4 py-2">
+            <div className="flex flex-col gap-4">
                 <SubjectCard />
-                <div className={`bg-gray-100 p-4 backdrop-blur-lg rounded-lg`}>
+                <div className="bg-gray-100 p-4 backdrop-blur-lg rounded-lg">
                     <SubjectDescription />
-                    {names && (
-                        <div className='flex gap-2 flex-wrap mt-8'>
-                            {names.slice(1).map((name, index) => (
-                                <SingleSubject key={index} onClick={() => pickName(name)}>{name}</SingleSubject>
+                    {names.names && (
+                        <div className="flex gap-2 flex-wrap mt-8">
+                            {names.names.slice(1).map((name, index) => (
+                                <SingleSubject key={index} onClick={() => pickName(name)}>
+                                    {name}
+                                </SingleSubject>
                             ))}
                         </div>
                     )}
                 </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <Timeline />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Terminology />
                 <Questions />
             </div>
-            <Projects />
             <Quiz />
+            <Projects />
         </div>
     )
 }
 
 function SubjectCard() {
-    const { subject1, subject2 } = useSubjects();
+    const { subject1, subject2 } = useUserData();
     const names = aiConfig.names.store(state => state.data);
-    const name = names?.[0];
+    const name = names?.names[0];
     const [img, setImg] = useState(null);
 
     useEffect(() => {
@@ -99,15 +102,30 @@ function SubjectDescription() {
     const description = aiConfig.description.store((state) => state.data);
 
     return (
-        <div className='flex flex-row justify-between gap-8'>
+        <>
+        <div className='flex flex-col md:flex-row justify-between gap-8'>
             <div className="rounded-lg">
-                <h2 className="text-2xl font-bold">{description?.title}</h2>
-                <h3 className="text-lg font-bold">{description?.subtitle}</h3>
-                <p className="text-lg text-gray-800">{description?.description}</p>
+                {description?.title && <h2 className="text-2xl font-bold">{description?.title}</h2>}
+                {description?.subtitle && <h3 className="text-lg font-bold">{description?.subtitle}</h3>}
+                {description?.description && <p className="text-lg text-gray-800">{description?.description}</p>}
+                
+                <div className="mt-4">
+                    <h3 className="text-lg font-bold">Emerging Trends</h3>
+                    <ul className="list-disc list-inside text-gray-800">
+                        {description?.emergingTrends && description?.emergingTrends.map((trend, index) => (
+                            <li key={index}>{trend}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-            <div className="rounded-lg border-white border-2 p-2 flex flex-col items-center justify-center">
+            <div className="hidden md:flex rounded-lg border-white border-2 p-2 items-center justify-center">
                 <p className="text-gray-800 italic font-sans text-center text-orange-800">{description?.funFact}</p>
             </div>
         </div>
+        {/* Fun fact for mobile */}
+        <div className="md:hidden mt-4">
+            <p className="text-gray-800 italic font-sans text-center text-orange-800">{description?.funFact}</p>
+        </div>
+        </>
     )
 }

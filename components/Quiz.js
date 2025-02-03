@@ -1,82 +1,74 @@
 'use client'
 
-import { aiConfig } from "@/utils/ai-config";
+import { aiConfig, useUserData } from "@/utils/ai-config";
 import { useState } from "react";
 
 export default function Quiz() {
-    const names = aiConfig.names.store((state) => state.data);
-    const quiz = aiConfig.quiz.store((state) => state.data);
-    const [selectedAnswers, setSelectedAnswers] = useState({});
-    const [showResults, setShowResults] = useState(false);
+    const assessment = aiConfig.literacyAssessment.store((state) => state.data);
+    const { proficiency, setProficiency } = useUserData()
+
+    const [answers, setAnswers] = useState([]);
+    const [submitted, setSubmitted] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-    if (!names || !quiz) return null;
+    if (!assessment) return null;
+    if (!assessment.questions) return null;
 
-    const handleAnswerSelect = (option) => {
-        setSelectedAnswers(prev => ({
-            ...prev,
-            [currentQuestionIndex]: option
-        }));
-        if (currentQuestionIndex < quiz.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-        } else {
-            setShowResults(true);
-        }
+    const handleAnswerChange = (questionIndex, option) => {
+        const newAnswers = [...answers];
+        newAnswers[questionIndex] = option;
+        setAnswers(newAnswers);
     };
 
-    const calculateScore = () => {
-        let correct = 0;
-        quiz.forEach((question, index) => {
-            if (selectedAnswers[index] === question.answer) {
-                correct++;
-            }
-        });
-        return correct;
+    const handleSubmit = () => {
+        const calculatedProficiency = aiConfig.literacyAssessment.calculateProficiency(answers);
+        setProficiency(calculatedProficiency);
+        setSubmitted(true);
     };
 
-    if (quiz.length <= currentQuestionIndex || 
-        !quiz[currentQuestionIndex].question &&
-        !quiz[currentQuestionIndex].options &&
-        !quiz[currentQuestionIndex].answer) {
-        return (
-            <div>
-                <div>Quiz not found</div>
-            </div>
-        )
+    // Navigation handlers
+    const handleNext = () => setCurrentQuestionIndex(i => Math.min(i + 1, assessment.questions.length - 1));
+    const handlePrevious = () => setCurrentQuestionIndex(i => Math.max(i - 1, 0));
+
+    if (submitted) {
+        return <div className="p-4 bg-green-100 rounded">Your proficiency level is: {proficiency}</div>;
     }
 
+    const question = assessment.questions[currentQuestionIndex];
+
     return (
-        <div>
-            <div><strong>Test your knowledge of {names[0]}</strong></div>
-            <div className='space-y-6 mt-4'>
-                {!showResults && (
-                    <div className="bg-gray-100 p-4 text-black rounded-lg">
-                        <div className='font-sans text-xl mb-4'>
-                            Question {currentQuestionIndex + 1} of {quiz.length}
-                        </div>
-                        <div className='font-sans text-xl mb-4'>{quiz[currentQuestionIndex].question}</div>
-                        <div className='space-y-2'>
-                            {quiz[currentQuestionIndex].options && quiz[currentQuestionIndex].options.map((option, optionIndex) => (
-                                <div
-                                    key={optionIndex}
-                                    onClick={() => handleAnswerSelect(option)}
-                                    className={`p-2 rounded cursor-pointer ${selectedAnswers[currentQuestionIndex] === option
-                                            ? 'bg-blue-500 text-white'
-                                            : 'bg-white hover:bg-gray-200'
-                                        }`}
-                                >
-                                    {option}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
-                {showResults && (
-                    <div className="text-xl">
-                        Your score: {calculateScore()} out of {quiz.length}
-                    </div>
+        <div className="max-w-xl mx-auto p-6 bg-white shadow rounded">
+            <div className="mb-4">
+                <p className="font-semibold text-lg">{question.question}</p>
+                <div className="mt-2">
+                    {question.options && question.options.map((option, optionIndex) => (
+                        <label key={optionIndex} className="mr-4">
+                            <input
+                                type="radio"
+                                name={`question-${currentQuestionIndex}`}
+                                value={option}
+                                checked={answers[currentQuestionIndex] === option}
+                                onChange={() => handleAnswerChange(currentQuestionIndex, option)}
+                                className="mr-1"
+                            />
+                            {option}
+                        </label>
+                    ))}
+                </div>
+            </div>
+            <div className="flex justify-between">
+                {currentQuestionIndex > 0 ? (
+                    <button onClick={handlePrevious} className="px-4 py-2 bg-gray-300 rounded">Previous</button>
+                ) : <div /> }
+                {currentQuestionIndex < assessment.questions.length - 1 ? (
+                    <button onClick={handleNext} className="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
+                ) : (
+                    <button onClick={handleSubmit} className="px-4 py-2 bg-green-500 text-white rounded">Submit</button>
                 )}
             </div>
+            <div className="mt-2 text-sm text-gray-600">
+                Question {currentQuestionIndex + 1} of {assessment.questions.length}
+            </div>
         </div>
-    )
+    );
 }

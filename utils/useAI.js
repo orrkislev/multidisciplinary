@@ -1,29 +1,14 @@
 'use client'
 
-import { create } from 'zustand';
-import { useEffect, useRef, useState } from 'react';
-import { aiConfig } from './ai-config';
+import { useEffect, useState } from 'react';
+import { aiConfig, useUserData } from './ai-config';
 import { useAiObject } from './useAiObject';
 
-export const useSubjects = create((set) => ({
-    subject1: null,
-    subject2: null,
-    setSubjects: (subject1, subject2) => set({ subject1, subject2 })
-}));
-
-export const AIData = create((set) => ({
-    names: [],
-    projects: [],
-    questions: [],
-    setNames: (names) => set({ names }),
-    setProjects: (projects) => set({ projects }),
-    setQuestions: (questions) => set({ questions }),
-}));
 
 export default function useAIManager() {
-    const { subject1, subject2 } = useSubjects()
+    const { subject1, subject2, proficiency } = useUserData()
 
-    const [curr, setCurr]= useState(null)
+    const [curr, setCurr] = useState(null)
     const aiObjects = {}
     for (const key of Object.keys(aiConfig).sort()) {
         aiObjects[key] = useAiObject({ cfg: aiConfig[key], key, onFinish: () => setCurr(null) })
@@ -44,5 +29,5 @@ export default function useAIManager() {
             })
             setCurr(nextObject)
         }
-    }, [curr, subject1, subject2])
+    }, [curr, subject1, subject2, proficiency])
 }
