@@ -1,8 +1,10 @@
 import { vibeSchema } from '@/utils/vibe-config';
-import { anthropic } from '@ai-sdk/anthropic';
+// import { anthropic } from '@ai-sdk/anthropic';
+import { deepseek } from '@ai-sdk/deepseek';
 import { streamObject } from 'ai';
 
-const model = anthropic('claude-3-5-sonnet-20240620')
+// const model = anthropic('claude-3-5-sonnet-20240620')
+const model = deepseek('deepseek-chat')
 
 export const maxDuration = 30;
 
@@ -39,7 +41,7 @@ export async function POST(req) {
         "themes": ["theme1", "theme2", "theme3"],
         "quests": [
             {
-            "title": "Quest Name",
+            "title": "2-3 word adjective noun, singular",
             "hook": {"fact", "question"},
             "path": ["Step 1", "Step 2", "Step 3"],
             "resources": [

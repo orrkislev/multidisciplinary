@@ -1,5 +1,6 @@
 import localFont from 'next/font/local'
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Geist } from "next/font/google";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,7 +33,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${magilio.variable} ${Cylburn.variable} antialiased`}
+        className={` 
+          ${magilio.variable}
+          ${Cylburn.variable}
+          ${geistSans.variable} ${geistMono.variable}
+          antialiased`}
       >
         {children}
       </body>

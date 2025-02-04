@@ -28,7 +28,7 @@ export default function RightSide() {
     if (!names || !names.names) return null;
 
     return (
-        <div className="flex flex-col gap-4 px-4 py-2">
+        <div className="flex flex-col gap-4 px-4 py-2 font-geist">
             <div className="flex flex-col gap-4">
                 <SubjectCard />
                 <div className="bg-gray-100 p-4 backdrop-blur-lg rounded-lg">

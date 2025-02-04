@@ -41,7 +41,7 @@ export function VibeGen({ vibe }) {
     }
 
     return (
-        <div className="w-full flex flex-col items-center mt-6">
+        <div className="w-full flex flex-col items-center mt-6 font-geist">
             {/* Themes block */}
             {object.themes ? (
                 <div className="flex flex-wrap justify-center mb-4">

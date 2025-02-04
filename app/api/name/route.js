@@ -1,8 +1,10 @@
 import { aiConfig } from '@/utils/ai-config';
-import { google } from '@ai-sdk/google';
+// import { google } from '@ai-sdk/google';
+import { deepseek } from '@ai-sdk/deepseek';
 import { streamObject } from 'ai';
 
-const model = google("gemini-2.0-flash-exp");
+// const model = google("gemini-2.0-flash-exp");
+const model = deepseek('deepseek-chat')
 
 export const maxDuration = 30;
 

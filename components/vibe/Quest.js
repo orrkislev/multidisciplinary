@@ -22,10 +22,7 @@ export default function Quest({ quest }) {
 function QuestDesktop({ quest }) {
     return (
         <div className='group border rounded p-4 w-72 flex flex-col overflow-hidden transition-all duration-300'>
-
-            <div>AHAHA</div>
-
-            {quest.title && <small>{quest.title}</small>}
+            {quest.title && <div className="font-bold text-xl mb-4 text-center">{quest.title}</div> }
 
             {quest.hook && (
                 <div className="text-xl">

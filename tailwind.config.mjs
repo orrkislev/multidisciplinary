@@ -12,8 +12,10 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        magilio: ['var(--font-magilio)'],
-        cylburn: ['var(--font-cylburn)'],
+        magilio: 'var(--font-magilio)',
+        cylburn: 'var(--font-cylburn)',
+        geist: 'var(--font-geist-sans)',
+        geistMono: 'var(--font-geist-mono)',
       },
     },
   },
