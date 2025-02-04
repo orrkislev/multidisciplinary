@@ -3,11 +3,11 @@
 import { subjects } from '@/utils/topics';
 import React, { useEffect, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
-import { tw } from '@/utils/tw';
 import { namesSchema } from '@/utils/Schema';
 import { useUserData } from '@/utils/ai-config';
+import { tw } from '@/utils/tw';
 
-export const SingleSubject = tw`text-md p-1 px-2 border-2 border-white rounded-full cursor-pointer 
+export const SingleSubject = tw`text-md p-1 px-2 border-2 border-white rounded-lg cursor-pointer
     text-black hover:text-white 
     hover:bg-slate-400
     transition-colors duration-300`
@@ -25,7 +25,7 @@ export default function Subjects() {
     const { error, object, submit } = useObject({ api: '/api/subjects', schema: namesSchema });
     const [aiSubjects, setAiSubjects] = useState([])
     const [input, setInput] = useState('')
-    const [topics, setTopics] = useState(subjects.sort(() => Math.random() - 0.5))
+    const [topics, setTopics] = useState([...subjects].sort(() => Math.random() - 0.5))
 
     useEffect(() => {
         setAiSubjects([])
@@ -61,16 +61,16 @@ export default function Subjects() {
         <div className="transition-all duration-300">
             <div className="bg-slate-200 relative flex flex-col pt-4">
                 <div className="flex items-center justify-center h-16 bg-gradient-to-br from-slate-100 to-gray-200 mb-4">
-                    <input 
-                        type="text" 
+                    <input
+                        type="text"
                         className="w-1/2 p-2 text-lg text-center bg-transparent border-b-2 border-white focus:outline-none text-black text-xl font-mono"
-                        placeholder="Type a subject" 
-                        value={input} 
-                        onChange={(e) => setInput(e.target.value)} 
+                        placeholder="Type a subject"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
                     />
                 </div>
                 <div className="mx-2">
-                    <div className="flex gap-2 flex-wrap">
+                    <div className="flex flex-wrap gap-1 items-center justify-center font-sans">
                         {selected.map((subject, index) => (
                             <SingleSubject key={index} onClick={() => addSubject(subject)} className="bg-rose-200 hover:bg-rose-400">
                                 {subject}

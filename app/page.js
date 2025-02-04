@@ -1,7 +1,22 @@
-import SubjectPage from "@/components/SubjectPage";
+import Link from 'next/link';
 
 export default function Home() {
+
+  // grid of 2 by 2, each a link to a different page
   return (
-      <SubjectPage />
+    <div className="min-h-screen grid grid-cols-2 grid-rows-2">
+      <Link href="/interdisciplinary" className="flex items-center justify-center bg-teal-500 hover:bg-teal-700 text-white font-bold text-4xl uppercase transition-all duration-300 font-sans hover:text-5xl">
+        Interdisciplinary
+      </Link>
+      <Link href="/vibe" className="flex items-center justify-center bg-orange-500 hover:bg-orange-700 text-white font-bold text-4xl uppercase transition-all duration-300 font-sans hover:text-5xl">
+        Vibe
+      </Link>
+      <div className="flex items-center justify-center bg-gray-400 text-white font-bold text-4xl">
+        ...
+      </div>
+      <div className="flex items-center justify-center bg-stone-500 text-white font-bold text-4xl">
+        ...
+      </div>
+    </div>
   );
 }

@@ -24,8 +24,8 @@ const Cylburn = localFont({
 })
 
 export const metadata = {
-  title: "Multidisplinary Fusion",
-  description: "Multidisplinary Fusion",
+  title: "Serendipity Engine",
+  description: "A serendipitous exploration of interdisciplinary topics",
 };
 
 export default function RootLayout({ children }) {

@@ -1,10 +1,10 @@
 'use client'
 
-import SelectedSubjects from '@/components/SelectedSubjects';
-import Subjects from '@/components/Subjects';
+import Subjects from './Subjects'
 import { useUserData } from '@/utils/ai-config';
+import RightSide from './RightSide';
 
-export default function SubjectPage() {
+export default function InterdisciplinaryPage() {
     const { subject1, subject2 } = useUserData();
     const isIncomplete = !subject1 || !subject2;
 
@@ -13,9 +13,11 @@ export default function SubjectPage() {
             <div className={`overflow-y-auto ${isIncomplete ? 'h-full' : 'h-[20vh]'} md:h-full ${isIncomplete ? 'md:flex-[3]' : 'md:flex-[1]'}`}>
                 <Subjects />
             </div>
-            <div className={`overflow-y-auto ${isIncomplete ? 'md:flex-[1]' : 'md:flex-[2]'}`}>
-                <SelectedSubjects />
-            </div>
+            {!isIncomplete && (
+                <div className={`overflow-y-auto md:flex-[2]`}>
+                    <RightSide />
+                </div>
+            )}
         </div>
     );
 }

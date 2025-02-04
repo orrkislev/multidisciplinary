@@ -2,8 +2,10 @@ import { aiConfig } from '@/utils/ai-config';
 import { google } from '@ai-sdk/google';
 import { streamObject } from 'ai';
 
-export const maxDuration = 30;
 const model = google("gemini-2.0-flash-exp");
+
+export const maxDuration = 30;
+
 
 export async function POST(req) {
   const data = await req.json();

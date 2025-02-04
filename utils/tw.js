@@ -55,5 +55,8 @@ export const styled = {
   p: createStyledElement('p'),
   section: createStyledElement('section'),
   article: createStyledElement('article'),
+  h1: createStyledElement('h1'),
+  form: createStyledElement('form'),
+  input: createStyledElement('input'),
   // Add more as needed
 };

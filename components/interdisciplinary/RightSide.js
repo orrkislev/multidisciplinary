@@ -12,7 +12,7 @@ import Timeline from "./Timeline";
 
 
 
-export default function SelectedSubjects() {
+export default function RightSide() {
     const { subject1, subject2 } = useUserData()
     const ai = useAIManager();
     const names = aiConfig.names.store((state) => state.data);
