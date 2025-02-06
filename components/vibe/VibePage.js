@@ -2,9 +2,7 @@
 
 import React, { useState } from 'react';
 import { styled } from '@/utils/tw';
-
 import { VibeGen } from './VibeGen';
-
 
 // Styled components using Tailwind classes
 const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-gray-50 pt-16`;
