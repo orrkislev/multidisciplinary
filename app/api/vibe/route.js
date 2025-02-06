@@ -6,7 +6,7 @@ import { streamObject } from 'ai';
 // const model = anthropic('claude-3-5-sonnet-20240620')
 const model = deepseek('deepseek-chat')
 
-export const maxDuration = 120;
+export const maxDuration = 60;
 
 
 export async function POST(req) {
