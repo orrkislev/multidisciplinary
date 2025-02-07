@@ -20,7 +20,7 @@ export async function POST(req) {
     PROCESS:  
     1. Vibe Deconstruction:  
     - Break down the vibe into 3 core themes (e.g., "time traveler" → temporal paradoxes, nostalgia, futuristic tech).  
-    - Assign a "weirdness multiplier" of 4 to push boundaries.  
+    - Assign a "weirdness multiplier" of [1-5] to push boundaries.  
     2. Serendipity Mashup:  
     - Combine 1 core theme with a wildcard topic (e.g., "nostalgia" + "mycology"). pick surprising combos.
     - Use metaphors, counterintuitive questions, or cultural hooks to create 3 quest ideas.  

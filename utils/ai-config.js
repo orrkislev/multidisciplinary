@@ -125,14 +125,12 @@ export const aiConfig = {
           - Required knowledge from both fields
           - Unexpected material combinations
           - Safety considerations`,
-        schema: z.object({
-            projects: z.array(z.object({
-                name: z.string(),
-                tools: z.array(z.string()),
-                crossDisciplinarySkill: z.string(),
-                safetyNote: z.string()
-            }))
-        }),
+        schema: z.array(z.object({
+            name: z.string(),
+            tools: z.array(z.string()),
+            crossDisciplinarySkill: z.string(),
+            safetyNote: z.string()
+        })),
         store: createAiStore(),
     },
 

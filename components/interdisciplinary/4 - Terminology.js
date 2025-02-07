@@ -10,7 +10,6 @@ const Term = tw`bg-slate-300 p-2 text-black transition-all duration-300 cursor-p
 `;
 
 export default function Terminology() {
-    const names = aiConfig.names.store((state) => state.data);
     const terminology = aiConfig.terminology.store((state) => state.data);
 
     const [selected, setSelected] = useState({ name: '', definition: '' });
@@ -29,6 +28,8 @@ export default function Terminology() {
         }, 5000);
         return () => clearTimeout(timeout);
     }, [userSelected, selected, terminology]);
+
+    if (!terminology) return null;
 
     const select = (term, termType) => {
         setType(termType);
@@ -49,7 +50,7 @@ export default function Terminology() {
             <div>
                 Fundamental Concepts:
                 <div className='flex gap-2 flex-wrap w-full'>
-                    {terminology?.concepts && terminology.concepts.map((term, index) => (
+                    {terminology.concepts?.map((term, index) => (
                         <Term 
                           key={index} 
                           onClick={() => select(term, 'Concept')}
@@ -73,7 +74,7 @@ export default function Terminology() {
             <div>
                 Technical Terms:
                 <div className='flex gap-2 flex-wrap w-full'>
-                    {terminology?.technicalTerms && terminology.technicalTerms.map((term, index) => (
+                    {terminology?.technicalTerms?.map((term, index) => (
                         <Term 
                           key={index} 
                           onClick={() => select(term, 'Technical Term')}

@@ -7,10 +7,15 @@ import { namesSchema } from '@/utils/Schema';
 import { useUserData } from '@/utils/ai-config';
 import { tw } from '@/utils/tw';
 
-export const SingleSubject = tw`text-md p-1 px-2 border-2 border-white rounded-lg cursor-pointer
+export const SingleSubject = tw`text-md p-1 px-2 rounded-lg cursor-pointer
     text-black hover:text-white 
+    grow-[2] text-center
     hover:bg-slate-400
-    transition-colors duration-300`
+    transition-colors duration-300
+    bg-white
+    ${props => props.ai ? 'bg-orange-200' : ''}
+    ${props => props.selected ? 'bg-rose-400' : ''}
+    `;
 
 // return the index of the first occurrence of the input in the string, normalized, or -1 if not found
 function search(s, input) {
@@ -70,14 +75,14 @@ export default function Subjects() {
                     />
                 </div>
                 <div className="mx-2">
-                    <div className="flex flex-wrap gap-1 items-center justify-center font-sans">
+                    <div className="flex flex-wrap gap-1 items-center justify-around font-sans">
                         {selected.map((subject, index) => (
-                            <SingleSubject key={index} onClick={() => addSubject(subject)} className="bg-rose-200 hover:bg-rose-400">
+                            <SingleSubject key={index} onClick={() => addSubject(subject)} selected>
                                 {subject}
                             </SingleSubject>
                         ))}
                         {aiSubjects.map((subject, index) => (
-                            <SingleSubject key={index} onClick={() => addSubject(subject)} className="bg-indigo-200 hover:bg-indigo-400">
+                            <SingleSubject key={index} onClick={() => addSubject(subject)} ai>
                                 {subject}
                             </SingleSubject>
                         ))}
