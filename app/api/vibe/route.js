@@ -1,10 +1,12 @@
 import { vibeSchema } from '@/utils/vibe-config';
-// import { anthropic } from '@ai-sdk/anthropic';
-import { deepseek } from '@ai-sdk/deepseek';
 import { streamObject } from 'ai';
+// import { anthropic } from '@ai-sdk/anthropic';
+// import { deepseek } from '@ai-sdk/deepseek';
+import { google } from '@ai-sdk/google';
 
 // const model = anthropic('claude-3-5-sonnet-20240620')
-const model = deepseek('deepseek-chat')
+// const model = deepseek('deepseek-chat')
+const model = google("gemini-2.0-flash");
 
 export const maxDuration = 60;
 
@@ -20,11 +22,12 @@ export async function POST(req) {
     PROCESS:  
     1. Vibe Deconstruction:  
     - Break down the vibe into 3 core themes (e.g., "time traveler" → temporal paradoxes, nostalgia, futuristic tech).  
-    - Assign a "weirdness multiplier" of [1-5] to push boundaries.  
+    - Themes should be specific, quirky, and open to interpretation.
     2. Serendipity Mashup:  
-    - Combine 1 core theme with a wildcard topic (e.g., "nostalgia" + "mycology"). pick surprising combos.
+    - Assign a "weirdness multiplier" of [1-5] to push boundaries.  
+    - Combine 1 core theme with a wildcard topic (e.g., "nostalgia" + "mycology"). pick surprising combos based on the weirdness factor.
     - Use metaphors, counterintuitive questions, or cultural hooks to create 3 quest ideas.  
-    3. Quest Crafting:  
+    3. Craft 3 Quests:
     For each quest:  
     - Title: Person-focused role or occupation with an unusual specialty (e.g., "Quantum Shaman," "Data Alchemist").
     - Hook: An intriguing or absurd "WTF" fact to spark curiosity.  
@@ -68,7 +71,6 @@ export async function POST(req) {
                 ],
             },
         ],
-        maxTokens: 8192,
     })
     return result.toTextStreamResponse();
 }

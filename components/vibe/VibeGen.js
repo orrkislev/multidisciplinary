@@ -16,18 +16,6 @@ export function VibeGen({ vibe }) {
         if (vibe) submit({ vibe });
     }, [vibe]);
 
-    // Track expanded state for mobile quests
-    const [expanded, setExpanded] = useState({});
-
-    // Track mobile vs desktop
-    const [isMobile, setIsMobile] = useState(false);
-    useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth < 768);
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
     if (!vibe) return null;
 
     if (!object) {

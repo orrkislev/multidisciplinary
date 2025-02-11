@@ -58,5 +58,6 @@ export const styled = {
   h1: createStyledElement('h1'),
   form: createStyledElement('form'),
   input: createStyledElement('input'),
+  textarea: createStyledElement('textarea'),
   // Add more as needed
 };

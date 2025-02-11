@@ -33,7 +33,7 @@ function QuestDesktop({ quest }) {
                 </div>
             )}
 
-            <div className="opacity-0 group-hover:opacity-100 transition duration-300 mt-2 flex flex-col gap-4">
+            <div className="opacity-20 group-hover:opacity-100 transition duration-300 mt-2 flex flex-col gap-4">
                 <div>
                     <small className="text-gray-500">path</small>
                     {quest.path && (

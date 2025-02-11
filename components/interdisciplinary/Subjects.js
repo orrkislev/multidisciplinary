@@ -12,9 +12,7 @@ export const SingleSubject = tw`text-md p-1 px-2 rounded-lg cursor-pointer
     grow-[2] text-center
     hover:bg-slate-400
     transition-colors duration-300
-    bg-white
-    ${props => props.ai ? 'bg-orange-200' : ''}
-    ${props => props.selected ? 'bg-rose-400' : ''}
+    ${props => props.ai ? 'bg-orange-200' : (props.selected ? 'bg-rose-400' : 'bg-white')}
     `;
 
 // return the index of the first occurrence of the input in the string, normalized, or -1 if not found
