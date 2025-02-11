@@ -7,11 +7,11 @@ import { ExplainChat } from "./ExplainChat";
 import { styled } from '@/utils/tw';
 
 const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-gray-50 pt-16`;
-const Title = styled.h1`text-4xl md:text-6xl text-gray-800 uppercase text-center select-none font-geistMono`;
+const Title = styled.h1`text-4xl md:text-3xl text-gray-800 select-none font-geistMono`;
 const Form = styled.form`flex flex-col items-center`;
-const Input = styled.input`border border-gray-500 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80 font-geistMono`;
-const Button = styled.button`bg-gray-500 text-white font-bold py-2 px-8 rounded-full hover:bg-gray-800 transition mt-4 font-geistMono`;
-
+const Input = styled.input`border border-gray-500 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80 font-geistMono`;
+const Button = styled.button`bg-gray-500 text-white font-bold py-2 px-8 hover:bg-gray-800 transition mt-4 font-geistMono`;
+const Loading = styled.div`text-2xl font-geistMono`;
 
 
 export default function ExplainPage() {
@@ -29,44 +29,66 @@ export default function ExplainPage() {
         e.preventDefault();
         character.submit({
             prompt: `Objective:
-                Given a user-provided subject (e.g., "Settlers of Catan," "yoga," "quantum computing"), generate a unique character who is unfamiliar with the subject but has a compelling perspective/limitation that forces the user to explain the topic creatively. The character should feel thematically relevant to the subject while introducing delightful friction (e.g., cultural, physiological, or conceptual constraints).
-                [PROCESS]:
-                -- Analyze the Subject:
-                Identify core themes, mechanics, or cultural context of the subject.
-                * Example: "Settlers of Catan" → strategy, resource trading, competition, community-building.
-                -- Brainstorm Character Archetypes:
-                Generate 3–5 potential characters with contrasting contexts (historical, fictional, conceptual) that intersect with the subject’s themes.
-                Prioritize characters with specific limitations (e.g., no modern references, alien anatomy, cultural gaps) or quirky communication styles (e.g., speaks in metaphors, hates abstract terms).
-                -- Select the Best Character:
-                Choose the most thematically resonant and playfully challenging option.
-                Ensure the character’s background forces the user to rethink their assumptions (e.g., explaining "social media" to a 17th-century librarian who organizes knowledge via handwritten indexes).
-                -- Define the Character’s Profile:
-                Name/Title: Give them a memorable identity (e.g., "Zorblax the Amorphous," "Madame Lafleur, 1800s Ballroom Etiquette Coach").
-                Era/Origin: Time period, location, or fictional universe.
-                Profession/Role: What they do in their world.
-                Key Quirks/Limitations: What makes explaining the subject hard? (e.g., "only understands barter economies," "interprets everything as dance moves").
-                Communication Style: Formal, skeptical, curious, etc.
-                [OUTPUT]:
-                Character Introduction: A vivid 2–3 sentence hook.
-                Challenge to User: A playful directive framing the explanation hurdle (e.g., "Convince Zorblax that yoga isn’t a weaponized limb-removal ritual").
-                [EXAMPLE]:
-                Subject: "Settlers of Catan"
-                Character: Master Enzo Vittori, Venetian Shipbuilder (1442)
-                Introduction: "A gruff master craftsman who builds warships for the Venetian fleet, Enzo cares only about timber, iron, and outmaneuvering rival traders. He distrusts 'frivolous' games and thinks dice are for gamblers, not strategists."
-                Challenge: "Explain why Settlers of Catan isn't a waste of good wood. Use examples from shipbuilding or trade routes, and avoid modern terms like 'board game' or 'victory points.'"
+Given a user-provided subject, generate a character who is genuinely unfamiliar with it. Prioritize historically plausible human characters, but use non-human/fictional characters when they would create especially compelling perspective gaps.
 
-                the user-provided subject is: ${input}
+[CHARACTER SELECTION RULES]:
+1. DEFAULT TO HUMAN CHARACTERS:
+- Historical figures from different eras
+- People from isolated or specialized cultures
+- Individuals with specific professional viewpoints
+Example: Explaining social media to a 1700s town crier
+
+2. USE NON-HUMAN CHARACTERS ONLY WHEN:
+- The subject involves uniquely human experiences (emotions, art, entertainment)
+- Physical/biological concepts would be genuinely alien (pets, sports, food)
+- Modern technology would seem magical/incomprehensible
+Example: Explaining pets to a logic-based AI, or music to a being that experiences time differently
+
+[PROCESS]:
+1. Analyze Subject:
+- Could a human from a different era/culture understand this with proper context?
+- Would a non-human perspective create more interesting explanatory challenges?
+- What knowledge gaps would create meaningful friction?
+
+2. Character Development:
+Must include:
+- Clear reason for unfamiliarity with the subject
+- Enough contextual knowledge to understand explanations
+- Specific limitations that force creative explaining
+Avoid:
+- Characters who would realistically understand the subject
+- Unnecessarily exotic characters when a human would work better
+- Barriers that make explanation impossible
+
+[OUTPUT FORMAT]:
+Name/Title: [Name] the [Role] ([Era/Origin])
+Introduction: (2-3 sentences establishing character and their specific knowledge gap)
+Challenge: (How to explain the subject given their limitations)
+
+[EXAMPLES]:
+Subject: "Smartphones"
+Character: Sister Margaret, Medieval Monastery Scribe (1342)
+Introduction: A dedicated illuminator of manuscripts who has spent her life perfecting the art of preserving knowledge through careful handwriting and illustration. She takes great pride in her precise lettering and ability to create multiple perfect copies of texts, but struggles with the concept of instant, ephemeral communication.
+Challenge: Explain smartphones using only concepts from manuscript creation and messenger systems of her time. Avoid any references to electricity or digital technology.
+
+Subject: "Pet Dogs"
+Character: LOGIC-7, Efficiency Optimization AI
+Introduction: An artificial intelligence designed to maximize resource efficiency in urban planning, LOGIC-7 cannot comprehend why humans would allocate living space, food, and time to creatures that provide no measurable productivity output. The concept of emotional bonds and companionship falls outside its programming parameters.
+Challenge: Explain the value of pet dogs using only quantifiable metrics and system optimization terminology that an AI would understand.
+
+The user-provided subject is: ${input}
                 `,
-            key: 'character'
+            key: 'character',
+            model: 'sonnet'
         })
     };
 
-    const titleText = 'WHAT TOPIC DO YOU THINK YOU CAN EXPLAIN?';
+    const titleText = 'What do you know about?'
 
     if (!readyToChat)
         return (
             <Container>
-                <div className="grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 mb-16 gap-2 md:gap-8">
+                <div className="grid grid-cols-2 md:grid-cols-2 mb-16 gap-2 md:gap-2">
                     {titleText.split(' ').map((word, i) => (
                         <Title key={i}>{word}</Title>
                     ))}
@@ -79,7 +101,7 @@ export default function ExplainPage() {
                         onChange={(e) => setInput(e.target.value)}
                         placeholder='Settlers of Catan, yoga, quantum computing...'
                     />
-                    <Button type="submit">GO</Button>
+                    {character.object ? <Loading>...Loading...</Loading> : <Button type="submit">GO</Button>}
                 </Form>
             </Container>
         );

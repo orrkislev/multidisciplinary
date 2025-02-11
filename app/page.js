@@ -17,9 +17,9 @@ export default function Home() {
       <Link href="/vibe" className={linkClassName + " bg-orange-500 hover:bg-orange-700"}>
         Vibe
       </Link>
-      <div className="flex items-center justify-center bg-gray-400 text-white font-bold text-4xl">
-        ...
-      </div>
+      <Link href="/explain" className={linkClassName + " bg-pink-500 hover:bg-pink-700"}>
+        Explain
+      </Link>
       <div className="flex items-center justify-center bg-stone-500 text-white font-bold text-4xl">
         ...
       </div>

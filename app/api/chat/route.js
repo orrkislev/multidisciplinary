@@ -11,7 +11,7 @@ const model = google("gemini-2.0-flash");
 
 
 export async function POST(req) {
-    const { messages, character } = await req.json();
+    const { messages, character, subject } = await req.json();
 
     const systemPrompt = `[ROLE] 
         You are an AI chatbot embodying ${character.name}, ${character.title}, (from the year ${character.year}). ${character.description}
@@ -29,7 +29,7 @@ export async function POST(req) {
         * Keep your responses concise and engaging.
     `;
 
-    messages.unshift({ role: 'user', content: 'I want to explain the concept of "Electricity."' });
+    messages.unshift({ role: 'user', content: `I want to explain the concept of "${subject}"` });
     messages.unshift({ role: 'system', content: systemPrompt });
 
     const result = streamObject({ model, schema: aiSchemas.chat, messages });

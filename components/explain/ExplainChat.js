@@ -36,12 +36,12 @@ export function ExplainChat({ character, subject }) {
 
     useEffect(() => {
         messages.current = [{ role: 'user', content: `I want to explain the concept of "${subject}"` }]
-        chat.submit({ messages: messages.current, character })
+        chat.submit({ messages: messages.current, character, subject })
     }, [subject]);
 
     const submit = () => {
         messages.current.push({ role: 'user', content: input })
-        chat.submit({ messages: messages.current, character })
+        chat.submit({ messages: messages.current, character, subject })
         setInput('')
     }
 
