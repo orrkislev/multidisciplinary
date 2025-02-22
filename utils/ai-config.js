@@ -113,13 +113,9 @@ export const aiConfig = {
     // ---------------------------------------------
     projects: {
         dependencies: ['subject1', 'subject2', 'names', 'description'],
-        prompt: ({ subject1, subject2, names, description, proficiency }) => `
+        prompt: ({ subject1, subject2, names, description }) => `
           Based on the following description of ${names[0]} (a fusion between ${subject1} and ${subject2}): "${description.description}". 
-          Create projects matching ${proficiency} skill level:
-          
-          ${proficiency === 'novice' ?
-                'Use household items, <2 hours completion' :
-                'May require basic tools, week-long project'}
+          Create 4 projects of different skill levels:
           
           INCLUDE:
           - Required knowledge from both fields
