@@ -27,8 +27,8 @@ export default function RightSide() {
                 <Terminology />
                 <Questions />
             </div>
-            <Quiz />
             <Projects />
+            <Quiz />
         </div>
     )
 }

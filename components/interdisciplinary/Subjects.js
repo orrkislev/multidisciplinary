@@ -13,6 +13,7 @@ export const SingleSubject = tw`text-md p-1 px-2 rounded-lg cursor-pointer
     hover:bg-slate-400
     transition-colors duration-300
     ${props => props.ai ? 'bg-orange-200' : (props.selected ? 'bg-rose-400' : 'bg-white')}
+    ${props => props.input ? 'bg-emerald-200' : ''}
     `;
 
 // return the index of the first occurrence of the input in the string, normalized, or -1 if not found
@@ -79,6 +80,11 @@ export default function Subjects() {
                                 {subject}
                             </SingleSubject>
                         ))}
+                        {input.length > 0 && (
+                            <SingleSubject onClick={() => addSubject(input)} input>
+                                {input}
+                            </SingleSubject>
+                        )}
                         {aiSubjects.map((subject, index) => (
                             <SingleSubject key={index} onClick={() => addSubject(subject)} ai>
                                 {subject}

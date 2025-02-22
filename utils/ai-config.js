@@ -112,7 +112,7 @@ export const aiConfig = {
     // ----------------- Projects ------------------
     // ---------------------------------------------
     projects: {
-        dependencies: ['subject1', 'subject2', 'names', 'description', 'proficiency'],
+        dependencies: ['subject1', 'subject2', 'names', 'description'],
         prompt: ({ subject1, subject2, names, description, proficiency }) => `
           Based on the following description of ${names[0]} (a fusion between ${subject1} and ${subject2}): "${description.description}". 
           Create projects matching ${proficiency} skill level:
@@ -127,10 +127,11 @@ export const aiConfig = {
           - Safety considerations`,
         schema: z.array(z.object({
             name: z.string(),
+            learningPath: z.string(),
             tools: z.array(z.string()),
             crossDisciplinarySkill: z.string(),
             safetyNote: z.string()
-        })),
+        })).length(4),
         store: createAiStore(),
     },
 

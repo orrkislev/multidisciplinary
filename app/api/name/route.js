@@ -7,9 +7,9 @@ import { openai } from '@ai-sdk/openai';
 import { anthropic } from '@ai-sdk/anthropic';
 
 
-// const model = google("gemini-2.0-flash");
+const model = google("gemini-2.0-flash");
 // const model = deepseek('deepseek-chat')
-const model = openai('gpt-4o-mini-2024-07-18');
+// const model = openai('gpt-4o-mini-2024-07-18');
 
 export const maxDuration = 30;
 

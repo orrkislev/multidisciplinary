@@ -25,10 +25,15 @@ export default function SubjectCard() {
     }, [names])
 
     const content = {
-        subject1: subject1 || 'Pick a subject',
-        subject2: subject2 || 'Pick another subject',
-        name: name || 'Interdisciplinary'
+        subject1: 'Pick a subject',
+        subject2: 'Pick another subject',
+        name: 'Interdisciplinary'
     }
+
+    if (subject1) content.subject1 = subject1;
+    if (subject2) content.subject2 = subject2;
+    if (subject1 && subject2) content.name = ''
+    if (name) content.name = name;
 
     return (
         <div className="text-center p-4 rounded-lg relative text-white bg-gray-400 flex flex-col justify-between relative p-4 gap-8">
