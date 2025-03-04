@@ -1,7 +1,5 @@
-'use client'
-
-import Subjects from './Subjects'
-import RightSide from './RightSide';
+import RightSide from "../components/RightSide";
+import Subjects from "../components/Subjects";
 
 export default function InterdisciplinaryPage() {
     return (

@@ -20,9 +20,9 @@ export default function Home() {
       <Link href="/explain" className={linkClassName + " bg-pink-500 hover:bg-pink-700"}>
         Explain
       </Link>
-      <div className="flex items-center justify-center bg-stone-500 text-white font-bold text-4xl">
-        ...
-      </div>
+      <Link href="/ideator" className={linkClassName + " bg-purple-500 hover:bg-purple-700"}>
+        Ideator
+      </Link>
     </div>
   );
 }

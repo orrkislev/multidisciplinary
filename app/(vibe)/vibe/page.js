@@ -1,4 +1,4 @@
-import VibePage from "@/components/vibe/VibePage";
+import VibePage from "@/app/(vibe)/components/VibePage";
 
 export default function Page() {
   return (

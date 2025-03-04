@@ -1,7 +1,11 @@
 import localFont from 'next/font/local'
-import { Geist_Mono, Geist } from "next/font/google";
+import { Geist_Mono, Geist, Inter } from "next/font/google";
 
-import "./globals.css";
+import "@/app/globals.css"
+
+const inter = Inter({
+  subsets: ["latin"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,12 +18,12 @@ const geistMono = Geist_Mono({
 });
 
 const magilio = localFont({
-  src: 'assets/MagilioRegular.otf',
+  src: '/assets/MagilioRegular.otf',
   display: 'swap',
   variable: '--font-magilio',
 })
 const Cylburn = localFont({
-  src: 'assets/Cylburn.otf',
+  src: '/assets/Cylburn.otf',
   display: 'swap',
   variable: '--font-cylburn',
 })
@@ -36,7 +40,8 @@ export default function RootLayout({ children }) {
         className={` 
           ${magilio.variable}
           ${Cylburn.variable}
-          ${geistSans.variable} ${geistMono.variable}
+          ${geistSans.variable} ${geistMono.variable}          
+          ${inter.className}
           antialiased`}
       >
         {children}
