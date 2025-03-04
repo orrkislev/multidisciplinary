@@ -37,15 +37,21 @@ function QuestionElement({ id }) {
 
     const adjustHeight = (textareaRef) => {
         if (textareaRef.current) {
-          textareaRef.current.style.height = 'auto';
-          textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
         }
-      };
+    };
 
-    useEffect(()=>{
+    useEffect(() => {
         adjustHeight(questionRef)
         adjustHeight(answerRef)
-    },[contentItem])
+    }, [contentItem])
+
+    let answer = contentItem.content.answer
+    try {
+        answer = JSON.parse(answer)
+    } catch (error) {
+    }
 
     return (
         <div className="flex flex-col">
@@ -61,18 +67,26 @@ function QuestionElement({ id }) {
                     backgroundColor: 'transparent',
                 }}
             />
-            <textarea className="text-center text-sm" value={contentItem.content.answer} onChange={handleChangeAnswer}
-                rows="1"
-                ref={answerRef}
-                style={{
-                    resize: 'none',
-                    overflow: 'hidden',
-                    border: 'none',
-                    outline: 'none',
-                    boxShadow: 'none',
-                    backgroundColor: 'transparent',
-                }}
-            />
+            {Array.isArray(answer) ? answer.map((ans, index) => (
+                <button key={index} onClick={() => updateContent(id, { answer: ans })}>{ans}</button>
+            )) : (answer ? (
+                <textarea className="text-center text-sm" value={contentItem.content.answer} onChange={handleChangeAnswer}
+                    rows="1"
+                    ref={answerRef}
+                    style={{
+                        resize: 'none',
+                        overflow: 'hidden',
+                        border: 'none',
+                        outline: 'none',
+                        boxShadow: 'none',
+                        backgroundColor: 'transparent',
+                    }}
+                />) : (
+                <>
+                    <button onClick={() => updateContent(id, { answer: 'Yes' })}>Yes</button>
+                    <button onClick={() => updateContent(id, { answer: 'No' })}>No</button>
+                </>
+            ))}
         </div>
     )
 }
@@ -89,15 +103,15 @@ function MultipleAnswerElement({ id }) {
 
     const adjustHeight = (textareaRef) => {
         if (textareaRef.current) {
-          textareaRef.current.style.height = 'auto';
-          textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
         }
-      };
+    };
 
-    useEffect(()=>{
+    useEffect(() => {
         adjustHeight(questionRef)
         adjustHeight(answerRef)
-    },[contentItem])
+    }, [contentItem])
 
     console.log(contentItem.content.answer)
     const options = JSON.parse(contentItem.content.answer)
@@ -117,7 +131,7 @@ function MultipleAnswerElement({ id }) {
                 }}
             />
             {options.map((option, index) => (
-                <button key={index} onClick={()=>updateContent(id, { answer: JSON.stringify([option]) })}>{option}</button>
+                <button key={index} onClick={() => updateContent(id, { answer: JSON.stringify([option]) })}>{option}</button>
             ))}
         </div>
     )
@@ -135,15 +149,15 @@ function YesNoElement({ id }) {
 
     const adjustHeight = (textareaRef) => {
         if (textareaRef.current) {
-          textareaRef.current.style.height = 'auto';
-          textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
         }
-      };
+    };
 
-    useEffect(()=>{
+    useEffect(() => {
         adjustHeight(questionRef)
         adjustHeight(answerRef)
-    },[contentItem])
+    }, [contentItem])
 
     return (
         <div className="flex flex-col">
@@ -159,8 +173,8 @@ function YesNoElement({ id }) {
                     backgroundColor: 'transparent',
                 }}
             />
-            <button onClick={()=>updateContent(id, { answer: 'Yes' })}>Yes</button>
-            <button onClick={()=>updateContent(id, { answer: 'No' })}>No</button>
+            <button onClick={() => updateContent(id, { answer: 'Yes' })}>Yes</button>
+            <button onClick={() => updateContent(id, { answer: 'No' })}>No</button>
         </div>
     )
 }
@@ -175,11 +189,11 @@ const partMap = {
         default: { question: 'I want to', answer: 'do something' }
     },
     'multiple': {
-        element: MultipleAnswerElement,
+        element: QuestionElement,
         default: { question: 'Question', answer: 'Answer' }
     },
     'yesno': {
-        element: YesNoElement,
+        element: QuestionElement,
         default: { question: 'Question', answer: 'Answer' }
     }
 }
@@ -188,8 +202,8 @@ export default function createElement(type, x, y, content) {
     const part = partMap[type];
     if (part) {
         return {
-            type, x, y, content: { ...part.default, ...content }, id: Math.random().toString(36).substr(2, 9),  
-            element: part.element        
+            type, x, y, content: { ...part.default, ...content }, id: Math.random().toString(36).substr(2, 9),
+            element: part.element
         };
     }
     return null;
