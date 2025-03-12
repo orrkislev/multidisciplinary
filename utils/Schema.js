@@ -17,20 +17,13 @@ export const aiSchemas = {
         text: z.string(),
         understanding: z.number(),
     }),
-    canvas: z.object({
-        projectDescription: z.string(),
-        questions: z.array(
-            z.object({
-                type: z.enum(['open','multiple','yesno']),
-                question: z.string(),
-                jsonContent: z.string()
-            }),
-        ),
+    ideator: z.object({
+        questions: z.array(z.string()).min(1),
         strategies: z.array(
             z.object({
                 title: z.string(),
-                text: z.string(),
+                task: z.string(),
             }),
-        ),
+        )
     })
 }

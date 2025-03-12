@@ -12,3 +12,7 @@ body {
   background: whitesmoke;
   font-family: MagilioRegular;
 }
+
+.rtl {
+  direction: rtl;
+}
