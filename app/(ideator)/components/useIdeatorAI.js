@@ -37,17 +37,17 @@ export default function useIdeatorAI() {
             - Detect gaps in project definition (scope, goals, methodology, resources, timeline)
 
             2. Question Generation:
-            - Create 2-5 questions based on gaps identified
+            - Create 2-5 questions based on gaps identified, using design thinking methods
             - Ensure questions build on existing content rather than repeating information
-            - Focus on practical aspects that will help the student move forward
+            - Lead with intriguing questions that will help the student think about their project
 
             3. Strategies:
-            - Create 2-3 strategies that will help the student refine their project (e.g., research strategies, design thinking methods, opportunity analysis
+            - Create 2-3 strategies that will help the student refine their project (e.g., research strategies, design thinking methods, opportunity analysis..)
             - Ensure strategies build on existing content rather than repeating information
             - Each strategy should be a specific task the student can complete
             - Tasks should be actionable and help gather information or make decisions
             - Include estimated time to complete each task
-            - Tasks should build progressively (e.g. research -> analyze -> decide)
+            - Tasks should build progressively (e.g. ideate -> research -> analyze -> decide)
             - Tasks should help address gaps identified in content analysis
 
             RULES:

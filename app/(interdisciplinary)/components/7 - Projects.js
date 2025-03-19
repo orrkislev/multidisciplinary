@@ -14,10 +14,8 @@ export default function Projects() {
                 {projects.map((project, index) => (
                     <div key={index} className="bg-gray-100 p-2 text-black rounded-lg">
                         <div className='mb-4'><span className="font-sans text-xl">{project.name}</span></div>
-                        <p><strong>Tools:</strong> {project.tools && project.tools.join(', ')}</p>
-                        <p><strong>Learning Path:</strong> {project.learningPath}</p>
-                        <p><strong>Cross-Disciplinary Skill:</strong> {project.crossDisciplinarySkill}</p>
-                        <p><strong>Safety Note:</strong> {project.safetyNote}</p>
+                        <div className='mb-4'><span className="font-sans">{project.description}</span></div>
+                        <p><strong>Cross-Disciplinary Skill:</strong> {project.crossDisciplinarySkills}</p>
                     </div>
                 ))}
             </div>

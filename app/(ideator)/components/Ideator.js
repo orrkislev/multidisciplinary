@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Description from "./Description";
-import useIdeatorAI, { useIdeator } from "./useIdeatorAI";
+import useIdeatorAI from "./useIdeatorAI";
 import Strategies from "./Strategies";
 import Question from "./Question";
 import { isHebrew } from "@/utils/utils";
@@ -14,15 +14,13 @@ export default function Ideator() {
 
     return (
         <div className="fixed inset-0 flex">
-            {/* Left side: Description and Strategies */}
             <div className="flex flex-col w-1/3 h-full bg-white p-4 overflow-auto justify-between">
                 <Description newContent={commitedContent} onUpdate={newDescription => getAI(newDescription)} />
                 <Strategies />
             </div>
 
-            {/* Right side: Draggable elements and AIButton */}
             <div className="flex flex-col items-center justify-center w-2/3 bg-gradient-to-br from-blue-500 to-blue-300 p-4 gap-16">
-                <div className="font-serif text-3xl font-bold text-white">WHAT DO YOU KNOW ABOUT YOUR PROJECT?</div>
+                <div className="font-serif text-3xl font-bold text-white">TELL ME ABOUT YOUR PROJECT</div>
                 <input type="text"  value={txt} 
                     className={`w-full p-2 rounded-md ${isHebrew(txt) ? 'rtl' : ''}`}
                     placeholder="Tell me facts about your project"

@@ -15,7 +15,7 @@ export default function Questions({ question, i }) {
 function Question({ question, i }) {
     const hasHebrewContent = isHebrew(question);
     return (
-        <div key={i} className="bg-white bg-opacity-50 p-2 rounded-md text-sm">
+        <div key={i} className="p-2 rounded-lg text-sm border-2 border-dashed border-white">
             <div className={`${hasHebrewContent ? 'rtl text-right' : ''}`}>{question}</div>
         </div>
     )

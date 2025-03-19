@@ -80,33 +80,33 @@ export const aiConfig = {
     // ---------------------------------------------
     // ----------------- Assessment ----------------
     // ---------------------------------------------
-    literacyAssessment: {
-        dependencies: ['subject1', 'subject2'],
-        prompt: ({ subject1, subject2 }) => `
-          Create 5-question quiz assessing basic literacy in both ${subject1} and ${subject2}.
+    // literacyAssessment: {
+    //     dependencies: ['subject1', 'subject2'],
+    //     prompt: ({ subject1, subject2 }) => `
+    //       Create 5-question quiz assessing basic literacy in both ${subject1} and ${subject2}.
           
-          GUIDELINES:
-          - 2 questions about ${subject1} fundamentals
-          - 2 questions about ${subject2} basics
-          - 1 question about their potential intersection
-          - Mix of factual and conceptual questions
-          - Clear correct answers with brief explanations`,
-        schema: z.object({
-            questions: z.array(z.object({
-                question: z.string(),
-                options: z.array(z.string()).length(4),
-                answer: z.string(),
-                explanation: z.string().max(100)
-            })).length(5),
-        }),
-        store: createAiStore(),
-        calculateProficiency: (answers) => {
-            let correctAnswers = answers.filter(answer => answer.isCorrect).length;
-            if (correctAnswers <= 2) return 'novice';
-            if (correctAnswers <= 4) return 'intermediate';
-            return 'expert';
-        },
-    },
+    //       GUIDELINES:
+    //       - 2 questions about ${subject1} fundamentals
+    //       - 2 questions about ${subject2} basics
+    //       - 1 question about their potential intersection
+    //       - Mix of factual and conceptual questions
+    //       - Clear correct answers with brief explanations`,
+    //     schema: z.object({
+    //         questions: z.array(z.object({
+    //             question: z.string(),
+    //             options: z.array(z.string()).length(4),
+    //             answer: z.string(),
+    //             explanation: z.string().max(100)
+    //         })).length(5),
+    //     }),
+    //     store: createAiStore(),
+    //     calculateProficiency: (answers) => {
+    //         let correctAnswers = answers.filter(answer => answer.isCorrect).length;
+    //         if (correctAnswers <= 2) return 'novice';
+    //         if (correctAnswers <= 4) return 'intermediate';
+    //         return 'expert';
+    //     },
+    // },
 
     // ---------------------------------------------
     // ----------------- Projects ------------------
@@ -115,18 +115,15 @@ export const aiConfig = {
         dependencies: ['subject1', 'subject2', 'names', 'description'],
         prompt: ({ subject1, subject2, names, description }) => `
           Based on the following description of ${names[0]} (a fusion between ${subject1} and ${subject2}): "${description.description}". 
-          Create 4 projects of different skill levels:
+          Create 4 projects of different levels:
           
-          INCLUDE:
+          RULES:
           - Required knowledge from both fields
-          - Unexpected material combinations
-          - Safety considerations`,
+          - Unexpected material combinations`,
         schema: z.array(z.object({
             name: z.string(),
-            learningPath: z.string(),
-            tools: z.array(z.string()),
-            crossDisciplinarySkill: z.string(),
-            safetyNote: z.string()
+            description: z.string(),
+            crossDisciplinarySkills: z.string(),
         })).length(4),
         store: createAiStore(),
     },

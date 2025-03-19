@@ -20,8 +20,8 @@ export default function Home() {
       <Link href="/explain" className={linkClassName + " bg-pink-500 hover:bg-pink-700"}>
         Explain
       </Link>
-      <Link href="/ideator" className={linkClassName + " bg-purple-500 hover:bg-purple-700"}>
-        Ideator
+      <Link href="/deck" className={linkClassName + " bg-purple-500 hover:bg-purple-700"}>
+        Deck
       </Link>
     </div>
   );

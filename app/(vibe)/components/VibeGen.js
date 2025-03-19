@@ -7,9 +7,7 @@ export function VibeGen({ vibe }) {
     const { object, submit } = useObject({
         api: '/api/vibe',
         schema: vibeSchema,
-        onFinish: (object, error) => {
-            console.log(object, error);
-        }
+        onFinish: (object, error) => {}
     });
 
     useEffect(() => {

@@ -1,10 +1,16 @@
 import localFont from 'next/font/local'
-import { Geist_Mono, Geist, Inter } from "next/font/google";
+import { Geist_Mono, Geist, Inter, Cedarville_Cursive } from "next/font/google";
 
 import "@/app/globals.css"
 
 const inter = Inter({
   subsets: ["latin"],
+});
+
+const cedarvilleCursive = Cedarville_Cursive({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-cedarville-cursive",
 });
 
 const geistSans = Geist({
@@ -41,6 +47,7 @@ export default function RootLayout({ children }) {
           ${magilio.variable}
           ${Cylburn.variable}
           ${geistSans.variable} ${geistMono.variable}          
+          ${cedarvilleCursive.variable}
           ${inter.className}
           antialiased`}
       >

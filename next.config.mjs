@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    transpilePackages: ['lucide-react'] // add this
+    transpilePackages: ['lucide-react'],
+    reactStrictMode: false,
+
 }
 
 export default nextConfig;

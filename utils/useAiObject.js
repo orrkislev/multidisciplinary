@@ -23,7 +23,6 @@ export function useAiObject({ cfg, key, onFinish }) {
         // onFinish: (object, error) => {
         //     tokenCounter.addOutput(object)
         //     onFinish({ object, error })
-        //     console.log({input: tokenCounter.input, output: tokenCounter.output})
         // }
     })
 

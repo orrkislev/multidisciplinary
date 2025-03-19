@@ -15,7 +15,7 @@ export default function RightSide() {
     const ai = useAIManager();
     
     return (
-        <div className="flex flex-col gap-4 px-4 py-2 font-geist">
+        <div className="flex flex-col gap-4 px-4 py-2 font-geist mr-4 mb-16 mt-4">
             <div className="flex flex-col gap-4">
                 <SubjectCard />
                 <div className="bg-gray-100 p-4 backdrop-blur-lg rounded-lg">
@@ -28,7 +28,7 @@ export default function RightSide() {
                 <Questions />
             </div>
             <Projects />
-            <Quiz />
+            {/* <Quiz /> */}
         </div>
     )
 }
