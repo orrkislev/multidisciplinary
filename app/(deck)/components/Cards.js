@@ -26,8 +26,8 @@ export default function Cards({ cards: newCards, onSubmit }) {
     setSelectedId(id);
   };
 
-  const handleSubmit = (response) => {
-    onSubmit(response);
+  const handleSubmit = (responseObject) => {
+    onSubmit(responseObject);
     setCards(cards.filter(card => card.id !== selectedId));
     setSelectedId(null);
   }
@@ -36,6 +36,10 @@ export default function Cards({ cards: newCards, onSubmit }) {
   let cardInHandIndex = 0
   return (
     <div className="">
+
+      {selectedId && <div className="fixed top-0 left-0 w-full h-full bg-black/30 backdrop-blur-sm z-[99] flex items-center justify-center"
+        onClick={() => setSelectedId(null)} />}
+
       {cards.map((card) => {
         return (
           <div key={card.id} className="relative">

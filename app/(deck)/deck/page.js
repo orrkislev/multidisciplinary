@@ -9,14 +9,21 @@ export default function CardGamePage() {
   const [responses, setResponses] = useState([]);
   const [profile, setProfile] = useState({ interests: "", style: "", goals: "", completeness: 0 });
   const [cards, setCards] = useState([]);
+  const [research, setResearch] = useState([]);
 
-  const addResponse = (response) => {
-    setResponses([...responses, response]);
+
+  const addResponse = (responseObject) => {
+    if (['question', 'goal', 'idea', 'wild'].includes(responseObject.type)) {
+      setResponses([...responses, responseObject.content]);
+    } else {
+      setResearch([...research, responseObject.content]);
+    }
   }
 
   useEffect(() => {
     if (responses.length === 0) return;
     (async () => {
+      console.log('sending', { description, responses, profile })
       const response = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,25 +39,39 @@ export default function CardGamePage() {
   }, [responses]);
 
   if (description === "") {
-    return <Initial onInitial={(newDescription) => { setDescription(newDescription); addResponse(newDescription) }} />
+    return <Initial onInitial={(newDescription) => { setDescription(newDescription); addResponse({ content: newDescription, type: 'idea' }) }} />
   }
 
   return (
-    <div className='absolute w-full h-full flex flex-col items-center justify-center p-8 bg-gray-300'>
-      <div className='fixed top-0 left-0 h-full  max-w-md'>
-        <div className="flex flex-col gap-1">
+    <div className='absolute w-full h-full flex flex-col items-center justify-center p-8 bg-[#0e5a2a]'
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E"), radial-gradient(circle at center, #157a3e 0%, #0e5a2a 100%)`
+      }}>
 
-          <div className='flex flex-col px-8 bg-white p-4'>
+      <div className='fixed top-0 left-0 h-full  max-w-md'>
+        <div className="flex flex-col gap-1 p-2">
+
+          <div className='flex flex-col px-8 bg-white p-4 bg-opacity-50 rounded-lg'>
             <h2 className='underline'>Description</h2>
             <p>{description}</p>
           </div>
 
-          <div className='flex flex-col px-8 bg-white p-4'>
+          <div className='flex flex-col px-8 bg-white p-4 gap-2 bg-opacity-50 rounded-lg'>
             <h2 className='underline'>Profile</h2>
-            {Object.entries(profile).map(([key, value]) => (
-              <div key={key}>
-                <strong>{key}:</strong> {value}
-              </div>
+            <p>interests: {profile.interests}</p>
+            <p>style: {profile.style}</p>
+            <p>goals: {profile.goals}</p>
+            {/* <p>{profile.completeness}</p> */}
+          </div>
+        </div>
+      </div>
+
+      <div className='fixed top-0 right-0 h-full max-w-md p-2'>
+        <div className="flex flex-col gap-1">
+          <div className='flex flex-col px-8 bg-white p-4 bg-opacity-50 rounded-lg'>
+            <h2 className='underline'>Research</h2>
+            {research.map((r, index) => (
+              <p key={index}>{r}</p>
             ))}
           </div>
         </div>

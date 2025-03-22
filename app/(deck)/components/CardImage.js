@@ -28,7 +28,7 @@ export default function CardImage(props) {
         backgroundPosition: 'center',
         backgroundColor: 'black',
         width: '100%',
-        height: props.selected ? '50%' : '70%',
+        height: props.selected ? '60%' : '70%',
     }
 
     return (

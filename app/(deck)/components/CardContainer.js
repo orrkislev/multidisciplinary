@@ -19,8 +19,8 @@ export default function CardContainer({ index, onClick, selected, cardsInHand, c
         },
         selected: {
             rotate: 0,
-            width: "50vw",
-            height: "auto",
+            width: "30vw",
+            height: "42vw",
             top: "50%",
             left: "50%",
             x: "-50%",
@@ -37,7 +37,8 @@ export default function CardContainer({ index, onClick, selected, cardsInHand, c
             animate={selected ? "selected" : "hand"}
             variants={variants}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed bg-white border border-gray-300 rounded-lg shadow-sm flex flex-col cursor-pointer overflow-hidden hover:z-10 p-1"
+            className="fixed bg-white border border-gray-300 rounded-lg shadow-sm flex flex-col justify-between cursor-pointer overflow-hidden hover:z-10 p-1"
+            style={{ zIndex: selected ? 100 : 0 }}
         >
             {children}
         </motion.div>
