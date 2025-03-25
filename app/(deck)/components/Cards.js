@@ -2,21 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import Card from './Card';
+import { AnimatePresence } from 'framer-motion';
 
-export default function Cards({ cards: newCards, onSubmit }) {
-  const [cards, setCards] = useState([]);
+export default function Cards({ cards, onSubmit }) {
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
-    const newCardsData = []
-    newCards.forEach(card => {
-      newCardsData.push({
-        ...card,
-        id: Math.random().toString(36).substring(2, 9),
-      })
-    })
-    setCards(newCardsData);
-  }, [newCards]);
+    setSelectedId(null);
+  }, [cards]);
+
+  if (!cards || Array.isArray(cards) && cards.length === 0) return
 
   const handleCardClick = id => {
     if (selectedId === id) {
@@ -26,34 +21,35 @@ export default function Cards({ cards: newCards, onSubmit }) {
     setSelectedId(id);
   };
 
+
   const handleSubmit = (responseObject) => {
     onSubmit(responseObject);
-    setCards(cards.filter(card => card.id !== selectedId));
-    setSelectedId(null);
   }
+
 
   const cardsInHand = selectedId ? cards.length - 1 : cards.length;
   let cardInHandIndex = 0
   return (
     <div className="">
 
-      {selectedId && <div className="fixed top-0 left-0 w-full h-full bg-black/30 backdrop-blur-sm z-[99] flex items-center justify-center"
+      {selectedId != null && <div className="fixed top-0 left-0 w-full h-full bg-black/30 backdrop-blur-sm z-[99] flex items-center justify-center"
         onClick={() => setSelectedId(null)} />}
 
-      {cards.map((card) => {
-        return (
-          <div key={card.id} className="relative">
+      <AnimatePresence>
+        {cards.map((card, index) => {
+          return (
             <Card
+              key={index}
               card={card}
-              index={(selectedId !== card.id) ? cardInHandIndex++ : 0}
+              index={(selectedId !== index) ? cardInHandIndex++ : 0}
               cardsInHand={cardsInHand}
-              selected={selectedId === card.id}
-              onClick={() => handleCardClick(card.id)}
+              selected={selectedId === index}
+              onClick={() => handleCardClick(index)}
               onSubmit={handleSubmit}
             />
-          </div>
-        );
-      })}
+          );
+        })}
+      </AnimatePresence>
     </div>
   );
 }

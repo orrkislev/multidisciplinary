@@ -6,7 +6,7 @@ export default function Initial({onInitial}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        onInitial(description);
+        onInitial("I am working on " + description);
     }
     
     return (

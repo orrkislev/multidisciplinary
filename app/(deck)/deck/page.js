@@ -3,13 +3,23 @@
 import Cards from '../components/Cards'
 import Initial from '../components/Initial';
 import { useEffect, useState } from 'react';
+import { experimental_useObject as useObject } from 'ai/react';
+import { descriptionSchema, cardSchema } from '../utils/schema';
 
 export default function CardGamePage() {
-  const [description, setDescription] = useState("");
   const [responses, setResponses] = useState([]);
-  const [profile, setProfile] = useState({ interests: "", style: "", goals: "", completeness: 0 });
-  const [cards, setCards] = useState([]);
   const [research, setResearch] = useState([]);
+
+  const cards = useObject({ api: '/api/deck/cards', schema: cardSchema, 
+  });
+
+  const description = useObject({
+    api: '/api/deck/description',
+    schema: descriptionSchema,
+    onFinish: ({object, error}) => {
+      cards.submit({ description: object.description, profile: object.profile })
+    }
+  });
 
 
   const addResponse = (responseObject) => {
@@ -22,24 +32,15 @@ export default function CardGamePage() {
 
   useEffect(() => {
     if (responses.length === 0) return;
-    (async () => {
-      console.log('sending', { description, responses, profile })
-      const response = await fetch("/api/ai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ description, responses, profile }),
-      });
-      const data = await response.json();
-      setDescription(data.updated_description);
-      setProfile(data.updated_profile);
-      console.log(data.analysis);
-      console.log(data.analysis2);
-      setCards(data.card_suggestions);
-    })();
+    description.submit({ description: description.object?.description, responses, profile: description.object?.profile })
   }, [responses]);
 
-  if (description === "") {
-    return <Initial onInitial={(newDescription) => { setDescription(newDescription); addResponse({ content: newDescription, type: 'idea' }) }} />
+
+
+
+  
+  if (!responses.length) {
+    return <Initial onInitial={(newDescription) => { addResponse({ content: newDescription, type: 'idea' }) }} />
   }
 
   return (
@@ -53,16 +54,9 @@ export default function CardGamePage() {
 
           <div className='flex flex-col px-8 bg-white p-4 bg-opacity-50 rounded-lg'>
             <h2 className='underline'>Description</h2>
-            <p>{description}</p>
+            <p>{description.object?.description || ''}</p>
           </div>
 
-          <div className='flex flex-col px-8 bg-white p-4 gap-2 bg-opacity-50 rounded-lg'>
-            <h2 className='underline'>Profile</h2>
-            <p>interests: {profile.interests}</p>
-            <p>style: {profile.style}</p>
-            <p>goals: {profile.goals}</p>
-            {/* <p>{profile.completeness}</p> */}
-          </div>
         </div>
       </div>
 
@@ -77,7 +71,7 @@ export default function CardGamePage() {
         </div>
       </div>
 
-      <Cards cards={cards} onSubmit={addResponse} />
+      <Cards cards={cards.object?.card_suggestions} onSubmit={addResponse} />
     </div >
   );
 }

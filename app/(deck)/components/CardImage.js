@@ -6,7 +6,7 @@ export default function CardImage(props) {
     const [cardImage, setCardImage] = useState(null);
 
     useEffect(() => {
-        if (cardImage) return;
+        if (cardImage || !props.prompt || props.prompt === '') return;
         (async () => {
             setCardImage('')
             await new Promise(resolve => setTimeout(resolve, Math.random() * 2000 + 1000));
@@ -28,7 +28,7 @@ export default function CardImage(props) {
         backgroundPosition: 'center',
         backgroundColor: 'black',
         width: '100%',
-        height: props.selected ? '60%' : '70%',
+        height: props.selected ? '50%' : '70%',
     }
 
     return (

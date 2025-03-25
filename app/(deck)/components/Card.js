@@ -5,6 +5,11 @@ import CardImage from './CardImage';
 
 export default function Card(props) {
     const cardData = props.card;
+    cardData.content = cardData.content || ''
+    cardData.content2 = cardData.content2 || ''
+    cardData.imagePrompt = cardData.imagePrompt || ''
+    cardData.type = cardData.type || ''
+
     const [response, setResponse] = useState('');
 
     const handleSubmit = (e) => {
@@ -26,26 +31,31 @@ export default function Card(props) {
 
             {props.selected &&
                 <>
-                    <p className="p-2"> {cardData.content}</p>
-                    <p className="p-2"> {cardData.content2}</p>
+                    <div className="p-2">
+                        <div className="text-sm italic">{cardData.type}</div>
+                        <p className="bold"> {cardData.content}</p>
+                        <p className=""> {cardData.content2}</p>
+                    </div>
 
-                    {['question', 'goal', 'idea', 'wild'].includes(cardData.type) && (
-                        <>
-                            <input type="text" className="w-full border border-gray-300 rounded-md p-2" value={response} onChange={(e) => setResponse(e.target.value)} />
+                    <div>
+                        {['question', 'goal', 'idea', 'wild'].includes(cardData.type) && (
+                            <div>
+                                <textarea rows={3} placeholder="Write your answer here..." className="w-full border border-gray-300 rounded-md p-2" value={response} onChange={(e) => setResponse(e.target.value)} />
+                                <button className="mb-2 px-3 py-1 bg-gray-200 rounded" onClick={handleSubmit}>
+                                    Add to project
+                                </button>
+                            </div>
+                        )}
+
+                        {['challenge', 'research', 'inspiration'].includes(cardData.type) && (
                             <button className="mb-2 px-3 py-1 bg-gray-200 rounded" onClick={handleSubmit}>
-                                Add to project
+                                Accept
                             </button>
-                        </>
-                    )}
-
-                    {['challenge', 'research', 'inspiration'].includes(cardData.type) && (
-                        <button className="mb-2 px-3 py-1 bg-gray-200 rounded" onClick={handleSubmit}>
-                            Accept
-                        </button>
-                    )}
+                        )}
+                    </div>
                 </>
             }
 
-        </CardContainer>
+        </CardContainer >
     );
 }

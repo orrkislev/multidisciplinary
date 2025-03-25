@@ -1,18 +1,23 @@
 import { experimental_useObject as useObject } from 'ai/react';
 import { vibeSchema } from '@/utils/vibe-config';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Quest from './Quest';
 
-export function VibeGen({ vibe }) {
+export function VibeGen({ vibe, type}) {
     const { object, submit } = useObject({
         api: '/api/vibe',
         schema: vibeSchema,
-        onFinish: (object, error) => {}
     });
 
     useEffect(() => {
-        if (vibe) submit({ vibe });
-    }, [vibe]);
+        if (type == 'emojis') {
+            submit({ emojis: vibe });
+        } else if (type == 'image') {
+            submit({ image: vibe });
+        } else if (type == 'text') {
+            submit({ vibe });
+        }
+    }, [vibe, type]);
 
     if (!vibe) return null;
 

@@ -1,24 +1,26 @@
 import { vibeSchema } from '@/utils/vibe-config';
 import { streamObject } from 'ai';
-// import { anthropic } from '@ai-sdk/anthropic';
-// import { deepseek } from '@ai-sdk/deepseek';
 import { google } from '@ai-sdk/google';
 
-// const model = anthropic('claude-3-5-sonnet-20240620')
-// const model = deepseek('deepseek-chat')
 const model = google("gemini-2.0-flash");
-
 export const maxDuration = 60;
 
 
 export async function POST(req) {
     const data = await req.json();
 
-    const prompt = `
+
+    let prompt = `
     ROLE: You are the "Chaos Conductor," an AI that turns abstract vibes into interdisciplinary learning quests. Your goal is to surprise users with weird-but-meaningful connections between pop culture, academia, and hands-on projects.  
-    Input:  
-    - User’s desired vibe/identity (e.g., "a time traveler," "a rogue AI," "a Victorian detective").  
-    - (Optional) User’s recent app activity or interests.  
+    Input:`
+
+    if (data.vibe) {
+        prompt += `User's desired vibe/identity (e.g., "a time traveler," "a rogue AI," "a Victorian detective").`
+    } else if (data.image) {
+        prompt += `User's desired vibe/identity via image or meme`
+    }
+
+    prompt += `
     PROCESS:  
     1. Vibe Deconstruction:  
     - Break down the vibe into 3 core themes (e.g., "time traveler" → temporal paradoxes, nostalgia, futuristic tech).  
@@ -38,39 +40,36 @@ export async function POST(req) {
     - NO generic suggestions (e.g., "read a book about X").  
     - Prioritize interdisciplinary, tactile, or humorous angles.  
     - 1 quest must involve a low-fi DIY project.  
-
-    output: {
-        "vibe": "user's input",
-        "themes": ["theme1", "theme2", "theme3"],
-        "quests": [
-            {
-            "title": "2-3 word [adjective] [profession/role], singular",
-            "hook": {"fact", "question"},
-            "path": ["Step 1", "Step 2", "Step 3"],
-            "resources": [
-                {"type": "video", "title": "Title", "url": "link"},
-                {"type": "article", "title": "Title", "url": "link"}
-            ],
-            "outcome": "Shareable artifact idea"
-            }
-        ]
-        }
 `
+
+    // output: {
+    //     "vibe": "user's input",
+    //     "themes": ["theme1", "theme2", "theme3"],
+    //     "quests": [
+    //         {
+    //         "title": "2-3 word [adjective] [profession/role], singular",
+    //         "hook": {"fact", "question"},
+    //         "path": ["Step 1", "Step 2", "Step 3"],
+    //         "resources": [
+    //             {"type": "video", "title": "Title", "url": "link"},
+    //             {"type": "article", "title": "Title", "url": "link"}
+    //         ],
+    //         "outcome": "Shareable artifact idea"
+    //         }
+    //     ]
+    //     }
+
+    const content = [{ type: 'text', text: prompt }]
+
+    if (data.vibe) {
+        content.push({ type: 'text', text: `the user vibe is "${data.vibe}"` })
+    } else if (data.image) {
+        content.push({ type: 'image', image: data.image })
+    }
 
     const result = streamObject({
         model, schema: vibeSchema,
-        messages: [
-            {
-                role: 'user',
-                content: [
-                    {
-                        type: 'text', text: prompt,
-                        providerOptions: { anthropic: { cacheControl: { type: 'ephemeral' } } }
-                    },
-                    { type: 'text', text: `the user vibe is "${data.vibe}"` },
-                ],
-            },
-        ],
+        messages: [{ role: 'user', content }],
     })
     return result.toTextStreamResponse();
 }

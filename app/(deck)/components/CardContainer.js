@@ -19,13 +19,19 @@ export default function CardContainer({ index, onClick, selected, cardsInHand, c
         },
         selected: {
             rotate: 0,
-            width: "30vw",
-            height: "42vw",
+            width: "60vw",
+            height: "50vw",
             top: "50%",
             left: "50%",
             x: "-50%",
             y: "-50%",
             scale: 1,
+        },
+        hand_exit: {
+            y: '300%',
+        },
+        selected_exit: {
+            x: '300%',
         },
     };
 
@@ -35,9 +41,10 @@ export default function CardContainer({ index, onClick, selected, cardsInHand, c
             onClick={!selected ? onClick : undefined}
             initial="hand"
             animate={selected ? "selected" : "hand"}
+            exit={selected ? "selected_exit" : "hand_exit"}
             variants={variants}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed bg-white border border-gray-300 rounded-lg shadow-sm flex flex-col justify-between cursor-pointer overflow-hidden hover:z-10 p-1"
+            className={`fixed bg-white border border-gray-300 rounded-lg shadow-sm flex flex-col justify-between overflow-hidden hover:z-10 p-1 ${selected ? 'cursor-default' : 'cursor-pointer'}`}
             style={{ zIndex: selected ? 100 : 0 }}
         >
             {children}
