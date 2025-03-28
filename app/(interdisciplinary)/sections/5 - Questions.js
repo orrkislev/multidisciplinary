@@ -1,6 +1,6 @@
 'use client'
 
-import { aiConfig } from '@/utils/ai-config';
+import { aiConfig } from '../utils/ai-config';
 
 export default function Questions() {
     const questions = aiConfig.questions.store((state) => state.data);

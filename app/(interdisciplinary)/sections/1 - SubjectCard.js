@@ -1,7 +1,7 @@
-import AIImage from '@/components/AIImage';
-import { aiConfig, useUserData } from '@/utils/ai-config';
+import { aiConfig, useUserData } from '../utils/ai-config';
 import { styled } from '@/utils/tw';
 import { useEffect, useState } from 'react';
+import AIImage from '../components/AIImage';
 
 const SubjectTop = styled.div`font-cylburn font-bold text-3xl leading-[1em] text-left z-10`;
 const SubjectBottom = styled.div`font-cylburn font-bold text-3xl leading-[1em] text-right z-10`;

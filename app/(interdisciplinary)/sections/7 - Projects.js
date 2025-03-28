@@ -1,6 +1,6 @@
 'use client'
 
-import { aiConfig } from "@/utils/ai-config";
+import { aiConfig } from "../utils/ai-config";
 
 export default function Projects() {
     const projects = aiConfig.projects.store((state) => state.data);

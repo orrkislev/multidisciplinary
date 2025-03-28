@@ -1,4 +1,4 @@
-import { aiConfig, useUserData } from "@/utils/ai-config";
+import { aiConfig, useUserData } from "../utils/ai-config";
 
 export default function SubjectDescription() {
     const { subject1, subject2 } = useUserData();

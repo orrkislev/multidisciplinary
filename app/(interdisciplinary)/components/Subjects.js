@@ -4,7 +4,7 @@ import { subjects } from '@/utils/topics';
 import React, { useEffect, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
 import { namesSchema } from '@/utils/Schema';
-import { useUserData } from '@/utils/ai-config';
+import { useUserData } from '../utils/ai-config';
 import { tw } from '@/utils/tw';
 
 export const SingleSubject = tw`text-md p-1 px-2 rounded-lg cursor-pointer

@@ -1,6 +1,6 @@
 'use client'
 
-import { aiConfig } from '@/utils/ai-config';
+import { aiConfig } from '../utils/ai-config';
 import { useEffect, useState } from 'react';
 import { tw } from '@/utils/tw';
 

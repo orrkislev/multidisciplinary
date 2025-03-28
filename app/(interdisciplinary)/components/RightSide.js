@@ -1,14 +1,12 @@
 'use client'
 
-import Projects from "./7 - Projects";
-import useAIManager from "@/utils/useAI";
-import { aiConfig, useUserData } from "@/utils/ai-config";
-import Terminology from "./4 - Terminology";
-import Questions from "./5 - Questions";
-import Quiz from "./6 - Quiz";
-import Timeline from "./3 - Timeline";
-import SubjectCard from "./1 - SubjectCard";
-import SubjectDescription from "./2 - SubjectDescription";
+import Projects from "../sections/7 - Projects";
+import useAIManager from "../utils/useAI";
+import Terminology from "../sections/4 - Terminology";
+import Questions from "../sections/5 - Questions";
+import Timeline from "../sections/3 - Timeline";
+import SubjectCard from "../sections/1 - SubjectCard";
+import SubjectDescription from "../sections/2 - SubjectDescription";
 
 
 export default function RightSide() {

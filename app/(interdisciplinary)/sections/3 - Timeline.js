@@ -1,6 +1,6 @@
 'use client'
 
-import { aiConfig } from "@/utils/ai-config";
+import { aiConfig } from "../utils/ai-config";
 import { useRef, useState } from "react";
 
 export default function Timeline() {
