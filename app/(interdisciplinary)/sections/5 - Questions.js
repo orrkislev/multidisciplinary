@@ -16,25 +16,25 @@ export default function Questions() {
     return (
         <div>
             <div>
-                <h3>Conceptual Questions</h3>
+                <h3 className='text-parchment'>Conceptual Questions</h3>
                 {content.conceptual.map((q, index) => (
-                    <div key={`conceptual-${index}`} className="bg-gray-100 p-2 my-2 text-black rounded-lg">
+                    <div key={`conceptual-${index}`} className="bg-parchment p-2 my-2 text-black rounded-lg">
                         {q}
                     </div>
                 ))}
             </div>
             <div>
-                <h3>Ethical Dilemma Questions</h3>
+                <h3 className='text-parchment'>Ethical Dilemma Questions</h3>
                 {content.ethical.map((q, index) => (
-                    <div key={`ethical-${index}`} className="bg-gray-100 p-2 my-2 text-black rounded-lg">
+                    <div key={`ethical-${index}`} className="bg-parchment p-2 my-2 text-black rounded-lg">
                         {q}
                     </div>
                 ))}
             </div>
             <div>
-                <h3>Future Implication Questions</h3>
+                <h3 className='text-parchment'  >Future Implication Questions</h3>
                 {content.futuristic.map((q, index) => (
-                    <div key={`futuristic-${index}`} className="bg-gray-100 p-2 my-2 text-black rounded-lg">
+                    <div key={`futuristic-${index}`} className="bg-parchment p-2 my-2 text-black rounded-lg">
                         {q}
                     </div>
                 ))}

@@ -10,8 +10,11 @@ export function tw(strings, ...values) {
       return acc + str + (resolvedValue || '');
     }, '').trim();
 
+    // trim any extra spaces between classnames
+    const trimmedClassName = resolvedClassName.replace(/\s+/g, ' ');
+
     // Combine all classnames
-    const finalClassName = [resolvedClassName, additionalClasses].filter(Boolean).join(' ');
+    const finalClassName = [trimmedClassName, additionalClasses].filter(Boolean).join(' ');
 
     return React.createElement(
       'div', // default element is div

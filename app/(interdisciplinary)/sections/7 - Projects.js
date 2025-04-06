@@ -9,10 +9,10 @@ export default function Projects() {
 
     return (
         <div>
-            <h2>Suggested Projects</h2>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
+            <h2 className='text-parchment'>Suggested Projects</h2>
+            <div className='flex flex-col gap-4'>
                 {projects.map((project, index) => (
-                    <div key={index} className="bg-gray-100 p-2 text-black rounded-lg">
+                    <div key={index} className="bg-parchment p-2 text-black rounded-lg shadow-md">
                         <div className='mb-4'><span className="font-sans text-xl">{project.name}</span></div>
                         <div className='mb-4'><span className="font-sans">{project.description}</span></div>
                         <p><strong>Cross-Disciplinary Skill:</strong> {project.crossDisciplinarySkills}</p>

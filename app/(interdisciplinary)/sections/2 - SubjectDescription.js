@@ -24,28 +24,28 @@ export default function SubjectDescription() {
 
     return (
         <>
-            <div className='flex flex-col md:flex-row justify-between gap-8'>
-                <div className="rounded-lg">
+            <div className='flex flex-col md:flex-row justify-between gap-8 text-parchment'>
+                <div className="rounded-lg midnight-shadow">
                     <h2 className="text-2xl font-bold">{desc.title}</h2>
                     <h3 className="text-lg font-bold">{desc.subtitle}</h3>
-                    <p className="text-lg text-gray-800">{desc.description}</p>
+                    <p className="text-lg">{desc.description}</p>
 
                     <div className="mt-4">
                         <h3 className="text-lg font-bold">{desc.goals}</h3>
-                        <ul className="list-disc list-inside text-gray-800">
+                        <ul className="list-disc list-inside">
                             {desc.emergingTrends.map((item, index) => (
                                 <li key={index}>{item}</li>
                             ))}
                         </ul>
                     </div>
                 </div>
-                <div className="hidden md:flex rounded-lg border-white border-2 p-2 items-center justify-center">
-                    <p className="text-gray-800 italic font-sans text-center text-orange-800">{desc.funFact}</p>
+                <div className="hidden md:flex border-l border-parchment items-center justify-center px-2">
+                    <p className="italic font-sans text-center text-parchment">{desc.funFact}</p>
                 </div>
             </div>
             {/* Fun fact for mobile */}
             <div className="md:hidden mt-4">
-                <p className="text-gray-800 italic font-sans text-center text-orange-800">{desc.funFact}</p>
+                <p className="italic font-sans text-center text-parchment">{desc.funFact}</p>
             </div>
         </>
     )

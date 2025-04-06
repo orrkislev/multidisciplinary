@@ -31,6 +31,7 @@ export function useAiObject({ cfg, key, onFinish }) {
     }, [object])
 
     const reset = () => {
+        console.log('resetting', key)
         aiStore.setData(null)
     }
 

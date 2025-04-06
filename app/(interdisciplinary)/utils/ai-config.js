@@ -176,7 +176,7 @@ export const aiConfig = {
                 example: z.string().max(50)
             })),
             methodologies: z.array(z.object({
-                name: z.string(),
+                term: z.string(),
                 process: z.string().max(100),
                 icon: z.enum(['🔬', '⚙️', '📊'])
             })),
@@ -201,7 +201,7 @@ export const aiConfig = {
       - 2 Future implication questions
       Phrase as open-ended discussions`,
         schema: z.object({
-            conceptual: z.array(z.string()).length(3),
+            conceptual: z.array(z.string()).length(2),
             ethical: z.array(z.string()).length(2),
             futuristic: z.array(z.string()).length(2)
         }),

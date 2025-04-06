@@ -1,5 +1,5 @@
 import localFont from 'next/font/local'
-import { Geist_Mono, Geist, Inter, Cedarville_Cursive } from "next/font/google";
+import { Geist_Mono, Geist, Inter, Cedarville_Cursive, Fraunces, Markazi_Text } from "next/font/google";
 
 import "@/app/globals.css"
 
@@ -34,6 +34,22 @@ const Cylburn = localFont({
   variable: '--font-cylburn',
 })
 
+const FrauncesFont = Fraunces({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-fraunces",
+});
+const FrauncesFontBold = Fraunces({
+  subsets: ["latin"],
+  weight: "700",
+  variable: "--font-fraunces-bold",
+});
+const MarkaziText = Markazi_Text({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-markazi-text",
+});
+
 export const metadata = {
   title: "Serendipity Engine",
   description: "A serendipitous exploration of interdisciplinary topics",
@@ -49,6 +65,8 @@ export default function RootLayout({ children }) {
           ${geistSans.variable} ${geistMono.variable}          
           ${cedarvilleCursive.variable}
           ${inter.className}
+          ${FrauncesFont.variable} ${FrauncesFontBold.variable}
+          ${MarkaziText.variable}
           antialiased`}
       >
         {children}

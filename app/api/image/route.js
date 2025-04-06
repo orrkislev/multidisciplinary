@@ -8,12 +8,12 @@ export async function POST(req) {
 
     const options = {
         method: 'POST',
-        headers: { 
-            accept: 'application/json', 
+        headers: {
+            accept: 'application/json',
             'content-type': 'application/json',
             Authorization: `Bearer ${process.env.GETIMG_API_KEY}`
         },
-        body: JSON.stringify({ prompt: data.prompt })
+        body: JSON.stringify(data)
     };
 
     const res = await fetch(url, options)

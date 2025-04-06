@@ -1,35 +1,28 @@
 import { useEffect, useState } from "react";
 
-export default function AIImage(props) {
+export function useAIImage(prompt) {
     const [img, setImg] = useState(null);
 
-    useEffect(() => {
-        if (!prompt) return
+    const get = (data) => {
         fetch('/api/image', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: props.prompt })
+            body: JSON.stringify(data),
         })
             .then(res => res.json())
             .then(data => {
                 setImg(data.image)
             })
-    }, [props.prompt])
-
-
-    const bgStyle = {
-        backgroundImage: `url(data:image/jpeg;base64,${img})`,
-        filter: 'saturate(0.5) brightness(0.5)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
     }
-    // merge with prompt.style if it exists
-    if (props.style) Object.assign(bgStyle, props.style)
 
-    return (
-        <div style={bgStyle} {...props} >
-            {props.children}
-        </div>
-    )
+    const reset = () => {
+        setImg(null);
+    }
+
+    return {
+        backgroundImage: `url(data:image/jpeg;base64,${img})`,
+        img,
+        get,
+        reset,
+    }
 }

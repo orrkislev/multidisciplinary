@@ -5,87 +5,65 @@ import { useEffect, useState } from 'react';
 import { tw } from '@/utils/tw';
 
 
-const Term = tw`bg-slate-300 p-2 text-black transition-all duration-300 cursor-pointer hover:bg-slate-100 text-uppercase font-mono text-xs
-    ${props => props.selected ? 'bg-slate-500 text-white' : ''}
+const Term = tw`border border-parchment rounded-lg p-2 transition-all duration-300 cursor-pointer hover:bg-parchment hover:bg-opacity-50 hover:text-black text-uppercase font-markazi text-lg
+    ${props => props.selected ? ' bg-parchment text-black ' : 'text-parchment'}
 `;
 
 export default function Terminology() {
     const terminology = aiConfig.terminology.store((state) => state.data);
-
-    const [selected, setSelected] = useState({ name: '', definition: '' });
-    const [type, setType] = useState('concepts');
-    const [userSelected, setUserSelected] = useState(false);
-
-    useEffect(() => {
-        if (userSelected) return;
-        if (!terminology || !terminology.concepts) return;
-        const timeout = setTimeout(() => {
-            const allOptions = [];
-            if (terminology.concepts) allOptions.push(...terminology.concepts);
-            if (terminology.methodologies) allOptions.push(...terminology.methodologies);
-            if (terminology.technicalTerms) allOptions.push(...terminology.technicalTerms);
-            setSelected(allOptions[Math.floor(Math.random() * allOptions.length)]);
-        }, 5000);
-        return () => clearTimeout(timeout);
-    }, [userSelected, selected, terminology]);
-
     if (!terminology) return null;
 
-    const select = (term, termType) => {
-        setType(termType);
-        setSelected(term);
-        setUserSelected(true);
-    };
-
     return (
-        <div className='bg-gray-100 p-4 rounded-lg flex flex-col gap-4'>
-            <div>
-                <div className="text-uppercase font-mono font-bold">
-                    {type} - {selected.term || selected.name}
-                </div>
-                <div className="text-italic text-lg">
-                    {selected.definition}
-                </div>
-            </div>
-            <div>
-                Fundamental Concepts:
-                <div className='flex gap-2 flex-wrap w-full'>
-                    {terminology.concepts?.map((term, index) => (
-                        <Term 
-                          key={index} 
-                          onClick={() => select(term, 'Concept')}
-                          selected={selected.term ? selected.term === term.term : false}
-                        >
-                            {term.term}
-                        </Term>
-                    ))}
-                </div>
-            </div>
-            <div>
-                Methodologies:
-                <div className='flex gap-2 flex-wrap w-full'>
-                    {terminology?.methodologies?.map((term, index) => (
-                        <Term key={index} onClick={() => select(term,'Methodology')} selected={selected.name === term.name}>
-                            {term.name}
-                        </Term>
-                    ))}
-                </div>
-            </div>
-            <div>
-                Technical Terms:
-                <div className='flex gap-2 flex-wrap w-full'>
-                    {terminology?.technicalTerms?.map((term, index) => (
-                        <Term 
-                          key={index} 
-                          onClick={() => select(term, 'Technical Term')}
-                          selected={selected.term ? selected.term === term.term : false}
-                        >
-                            {term.term}
-                        </Term>
-                    ))}
-                </div>
-            </div>
+        <div className='p-4 rounded-lg flex flex-col gap-4 text-parchment divide-y divide-parchment'>
+            <TerminologyGroup
+                title="Fundamental Concepts"
+                terms={terminology.concepts}
+            />
+            <TerminologyGroup
+                title="Methodologies"
+                terms={terminology.methodologies}
+            />
+            <TerminologyGroup
+                title="Technical Terms"
+                terms={terminology.technicalTerms}
+            />
         </div>
     );
 }
 
+
+
+function TerminologyGroup({ title, terms }) {
+    const [selected, setSelected] = useState({ name: '', definition: '' });
+    const onClick = (term) => {
+        setSelected(term);
+    };
+
+    useEffect(() => {
+        if (terms && terms.length > 0) setSelected(terms[0]);
+    }, [terms]);
+    if (!terms) return null;
+    if (terms.length === 0) return null;
+
+    return (
+        <div className='flex flex-col gap-2 pt-4'>
+            <div className='font-markazi text-2xl font-bold'>{title}:</div>
+
+            <div className='flex gap-2 flex-wrap w-full px-2'>
+                {terms.map((term, index) => (
+                    <Term key={index} onClick={() => onClick(term)} selected={selected.term === term.term}>
+                        <div className='text-xl'>{term.term}</div>
+                        {selected.term === term.term && (
+                            <div className="text-italic leading-[.9em]">
+                                {selected.definition || selected.process}
+                                {selected.example}
+                            </div>
+                        )}
+                    </Term>
+                ))}
+            </div>
+
+
+        </div>
+    );
+}
