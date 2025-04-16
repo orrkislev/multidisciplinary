@@ -18,7 +18,6 @@ export default function RightSide() {
             <Background />
             <div className="parchment inverted-border-radius h-8 w-[50%] rounded-br-full z-[1000]" />
             <div className="flex flex-col gap-4 px-8 py-2 font-geist mr-4 mb-16 relative">
-                {/* <div className="flex flex-col gap-4"> */}
                 <SubjectCard />
                 <SubjectDescription />
                 <Timeline />

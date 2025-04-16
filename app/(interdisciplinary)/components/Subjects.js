@@ -18,9 +18,15 @@ export const SingleSubject = tw`text-md p-1 px-2 rounded-full cursor-pointer
     ${props => props.ai ? 'bg-orange-200' : ''}
     ${props => props.input ? 'bg-emerald-200' : ''}
     ${props => props.empty ? 'bg-indigo-800 w-6 h-6' : ''}
-
-    ${props => props.selected >= 0 ? 'text-lg font-bold border-none text-white bg-amber-900' : ''}
     `;
+
+export const SelecteSubject = tw`text-md p-1 px-2 rounded-full cursor-pointer
+    text-white text-center hover:text-indigo-800
+    grow-[2]
+    bg-indigo-800 bg-opacity-50 hover:bg-transparent
+    transition-colors duration-300
+    border border-indigo-800 hover:opacity-50
+`;
 
 // return the index of the first occurrence of the input in the string, normalized, or -1 if not found
 function search(s, input) {
@@ -97,9 +103,9 @@ export default function Subjects() {
                 </div>
                 {selected.length > 0 && <div className="flex items-center justify-center mb-4 gap-4">
                     {selected.map((subject, index) => (
-                        <SingleSubject key={index} onClick={() => addSubject(subject)} selected={index}>
+                        <SelecteSubject key={index} onClick={() => addSubject(subject)}>
                             {subject}
-                        </SingleSubject>
+                        </SelecteSubject>
                     ))}
                 </div>}
                 <div className="mx-2 flex-grow overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
@@ -131,12 +137,12 @@ export default function Subjects() {
                         ))}
                     </div> */}
                 </div>
-                <div className="mt-auto flex items-center justify-center h-16 p-2">
+            </div>
+            <div className="absolute bottom-0 mt-auto flex items-center justify-center h-16 p-2">
                     <button onClick={clickRandom} className="p-2 px-4 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">
                         Random Subjects
                     </button>
                 </div>
-            </div>
         </div>
     );
 }

@@ -61,19 +61,25 @@ Avoid:
 - Barriers that make explanation impossible
 
 [OUTPUT FORMAT]:
-Name/Title: [Name] the [Role] ([Era/Origin])
-Introduction: (2-3 sentences establishing character and their specific knowledge gap)
+Name/Title: [Name] the [Role] ([Era/Origin]) - use surprising names, dont be boring
+Description: (2-3 sentences establishing character and their specific knowledge gap)
+Scenario: (a few words about their environment and era)
+Physical: (a few words about their physical appearance)
 Challenge: (How to explain the subject given their limitations)
 
 [EXAMPLES]:
 Subject: "Smartphones"
 Character: Sister Margaret, Medieval Monastery Scribe (1342)
-Introduction: A dedicated illuminator of manuscripts who has spent her life perfecting the art of preserving knowledge through careful handwriting and illustration. She takes great pride in her precise lettering and ability to create multiple perfect copies of texts, but struggles with the concept of instant, ephemeral communication.
+Description: A dedicated illuminator of manuscripts who has spent her life perfecting the art of preserving knowledge through careful handwriting and illustration. She takes great pride in her precise lettering and ability to create multiple perfect copies of texts, but struggles with the concept of instant, ephemeral communication.
+Scenario: A quiet monastery in the English countryside.
+Physical: A middle-aged woman with a gentle demeanor.
 Challenge: Explain smartphones using only concepts from manuscript creation and messenger systems of her time. Avoid any references to electricity or digital technology.
 
 Subject: "Pet Dogs"
 Character: LOGIC-7, Efficiency Optimization AI
-Introduction: An artificial intelligence designed to maximize resource efficiency in urban planning, LOGIC-7 cannot comprehend why humans would allocate living space, food, and time to creatures that provide no measurable productivity output. The concept of emotional bonds and companionship falls outside its programming parameters.
+Description: An artificial intelligence designed to maximize resource efficiency in urban planning, LOGIC-7 cannot comprehend why humans would allocate living space, food, and time to creatures that provide no measurable productivity output. The concept of emotional bonds and companionship falls outside its programming parameters.
+Scenario: A futuristic city.
+Physical: A sleek, metallic entity with a glowing interface.
 Challenge: Explain the value of pet dogs using only quantifiable metrics and system optimization terminology that an AI would understand.
 
 The user-provided subject is: ${input}

@@ -12,6 +12,8 @@ export const aiSchemas = {
         year: z.number(),
         description: z.string(),
         challenge: z.string(),
+        scenario: z.string(),
+        physical: z.string(),
     }),
     chat: z.object({
         text: z.string(),
