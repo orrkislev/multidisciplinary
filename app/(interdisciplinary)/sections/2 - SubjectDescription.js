@@ -24,14 +24,14 @@ export default function SubjectDescription() {
 
     return (
         <>
-            <div className='flex flex-col md:flex-row justify-between gap-8 text-parchment'>
-                <div className="rounded-lg midnight-shadow">
-                    <h2 className="text-2xl font-bold">{desc.title}</h2>
-                    <h3 className="text-lg font-bold">{desc.subtitle}</h3>
+            <div className='flex flex-col md:flex-row justify-between gap-8 bg-white p-2 rounded-lg'>
+                <div className="rounded-lg">
+                    <h2 className="font-markazi text-4xl font-bold">{desc.title}</h2>
+                    <h3 className="font-markazi text-2xl font-bold">{desc.subtitle}</h3>
                     <p className="text-lg">{desc.description}</p>
 
                     <div className="mt-4">
-                        <h3 className="text-lg font-bold">{desc.goals}</h3>
+                        <h3 className="font-markazi text-2xl font-bold">{desc.goals}</h3>
                         <ul className="list-disc list-inside">
                             {desc.emergingTrends.map((item, index) => (
                                 <li key={index}>{item}</li>
@@ -39,13 +39,13 @@ export default function SubjectDescription() {
                         </ul>
                     </div>
                 </div>
-                <div className="hidden md:flex border-l border-parchment items-center justify-center px-2">
-                    <p className="italic font-sans text-center text-parchment">{desc.funFact}</p>
+                <div className="hidden md:flex border-l items-center justify-center px-2">
+                    <p className="italic font-sans text-center">{desc.funFact}</p>
                 </div>
             </div>
             {/* Fun fact for mobile */}
             <div className="md:hidden mt-4">
-                <p className="italic font-sans text-center text-parchment">{desc.funFact}</p>
+                <p className="italic font-sans text-center">{desc.funFact}</p>
             </div>
         </>
     )

@@ -1,3 +1,4 @@
+import HomeButton from "@/app/(components)/HomeButton";
 import ExplainPage from "@/app/(explain)/components/ExplainPage";
 
 export const metadata = {
@@ -6,5 +7,10 @@ export const metadata = {
 }
 
 export default function Page() {
-    return <ExplainPage />
+    return (
+        <>
+            <ExplainPage />
+            <HomeButton />
+        </>
+    )
 }

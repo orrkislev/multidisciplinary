@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 import { tw } from '@/utils/tw';
 
 
-const Term = tw`border border-parchment rounded-lg p-2 transition-all duration-300 cursor-pointer hover:bg-parchment hover:bg-opacity-50 hover:text-black text-uppercase font-markazi text-lg
-    ${props => props.selected ? ' bg-parchment text-black ' : 'text-parchment'}
+const Term = tw`border rounded-lg p-2 transition-all duration-300 cursor-pointer hover:bg-opacity-50 hover:text-black text-uppercase font-markazi text-lg
+    ${props => props.selected ? ' text-black ' : ''}
 `;
 
 export default function Terminology() {
@@ -14,7 +14,7 @@ export default function Terminology() {
     if (!terminology) return null;
 
     return (
-        <div className='p-4 rounded-lg flex flex-col gap-4 text-parchment divide-y divide-parchment'>
+        <div className='p-4 rounded-lg flex flex-col gap-4 divide-y bg-white'>
             <TerminologyGroup
                 title="Fundamental Concepts"
                 terms={terminology.concepts}

@@ -1,4 +1,5 @@
 import VibePage from "@/app/(vibe)/components/VibePage";
+import HomeButton from "@/app/(components)/HomeButton";
 
 export const metadata = {
   title: "Vibe - Serendipity Engine",
@@ -7,6 +8,9 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <VibePage />
+    <>
+      <VibePage />
+      <HomeButton />
+    </>
   );
 }

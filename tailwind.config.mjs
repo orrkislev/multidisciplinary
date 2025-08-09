@@ -1,5 +1,5 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+// /** @type {import('tailwindcss').Config} */
+const config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,7 +10,6 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        parchment: "var(--parchment)",
       },
       fontFamily: {
         magilio: 'var(--font-magilio)',
@@ -25,3 +24,5 @@ export default {
   },
   plugins: [],
 };
+
+export default config;

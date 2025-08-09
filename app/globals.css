@@ -5,29 +5,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --parchment: #f5f5dc;
   --midnight: #002F5E;
 }
 
 body {
   color: var(--foreground);
-  background: whitesmoke;
   font-family: MagilioRegular;
 }
 
 .rtl {
   direction: rtl;
-}
-
-.parchment {
-  z-index: 200;
-  background: var(--parchment);
-  color: #333;
-  box-shadow: '2px 2px 4px rgba(0, 0, 0, 0.5)';
-}
-.text-parchment {
-  color: var(--parchment);
-}
-.midnight-shadow{
-  text-shadow: 0px 0px 5px var(--midnight), 0 0 10px var(--midnight);
 }

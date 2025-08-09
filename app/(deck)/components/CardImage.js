@@ -1,12 +1,11 @@
 "use client";
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
-export default function CardImage(props) {
+export default function CardImage({prompt}) {
     const [cardImage, setCardImage] = useState(null);
 
     useEffect(() => {
-        if (cardImage || !props.prompt || props.prompt === '') return;
+        if (cardImage || !prompt || prompt === '') return;
         (async () => {
             setCardImage('')
             await new Promise(resolve => setTimeout(resolve, Math.random() * 2000 + 1000));
@@ -15,23 +14,22 @@ export default function CardImage(props) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ prompt: props.prompt }),
+                body: JSON.stringify({ prompt: prompt }),
             })
             const data = await res.json();
             setCardImage(data.image);
         })();
-    }, [props.prompt]);
+    }, [prompt]);
 
     const style = {
         backgroundImage: `url(data:image/jpeg;base64,${cardImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundColor: 'black',
-        width: '100%',
-        height: props.selected ? '50%' : '70%',
+        aspectRatio: '5/3',
     }
 
     return (
-        <div style={style} />
+        <div style={style} className='grayscale group-hover:grayscale-0 transition-all duration-300' />
     );
 }

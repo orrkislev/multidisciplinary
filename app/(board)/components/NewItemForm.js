@@ -3,18 +3,17 @@
 import { useState } from 'react';
 import ListSuggestions from './ListSuggestions';
 
-const NewItemForm = ({ newItemText, setNewItemText, onAdd, listId }) => {
-    const [suggestions, setSuggestions] = useState([
-        'Update documentation',
-        'Review code',
-        'Implement feature',
-        'Fix bug',
-        'Design UI',
-        'Plan sprint'
-    ]);
+const NewItemForm = ({ onAdd, suggestions }) => {
+    const [newItemText, setNewItemText] = useState("");
 
     const handleSelectSuggestion = (suggestion) => {
-        setNewItemText(suggestion);
+        onAdd(suggestion);
+    };
+
+    const handleInputAdd = () => {
+        if (!newItemText.trim()) return;
+        onAdd(newItemText);
+        setNewItemText("");
     };
 
     return (
@@ -24,20 +23,17 @@ const NewItemForm = ({ newItemText, setNewItemText, onAdd, listId }) => {
                     placeholder="New item" 
                     value={newItemText} 
                     onChange={(e) => setNewItemText(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && onAdd(listId)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleInputAdd()}
                     className="flex-1 py-2 px-4 bg-transparent border-none focus:ring-0 focus:outline-none text-sm"
                 />
                 <button 
-                    onClick={() => onAdd(listId)}
+                    onClick={handleInputAdd}
                     className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 text-sm font-medium"
                 >
                     Add
                 </button>
             </div>
-            <ListSuggestions 
-                suggestions={suggestions}
-                onSelectSuggestion={handleSelectSuggestion}
-            />
+            <ListSuggestions onSelectSuggestion={handleSelectSuggestion} suggestions={suggestions} />
         </div>
     );
 };

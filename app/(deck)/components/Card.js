@@ -1,61 +1,68 @@
 "use client";
-import { useState } from 'react';
-import CardContainer from './CardContainer';
+import { useEffect, useRef, useState } from 'react';
 import CardImage from './CardImage';
+import { Plus } from 'lucide-react';
 
-export default function Card(props) {
-    const cardData = props.card;
-    cardData.content = cardData.content || ''
-    cardData.content2 = cardData.content2 || ''
-    cardData.imagePrompt = cardData.imagePrompt || ''
-    cardData.type = cardData.type || ''
+export default function Card({ onSubmit, card }) {
+    const [content, setContent] = useState(card.content);
+    const [content2, setContent2] = useState(card.content2);
 
-    const [response, setResponse] = useState('');
+    useEffect(()=>{
+        setContent(card.content)
+        setContent2(card.content2)
+    },[card])
+
+    if (!card.content || !card.content2 || !card.imagePrompt || !card.type) return null;
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.onSubmit({ type: cardData.type, content: cardData.content + ' -> ' + response });
+        onSubmit({ type: card.type, content: content + ' -> ' + content2 });
     }
 
     return (
-        <CardContainer {...props} >
-            <CardImage prompt={cardData.imagePrompt} selected={props.selected} />
+        <div className='flex-1 flex flex-col justify-between bg-white overflow-hidden rounded-xl aspect-[5/7] relative group/card'>
+            <CardImage prompt={card.imagePrompt} />
 
-            <p className="absolute top-0 left-0 font-mono text-xs bg-white px-2 py-1">{cardData.type}</p>
+            <p className="font-mono text-xs bg-white px-2 py-1 absolute top-0 left-[50%] -translate-x-[50%]">{card.type}</p>
 
-            {!props.selected && (
-                <div style={{ fontFamily: 'var(--font-cedarville-cursive)', textAlign: 'center', fontSize: '1.5rem', fontWeight: 'bold' }}>
-                    {cardData.content.substring(0, 10)}...
+            <form onSubmit={handleSubmit} className='flex flex-col justify-between gap-4 p-4 h-full'>
+                <div className="p-2 flex flex-col gap-2">
+                    <AutoSizeTextarea value={content} onFinish={setContent} className='text-sm group-hover/card:border rounded-md transition-all' />
+                    <AutoSizeTextarea value={content2} onFinish={setContent2} className='text-xs group-hover/card:border rounded-md transition-all' />
                 </div>
-            )}
+                <button className="mb-2 px-3 py-1 bg-gray-200 rounded flex items-center justify-center hover:bg-gray-300 transition-all duration-300 group/button" type='submit'>
+                    <Plus className='w-4 h-4 text-gray-500 group-hover/button:text-gray-700 group-hover/button:rotate-90 transition-all duration-300' />
+                </button>
+            </form>
 
-            {props.selected &&
-                <>
-                    <div className="p-2">
-                        <div className="text-sm italic">{cardData.type}</div>
-                        <p className="bold"> {cardData.content}</p>
-                        <p className=""> {cardData.content2}</p>
-                    </div>
-
-                    <div>
-                        {['question', 'goal', 'idea', 'wild'].includes(cardData.type) && (
-                            <div>
-                                <textarea rows={3} placeholder="Write your answer here..." className="w-full border border-gray-300 rounded-md p-2" value={response} onChange={(e) => setResponse(e.target.value)} />
-                                <button className="mb-2 px-3 py-1 bg-gray-200 rounded" onClick={handleSubmit}>
-                                    Add to project
-                                </button>
-                            </div>
-                        )}
-
-                        {['challenge', 'research', 'inspiration'].includes(cardData.type) && (
-                            <button className="mb-2 px-3 py-1 bg-gray-200 rounded" onClick={handleSubmit}>
-                                Accept
-                            </button>
-                        )}
-                    </div>
-                </>
-            }
-
-        </CardContainer >
+        </div >
     );
+}
+
+export function AutoSizeTextarea({ value, onFinish, className }) {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if (ref.current) {
+            ref.current.style.height = 'auto';
+            ref.current.style.height = ref.current.scrollHeight + 'px';
+        }
+    }, [value]);
+
+    const onChange = (e) => {
+        if (ref.current) {
+            ref.current.style.height = 'auto';
+            ref.current.style.height = ref.current.scrollHeight + 'px';
+        }
+    }
+
+    return (
+        <textarea ref={ref}
+            defaultValue={value}
+            onBlur={(e) => onFinish(e.target.value)}
+            className={`w-full h-auto resize-none whitespace-pre-wrap leading-4 ${className}`}
+            onChange={onChange}
+        />
+    )
 }

@@ -53,7 +53,7 @@ export default function Timeline() {
     }, selectedYear[1] === 'auto' ? 5000 : 10000)
 
     return (
-        <div className="w-full px-6 pt-4 bg-parchment rounded-lg">
+        <div className="w-full px-6 pt-4 rounded-lg">
             {/* Description Panel */}
             {selectedYear[0] && (
                 <div className="animate-fade-in mb-4 flex flex-col gap-2">

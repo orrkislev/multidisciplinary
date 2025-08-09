@@ -1,27 +1,36 @@
+import { tw } from '@/utils/tw';
+import { ArrowBigDown } from 'lucide-react';
 import Link from 'next/link';
 
 const linkClassName = `
-  flex items-center justify-center p-8
-  text-white font-bold text-4xl uppercase font-sans text-wrap break-all
+  flex-1 bg-gray-200
+  flex flex-col items-center justify-center p-8
+  text-gray-800 font-heavy text-xl uppercase font-sans text-wrap break-all
   transition-all duration-300 
-  hover:text-5xl `
+  hover:text-2xl hover:bg-gray-300 `
+
+const Description = tw`text-sm font-normal opacity-50`
 
 export default function Home() {
 
   // grid of 2 by 2, each a link to a different page
   return (
-    <div className="min-h-screen grid grid-cols-2 grid-rows-2">
-      <Link href="/interdisciplinary" className={linkClassName + ' bg-teal-500 hover:bg-teal-700'}>
+    <div className="min-h-screen flex">
+      <Link href="/interdisciplinary" className={linkClassName}>
         Interdisciplinary
+        <Description>merge disciplines</Description>
       </Link>
-      <Link href="/vibe" className={linkClassName + " bg-orange-500 hover:bg-orange-700"}>
+      <Link href="/vibe" className={linkClassName}>
         Vibe
+        <Description>how to you want to feel?</Description>
       </Link>
-      <Link href="/explain" className={linkClassName + " bg-pink-500 hover:bg-pink-700"}>
+      <Link href="/explain" className={linkClassName}>
         Explain
+        <Description>tell me about stuff</Description>
       </Link>
-      <Link href="/deck" className={linkClassName + " bg-purple-500 hover:bg-purple-700"}>
+      <Link href="/deck" className={linkClassName}>
         Deck
+        <Description>refine your project</Description>
       </Link>
     </div>
   );
