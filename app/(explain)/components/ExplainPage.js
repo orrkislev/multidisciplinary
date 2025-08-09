@@ -6,11 +6,11 @@ import { useState } from "react";
 import { ExplainChat } from "./ExplainChat";
 import { styled } from '@/utils/tw';
 
-const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-gray-50 pt-16`;
-const Title = styled.h1`text-4xl md:text-3xl text-gray-800 select-none font-geistMono`;
+const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-red-50 pt-16`;
+const Title = styled.h1`text-4xl md:text-3xl text-red-800 select-none font-geistMono`;
 const Form = styled.form`flex flex-col items-center`;
-const Input = styled.input`border border-gray-500 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80 font-geistMono`;
-const Button = styled.button`bg-gray-500 text-white font-bold py-2 px-8 hover:bg-gray-800 transition mt-4 font-geistMono`;
+const Input = styled.input`border border-red-500 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80 font-geistMono`;
+const Button = styled.button`bg-red-500 text-white font-bold py-2 px-8 hover:bg-red-800 transition mt-4 font-geistMono`;
 const Loading = styled.div`text-2xl font-geistMono`;
 
 

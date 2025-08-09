@@ -1,13 +1,12 @@
 import { tw } from '@/utils/tw';
-import { ArrowBigDown } from 'lucide-react';
 import Link from 'next/link';
 
 const linkClassName = `
-  flex-1 bg-gray-200
+  flex-1 bg-red-200
   flex flex-col items-center justify-center p-8
-  text-gray-800 font-heavy text-xl uppercase font-sans text-wrap break-all
+  text-red-800 font-heavy text-xl uppercase font-sans text-wrap break-all
   transition-all duration-300 
-  hover:text-2xl hover:bg-gray-300 `
+  hover:text-2xl hover:bg-red-300 `
 
 const Description = tw`text-sm font-normal opacity-50`
 

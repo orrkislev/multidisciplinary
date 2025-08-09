@@ -95,7 +95,7 @@ export default function BoardPage() {
     const columns = getMasonryColumns(lists, numColumns);
 
     return (
-        <div className="min-h-screen bg-gray-50 py-6">
+        <div className="min-h-screen bg-red-50 py-6">
             <div className="container mx-auto px-4">
                 <div className="flex justify-center">
                     <div className="flex gap-3 w-full max-w-5xl">

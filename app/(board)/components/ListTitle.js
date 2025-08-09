@@ -35,7 +35,7 @@ const ListTitle = ({ title, onChange }) => {
                         ref={inputRef}
                         value={value}
                         onChange={e => setValue(e.target.value)}
-                        className="text-lg font-bold text-gray-800 bg-transparent border-none focus:ring-0 focus:outline-none pb-2 w-full"
+                        className="text-lg font-bold text-red-800 bg-transparent border-none focus:ring-0 focus:outline-none pb-2 w-full"
                         autoFocus
                         onBlur={finishEdit}
                     />
@@ -43,7 +43,7 @@ const ListTitle = ({ title, onChange }) => {
                 </div>
             ) : (
                 <h3
-                    className="text-lg font-bold text-gray-800 cursor-pointer"
+                    className="text-lg font-bold text-red-800 cursor-pointer"
                     onClick={() => setEditing(true)}
                 >
                     {title}

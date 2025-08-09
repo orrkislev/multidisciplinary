@@ -24,9 +24,9 @@ export function VibeGen({ vibe, type}) {
     if (!object) {
         return (
             <div className="flex flex-wrap justify-center mb-4 animate-pulse">
-                <span className="bg-gray-300 text-gray-300 px-3 py-1 rounded-full m-1">Loading</span>
-                <span className="bg-gray-300 text-gray-300 px-3 py-1 rounded-full m-1">Loading</span>
-                <span className="bg-gray-300 text-gray-300 px-3 py-1 rounded-full m-1">Loading</span>
+                <span className="bg-red-300 text-red-300 px-3 py-1 rounded-full m-1">Loading</span>
+                <span className="bg-red-300 text-red-300 px-3 py-1 rounded-full m-1">Loading</span>
+                <span className="bg-red-300 text-red-300 px-3 py-1 rounded-full m-1">Loading</span>
             </div>
         );
     }
@@ -44,9 +44,9 @@ export function VibeGen({ vibe, type}) {
                 </div>
             ) : (
                 <div className="flex flex-wrap justify-center mb-4 animate-pulse">
-                    <span className="bg-gray-300 text-gray-300 px-3 py-1 rounded-full m-1">Loading</span>
-                    <span className="bg-gray-300 text-gray-300 px-3 py-1 rounded-full m-1">Loading</span>
-                    <span className="bg-gray-300 text-gray-300 px-3 py-1 rounded-full m-1">Loading</span>
+                    <span className="bg-red-300 text-red-300 px-3 py-1 rounded-full m-1">Loading</span>
+                    <span className="bg-red-300 text-red-300 px-3 py-1 rounded-full m-1">Loading</span>
+                    <span className="bg-red-300 text-red-300 px-3 py-1 rounded-full m-1">Loading</span>
                 </div>
             )}
 

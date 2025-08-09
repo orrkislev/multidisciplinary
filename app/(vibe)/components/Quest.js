@@ -6,10 +6,10 @@ export default function Quest({ quest }) {
     if (!quest) {
         return (
             <div className="border rounded p-4 w-72 flex flex-col overflow-hidden transition-all duration-300 animate-pulse">
-                <div className="h-6 w-[60%] bg-gray-300 rounded mb-2"></div>
-                <div className="h-16 bg-gray-300 rounded mb-8"></div>
-                <div className="h-2 w-[40%] bg-gray-300 rounded mb-2"></div>
-                <div className="h-4 bg-gray-300 rounded mb-2"></div>
+                <div className="h-6 w-[60%] bg-red-300 rounded mb-2"></div>
+                <div className="h-16 bg-red-300 rounded mb-8"></div>
+                <div className="h-2 w-[40%] bg-red-300 rounded mb-2"></div>
+                <div className="h-4 bg-red-300 rounded mb-2"></div>
             </div>
         )
     }
@@ -35,7 +35,7 @@ function QuestDesktop({ quest }) {
 
             <div className="opacity-20 group-hover:opacity-100 transition duration-300 mt-2 flex flex-col gap-4">
                 <div>
-                    <small className="text-gray-500">path</small>
+                    <small className="text-red-500">path</small>
                     {quest.path && (
                         <ul className="list-disc list-inside">
                             {quest.path.map((step, i) => (
@@ -45,7 +45,7 @@ function QuestDesktop({ quest }) {
                     )}
                 </div>
                 <div>
-                    <small className="text-gray-500">outcome</small>
+                    <small className="text-red-500">outcome</small>
                     {quest.outcome && (
                         <p className="italic text-green-600 border border-green-300 p-2 rounded">
                             {quest.outcome}
@@ -82,7 +82,7 @@ function QuestMobile({ quest }) {
             {expanded && (
                 <div className="mt-2 flex flex-col gap-4">
                     <div>
-                        <small className="text-gray-500">path</small>
+                        <small className="text-red-500">path</small>
                         {quest.path && (
                             <ul className="list-disc list-inside">
                                 {quest.path.map((step, i) => (
@@ -92,7 +92,7 @@ function QuestMobile({ quest }) {
                         )}
                     </div>
                     <div>
-                        <small className="text-gray-500">outcome</small>
+                        <small className="text-red-500">outcome</small>
                         {quest.outcome && (
                             <p className="italic text-green-600 border border-green-300 p-2 rounded">
                                 {quest.outcome}

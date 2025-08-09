@@ -9,7 +9,7 @@ export default function Projects() {
 
     return (
         <div>
-            <h2 className='text-xs text-gray-500 my-2'>Suggested Projects</h2>
+            <h2 className='text-xs text-red-500 my-2'>Suggested Projects</h2>
             <div className='flex gap-4'>
                 {projects.map((project, index) => (
                     <div key={index} className="p-2 text-black rounded-lg bg-white">

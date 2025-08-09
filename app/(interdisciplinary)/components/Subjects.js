@@ -9,7 +9,7 @@ import { tw } from '@/utils/tw';
 import { Dices, Minus } from 'lucide-react';
 
 export const SingleSubject = tw`text-sm p-1 px-2 cursor-pointer
-    text-gray-500 hover:text-white 
+    text-red-500 hover:text-white 
     grow-[2] text-center
     hover:bg-slate-400
     transition-colors duration-300
@@ -28,7 +28,7 @@ export const SelecteSubject = tw`text-md p-1 px-2 cursor-pointer
     hover:opacity-50
 `;
 
-const ButtonIcon = tw`flex items-center justify-center text-gray-500 hover:text-indigo-800 p-1 rounded hover:bg-gray-200`
+const ButtonIcon = tw`flex items-center justify-center text-red-500 hover:text-indigo-800 p-1 rounded hover:bg-red-200`
 
 const Seperator = tw`w-full h-1 border-b `
 
@@ -93,7 +93,7 @@ export default function Subjects() {
     }
 
     return (
-        <div className="h-screen relative flex flex-col gap-2 overflow-y-auto border-l border-gray-300">
+        <div className="h-screen relative flex flex-col gap-2 overflow-y-auto border-l border-red-300">
             <div className="flex justify-center items-center p-2">
                 <ButtonIcon onClick={clickRandom}>
                     <Dices className="w-4 h-4" />

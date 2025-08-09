@@ -31,8 +31,8 @@ export default function Card({ onSubmit, card }) {
                     <AutoSizeTextarea value={content} onFinish={setContent} className='text-sm group-hover/card:border rounded-md transition-all' />
                     <AutoSizeTextarea value={content2} onFinish={setContent2} className='text-xs group-hover/card:border rounded-md transition-all' />
                 </div>
-                <button className="mb-2 px-3 py-1 bg-gray-200 rounded flex items-center justify-center hover:bg-gray-300 transition-all duration-300 group/button" type='submit'>
-                    <Plus className='w-4 h-4 text-gray-500 group-hover/button:text-gray-700 group-hover/button:rotate-90 transition-all duration-300' />
+                <button className="mb-2 px-3 py-1 bg-red-200 rounded flex items-center justify-center hover:bg-red-300 transition-all duration-300 group/button" type='submit'>
+                    <Plus className='w-4 h-4 text-red-500 group-hover/button:text-red-700 group-hover/button:rotate-90 transition-all duration-300' />
                 </button>
             </form>
 

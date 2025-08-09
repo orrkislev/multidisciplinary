@@ -13,7 +13,7 @@ export default function RightSide() {
 
 
     return (
-        <div className="flex-1 h-screen relative bg-gray-100 pb-16">
+        <div className="flex-1 h-screen relative bg-red-100 pb-16">
             <div className="h-full overflow-y-auto flex flex-col gap-4 px-8 py-2 font-geist z-1 pb-16">
                 <SubjectCard />
                 <SubjectDescription />
@@ -25,7 +25,7 @@ export default function RightSide() {
                 <Projects />
                 {/* <Quiz /> */}
             </div>
-            <div className='absolute top-0 right-0 w-full h-32 bg-gradient-to-b from-gray-200 to-transparent z-2' />
+            <div className='absolute top-0 right-0 w-full h-32 bg-gradient-to-b from-red-200 to-transparent z-2' />
 
         </div>
     )

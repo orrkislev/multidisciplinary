@@ -7,10 +7,10 @@ import EmojiPicker from 'emoji-picker-react';
 import { Smile, ImageIcon } from 'lucide-react';
 
 
-const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-gray-50 pt-16`;
-const Title = styled.h1`text-4xl md:text-6xl text-gray-800 uppercase text-center select-none font-magilio`;
-const Input = styled.input`p-2 focus:outline-none w-80 font-geist border border-gray-500 rounded-full bg-transparent font-geist`;
-const Button = styled.button`bg-gray-500 text-white font-bold py-2 px-8 rounded-full hover:bg-gray-800 transition mt-4 font-geist`;
+const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-red-50 pt-16`;
+const Title = styled.h1`text-4xl md:text-6xl text-red-800 uppercase text-center select-none font-magilio`;
+const Input = styled.input`p-2 focus:outline-none w-80 font-geist border border-red-500 rounded-full bg-transparent font-geist`;
+const Button = styled.button`bg-red-500 text-white font-bold py-2 px-8 rounded-full hover:bg-red-800 transition mt-4 font-geist`;
 
 export default function VibePage() {
 	const [input, setInput] = useState("");
@@ -38,8 +38,8 @@ export default function VibePage() {
 						/>
 					</div>
 
-					<button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="p-2 hover:bg-gray-100 rounded-full relative">
-						<Smile className="w-8 h-8 text-gray-500 hover:text-orange-500 transition" />
+					<button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="p-2 hover:bg-red-100 rounded-full relative">
+						<Smile className="w-8 h-8 text-red-500 hover:text-orange-500 transition" />
 					</button>
 
 					{showEmojiPicker && <div className='fixed top-0 left-0 w-full h-full z-50 bg-black opacity-50' onClick={() => setShowEmojiPicker(false)} />}
@@ -48,7 +48,7 @@ export default function VibePage() {
 						</div>
 
 					<div className="">
-						<label htmlFor="imageUpload" className="cursor-pointer bg-gray-200 text-gray-800 py-2 px-8 rounded-full hover:bg-gray-800 hover:text-white transition font-geist flex items-center gap-2">
+						<label htmlFor="imageUpload" className="cursor-pointer bg-red-200 text-red-800 py-2 px-8 rounded-full hover:bg-red-800 hover:text-white transition font-geist flex items-center gap-2">
 							<ImageIcon className="w-5 h-5" />
 							Upload Image
 						</label>

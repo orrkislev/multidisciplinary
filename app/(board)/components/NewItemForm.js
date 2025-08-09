@@ -18,7 +18,7 @@ const NewItemForm = ({ onAdd, suggestions }) => {
 
     return (
         <div className="mt-3">
-            <div className="flex bg-gray-50 rounded-full border border-gray-200 shadow-sm overflow-hidden">
+            <div className="flex bg-red-50 rounded-full border border-red-200 shadow-sm overflow-hidden">
                 <input 
                     placeholder="New item" 
                     value={newItemText} 

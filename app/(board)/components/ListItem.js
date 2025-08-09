@@ -34,7 +34,7 @@ const ListItem = ({ content, onChange, onRemove }) => {
     };
 
     return (
-        <div className={`group bg-white rounded-full px-3 h-[2em] border border-gray-200 shadow-sm flex items-center justify-between ${editing ? 'border-b-[5px] border-blue-500' : ''}`}>
+        <div className={`group bg-white rounded-full px-3 h-[2em] border border-red-200 shadow-sm flex items-center justify-between ${editing ? 'border-b-[5px] border-blue-500' : ''}`}>
             {editing ? (
                 <div className="flex w-full items-center relative">
                     <input
@@ -49,7 +49,7 @@ const ListItem = ({ content, onChange, onRemove }) => {
             ) : (
                 <div className="flex items-center w-full">
                     <span
-                        className="flex-1 text-gray-700 truncate cursor-pointer"
+                        className="flex-1 text-red-700 truncate cursor-pointer"
                         onClick={() => setEditing(true)}
                     >
                         {content}
@@ -57,7 +57,7 @@ const ListItem = ({ content, onChange, onRemove }) => {
                     <div className="flex space-x-1 ml-2">
                         <button
                             onClick={onRemove}
-                            className="text-xs bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
+                            className="text-xs bg-red-100 hover:bg-red-200 text-red-600 rounded-full px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-150"
                             aria-label="Remove"
                         >
                             <Trash2 className="w-4 h-4" />

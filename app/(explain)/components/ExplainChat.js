@@ -8,12 +8,12 @@ import { Send } from 'lucide-react';
 const Text = tw`
     flex w-[70%] text-sm font-geistMono p-2
     ${({ role }) => role === 'user' ?
-        'text-right rounded-l-xl bg-gray-200 self-end' :
-        'text-left rounded-r-xl bg-gray-100 self-start'}
+        'text-right rounded-l-xl bg-red-200 self-end' :
+        'text-left rounded-r-xl bg-red-100 self-start'}
 `;
 
 const AboutContainer = styled.div`
-    border border-gray-300 bg-gray-200 p-4 font-geistMono text-sm bg-opacity-50 backdrop-blur-sm rounded-lg
+    border border-red-300 bg-red-200 p-4 font-geistMono text-sm bg-opacity-50 backdrop-blur-sm rounded-lg
 `;
 
 export function ExplainChat({ character, subject }) {
@@ -58,7 +58,7 @@ export function ExplainChat({ character, subject }) {
             <div className='w-[30%]'>
                 <AboutContainer>
                     <div className='flex justify-center items-center p-2'>
-                        <div className='w-16 h-16 bg-gray-200 rounded-full flex flex-col justify-center items-center'>
+                        <div className='w-16 h-16 bg-red-200 rounded-full flex flex-col justify-center items-center'>
                             {character.name.split(' ').map((name, i) => (
                                 <p key={i} className='text-sm text-center'>{name}</p>
                             ))}
@@ -70,18 +70,18 @@ export function ExplainChat({ character, subject }) {
                 </AboutContainer>
             </div>
 
-            <div className="w-[35em] bg-gray-50 border border-gray-300 flex flex-col justify-between rounded-lg">
+            <div className="w-[35em] bg-red-50 border border-red-300 flex flex-col justify-between rounded-lg">
                 <div className="flex-1 w-full h-full overflow-y-auto flex flex-col gap-4 justify-end pb-8">
                     {messages.current.map((message, i) => (
                         <Text key={i} role={message.role}>{message.content}</Text>
                     ))}
                 </div>
-                <div className="p-2 bg-gray-100 border-t border-gray-300 flex">
+                <div className="p-2 bg-red-100 border-t border-red-300 flex">
                     <textarea value={input} onChange={(e) => setInput(e.target.value)}
                         className="flex-1 resize-none bg-transparent"
                         placeholder="Your answer"
                     />
-                    <button onClick={submit} className="p-2 hover:bg-gray-200 rounded-lg">
+                    <button onClick={submit} className="p-2 hover:bg-red-200 rounded-lg">
                         <Send className="w-6 h-6" />
                     </button>
                 </div>
@@ -99,8 +99,8 @@ function UnderstandingMeter({ value }) {
 
     return (
         <div className="mt-12 flex flex-col gap-1">
-            <p className="text-xs text-gray-400">level of understanding</p>
-            <div className="w-full h-2 bg-gray-200 rounded-full">
+            <p className="text-xs text-red-400">level of understanding</p>
+            <div className="w-full h-2 bg-red-200 rounded-full">
                 <div className="h-full bg-sky-300 rounded-full" style={{ width: `${value * 100}%` }}></div>
             </div>
         </div>

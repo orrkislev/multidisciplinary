@@ -57,25 +57,25 @@ export default function Timeline() {
             {/* Description Panel */}
             {selectedYear[0] && (
                 <div className="animate-fade-in mb-4 flex flex-col gap-2">
-                    <div className="text-sm text-gray-500">{selectedYear[0]}</div>
+                    <div className="text-sm text-red-500">{selectedYear[0]}</div>
                     {allEvents.filter(e => e.year === selectedYear[0]).map((event, index) => (
                         <div key={index}>
                             {event.type === 'past' && (
                                 <>
                                     <div className="">{event.event}</div>
-                                    <div className="text-sm text-gray-600"><strong>influence:</strong> {event.influence}</div>
+                                    <div className="text-sm text-red-600"><strong>influence:</strong> {event.influence}</div>
                                 </>
                             )}
                             {event.type === 'present' && (
                                 <>
                                     <div className="">{event.project}</div>
-                                    <div className="text-sm text-gray-600">({event.organization})</div>
+                                    <div className="text-sm text-red-600">({event.organization})</div>
                                 </>
                             )}
                             {event.type === 'future' && (
                                 <>
                                     <div className="">{event.scenario}</div>
-                                    <div className="text-sm text-gray-600"><strong>probability:</strong> {event.probability}</div>
+                                    <div className="text-sm text-red-600"><strong>probability:</strong> {event.probability}</div>
                                 </>
                             )}
                         </div>
@@ -86,7 +86,7 @@ export default function Timeline() {
             {/* Timeline */}
             <div className="relative w-full">
                 {/* Timeline bar */}
-                <div className="absolute w-full h-1 bg-gray-500 top-2"></div>
+                <div className="absolute w-full h-1 bg-red-500 top-2"></div>
 
                 {/* Timeline marks */}
                 <div className="relative h-16">
@@ -100,10 +100,10 @@ export default function Timeline() {
                                 onClick={() => setSelectedYear([year.year, 'manual'])}
                                 className={`w-4 h-4 rounded-full transition-all duration-300 hover:scale-125 ${selectedYear[0] === year.year
                                     ? 'bg-rose-400'
-                                    : 'bg-gray-500'
+                                    : 'bg-red-500'
                                     }`}
                             />
-                            <div className="absolute -rotate-45 origin-left mt-2 text-sm text-gray-600 whitespace-nowrap">
+                            <div className="absolute -rotate-45 origin-left mt-2 text-sm text-red-600 whitespace-nowrap">
                                 {year.year}
                             </div>
                         </div>

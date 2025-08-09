@@ -41,7 +41,7 @@ export default function DeckPage() {
 
 
   return (
-    <div className='flex w-screen h-screen flex bg-gray-300'>
+    <div className='flex w-screen h-screen flex bg-red-300'>
       {!responses.length ? (
         <Initial onInitial={(newDescription) => { addResponse({ content: newDescription, type: 'idea' }) }} />
       ) : (
@@ -54,7 +54,7 @@ export default function DeckPage() {
             </div>
           </div>
 
-          <div className='flex flex-col gap-8 w-[25%] bg-gray-200 border-l border-gray-400 p-4'>
+          <div className='flex flex-col gap-8 w-[25%] bg-red-200 border-l border-red-400 p-4'>
             <div>
               <h2 className='underline'>Description</h2>
               <div className='text-sm'>{description.object?.description || ''}</div>
