@@ -1,5 +1,5 @@
 import DeckPage from "@/app/(deck)/components/DeckPage";
-import HomeButton from "@/app/(components)/HomeButton";
+import HomeButton from "@/app/(__components)/HomeButton";
 
 export const metadata = {
   title: "Deck - Serendipity Engine",

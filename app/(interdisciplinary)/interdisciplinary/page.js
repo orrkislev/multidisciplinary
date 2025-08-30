@@ -2,7 +2,7 @@ import Link from "next/link";
 import RightSide from "../components/RightSide";
 import Subjects from "../components/Subjects";
 import { Amphora } from "lucide-react";
-import HomeButton from "@/app/(components)/HomeButton";
+import HomeButton from "@/app/(__components)/HomeButton";
 
 export const metadata = {
     title: "Interdisciplinary - Serendipity Engine",

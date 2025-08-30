@@ -1,4 +1,4 @@
-import HomeButton from "@/app/(components)/HomeButton";
+import HomeButton from "@/app/(__components)/HomeButton";
 import ExplainPage from "@/app/(explain)/components/ExplainPage";
 
 export const metadata = {

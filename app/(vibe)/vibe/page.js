@@ -1,5 +1,5 @@
 import VibePage from "@/app/(vibe)/components/VibePage";
-import HomeButton from "@/app/(components)/HomeButton";
+import HomeButton from "@/app/(__components)/HomeButton";
 
 export const metadata = {
   title: "Vibe - Serendipity Engine",
