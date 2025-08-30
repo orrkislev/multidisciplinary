@@ -103,16 +103,18 @@ function Question({ question, onSelect }) {
 
 
 function BG({ offsetx, offsety }) {
-    const data = useMemo(() => {
-        const data = []
-        for (let i = 0; i < 25; i++) {
-            data.push({
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
-                z: Math.random() * 100
-            })
-        }
-        return data
+    const [data, setData] = useState([])
+
+    useEffect(() => {
+        if (typeof window === 'undefined') return
+        const width = window.innerWidth
+        const height = window.innerHeight
+        const initial = Array.from({ length: 25 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            z: Math.random() * 100,
+        }))
+        setData(initial)
     }, [])
 
     const calculatedData = useMemo(() => {
