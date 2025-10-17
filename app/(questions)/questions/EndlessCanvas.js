@@ -9,6 +9,8 @@ export default function EndlessCanvas({ children }) {
     const [isDragging, setIsDragging] = useState(false)
     const [velocity, setVelocity] = useState({ x: 0, y: 0 })
     const childrenContainerRef = useRef(null)
+    const lastTouchRef = useRef({ x: 0, y: 0 })
+    const canvasRef = useRef(null)
 
     useEffect(() => {
         if (Math.abs(velocity.x) < 0.1 && Math.abs(velocity.y) < 0.1) return
@@ -90,10 +92,48 @@ export default function EndlessCanvas({ children }) {
         }
     }, [target])
 
+    // Prevent swipe-to-go-back and pull-to-refresh on mobile
+    useEffect(() => {
+        const canvas = canvasRef.current
+        if (!canvas) return
+
+        const preventDefaultTouch = (e) => {
+            e.preventDefault()
+        }
+
+        canvas.addEventListener('touchstart', preventDefaultTouch, { passive: false })
+        canvas.addEventListener('touchmove', preventDefaultTouch, { passive: false })
+
+        return () => {
+            canvas.removeEventListener('touchstart', preventDefaultTouch)
+            canvas.removeEventListener('touchmove', preventDefaultTouch)
+        }
+    }, [])
+
+    const handleTouchStart = (e) => {
+        if (e.touches.length === 1) {
+            const touch = e.touches[0]
+            lastTouchRef.current = { x: touch.clientX, y: touch.clientY }
+            setIsDragging(true)
+            setVelocity({ x: 0, y: 0 })
+            setTarget(null)
+        }
+    }
+
+    const handleTouchMove = (e) => {
+        if (isDragging && e.touches.length === 1) {
+            const touch = e.touches[0]
+            const dx = touch.clientX - lastTouchRef.current.x
+            const dy = touch.clientY - lastTouchRef.current.y
+            setVelocity({ x: -dx, y: -dy })
+            lastTouchRef.current = { x: touch.clientX, y: touch.clientY }
+        }
+    }
 
     return (
         <div className='absolute w-full h-full bg-gradient-to-b from-[#f3f3f3] to-[#f7fcf7]'>
             <div className='absolute'
+                ref={canvasRef}
                 style={{
                     width: '20000px',
                     height: '20000px',
@@ -102,12 +142,16 @@ export default function EndlessCanvas({ children }) {
                     backgroundImage: `radial-gradient( #00000055 1px, transparent 1px)`,
                     backgroundSize: '40px 40px',
                     backgroundPosition: '0 0',
+                    touchAction: 'none',
                 }}
                 onPointerDown={() => { setIsDragging(true); setVelocity({ x: 0, y: 0 }); setTarget(null); }}
                 onPointerMove={(e) => {
                     if (isDragging) setVelocity({ x: -e.movementX, y: -e.movementY })
                 }}
                 onPointerUp={() => setIsDragging(false)}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={() => setIsDragging(false)}
             >
                 <div className='absolute' ref={childrenContainerRef} style={{
                     top: `${10000 + window.innerHeight / 2}px`,
