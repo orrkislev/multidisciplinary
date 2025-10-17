@@ -55,6 +55,8 @@ export const metadata = {
   description: "A serendipitous exploration of interdisciplinary topics",
 };
 
+export const dynamic = 'force-dynamic'
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
