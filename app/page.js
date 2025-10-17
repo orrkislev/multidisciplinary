@@ -12,7 +12,6 @@ const Description = tw`text-sm font-normal opacity-50`
 
 export default function Home() {
 
-  // grid of 2 by 2, each a link to a different page
   return (
     <div className="min-h-screen flex">
       <Link href="/interdisciplinary" className={linkClassName}>
@@ -30,6 +29,10 @@ export default function Home() {
       <Link href="/deck" className={linkClassName}>
         Deck
         <Description>refine your project</Description>
+      </Link>
+      <Link href="/questions" className={linkClassName}>
+        Questions
+        <Description>explore topics through questions</Description>
       </Link>
     </div>
   );
