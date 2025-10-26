@@ -1,6 +1,123 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* app.css (Tailwind v4+) */
+@import "tailwindcss";
+
+/* Design System tokens → Tailwind utilities via @theme */
+@theme {
+  /* Brand & functional color scales (OKLCH for consistent steps) */
+  /* Primary */
+  --color-primary-50:  oklch(0.98 0.02 275);
+  --color-primary-100: oklch(0.96 0.03 275);
+  --color-primary-200: oklch(0.93 0.05 275);
+  --color-primary-300: oklch(0.88 0.08 275);
+  --color-primary-400: oklch(0.82 0.10 275);
+  --color-primary-500: oklch(0.74 0.12 275);
+  --color-primary-600: oklch(0.66 0.12 275);
+  --color-primary-700: oklch(0.58 0.11 275);
+  --color-primary-800: oklch(0.50 0.10 275);
+  --color-primary-900: oklch(0.42 0.09 275);
+
+  /* Secondary */
+  --color-secondary-50:  oklch(0.98 0.02 25);
+  --color-secondary-100: oklch(0.96 0.03 25);
+  --color-secondary-200: oklch(0.93 0.05 25);
+  --color-secondary-300: oklch(0.88 0.08 25);
+  --color-secondary-400: oklch(0.82 0.10 25);
+  --color-secondary-500: oklch(0.74 0.12 25);
+  --color-secondary-600: oklch(0.66 0.12 25);
+  --color-secondary-700: oklch(0.58 0.11 25);
+  --color-secondary-800: oklch(0.50 0.10 25);
+  --color-secondary-900: oklch(0.42 0.09 25);
+
+  /* Semantic states */
+  --color-success-50:  oklch(0.98 0.02 145);
+  --color-success-500: oklch(0.74 0.11 145);
+  --color-success-700: oklch(0.58 0.10 145);
+
+  --color-warning-50:  oklch(0.98 0.03 85);
+  --color-warning-500: oklch(0.85 0.11 85);
+  --color-warning-700: oklch(0.68 0.10 85);
+
+  --color-danger-50:   oklch(0.98 0.03 25);
+  --color-danger-500:  oklch(0.65 0.15 25);
+  --color-danger-700:  oklch(0.52 0.13 25);
+
+  /* Surfaces & text */
+  --color-surface-50:  oklch(0.98 0.01 270);
+  --color-surface-100: oklch(0.96 0.01 270);
+  --color-surface-900: oklch(0.20 0.02 270);
+  --color-text-900:    oklch(0.20 0.03 270);
+  --color-text-50:     oklch(0.98 0.01 270);
+
+  /* Typography scale */
+  --font-sans: ui-sans-serif, system-ui, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --text-xs:   0.75rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-3xl:  1.875rem;
+  /* Font families mapped to CSS variables */
+  --font-magilio: var(--font-magilio);
+  --font-cylburn: var(--font-cylburn);
+  --font-geist-sans: var(--font-geist-sans);
+  --font-geist-mono: var(--font-geist-mono);
+  --font-fraunces: var(--font-fraunces);
+  --font-fraunces-bold: var(--font-fraunces-bold);
+  --font-markazi: var(--font-markazi-text);
+
+  /* Line-heights & tracking */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+
+  /* Spacing scale (affects padding/margin/size utilities) */
+  --spacing-0: 0rem;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+
+  /* Radii */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+
+  /* Shadows */
+  --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.08);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+
+  /* Breakpoints as variants */
+  --breakpoint-sm: 40rem;   /* 640px */
+  --breakpoint-md: 48rem;   /* 768px */
+  --breakpoint-lg: 64rem;   /* 1024px */
+  --breakpoint-xl: 80rem;   /* 1280px */
+}
+
+/* Optional: dark mode token swaps (prefers-color-scheme) */
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-surface-50:  oklch(0.12 0.02 270);
+    --color-surface-100: oklch(0.16 0.02 270);
+    --color-surface-900: oklch(0.98 0.01 270);
+    --color-text-900:    oklch(0.94 0.02 270);
+
+    /* Slightly brighter fills for contrast in dark */
+    --color-primary-500:   oklch(0.78 0.12 275);
+    --color-secondary-500: oklch(0.78 0.10 25);
+
+    /* Deeper shadows in dark */
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.35), 0 1px 2px -1px rgb(0 0 0 / 0.35);
+  }
+}
+
 
 :root {
   --background: #ffffff;
@@ -15,4 +132,29 @@ body {
 
 .rtl {
   direction: rtl;
+}
+
+/* Define your custom component in the Tailwind components layer */
+@layer components {
+  .card {
+    @apply bg-white p-4 rounded-lg transition-all duration-200 flex flex-col gap-2 p-4;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
+  }
+
+  .card-title {
+    @apply font-markazi text-xl font-bold mb-4;
+  }
+  .card-subtitle {
+    @apply font-markazi text-lg text-gray-500 -mt-8;
+  }
+  .card-description {
+    @apply text-base;
+  }
+  .card-list {
+    @apply list-disc list-inside;
+  }
 }

@@ -1,8 +1,9 @@
-import { aiConfig, useUserData } from "../utils/ai-config";
+import { TrendingUp } from "lucide-react";
+import { useData } from "../utils/store";
 
 export default function SubjectDescription() {
-    const { subject1, subject2 } = useUserData();
-    const description = aiConfig.description.store((state) => state.data);
+    const currentMerge = useData(state => state.getActiveMerge());
+    const description = currentMerge?.description;
 
     let desc = {
         title: 'Interdisciplinary Fusion',
@@ -12,41 +13,38 @@ export default function SubjectDescription() {
         funFact: 'Did you know? Fusion of ideas sparks breakthrough innovations!',
         goals: 'Goals',
     }
-    if (subject1 && subject2) desc = { title: '', subtitle: '', description: '', emergingTrends: [], funFact: '', goals: '' };
+
     if (description) {
         desc = description;
         desc.goals = 'Emerging Trends';
     }
 
-    if (!Array.isArray(desc.emergingTrends)) {
-        desc.emergingTrends = [];
-    }
 
     return (
-        <>
-            <div className='flex flex-col md:flex-row justify-between gap-8 bg-white p-2 rounded-lg'>
-                <div className="rounded-lg">
-                    <h2 className="font-markazi text-4xl font-bold">{desc.title}</h2>
-                    <h3 className="font-markazi text-2xl font-bold">{desc.subtitle}</h3>
-                    <p className="text-lg">{desc.description}</p>
+        <div className="flex justify-between gap-8">
+            <div className='flex flex-col justify-between gap-8'>
+                <div id="subject-description" className="card flex flex-col gap-2">
+                    <h2 className="card-title">{desc.title}</h2>
+                    <h3 className="card-subtitle">{desc.subtitle}</h3>
+                    <p className="card-description">{desc.description}</p>
+                </div>
 
-                    <div className="mt-4">
-                        <h3 className="font-markazi text-2xl font-bold">{desc.goals}</h3>
-                        <ul className="list-disc list-inside">
-                            {desc.emergingTrends.map((item, index) => (
-                                <li key={index}>{item}</li>
-                            ))}
-                        </ul>
-                    </div>
+                <div id="emerging-trends" className="card">
+                    <h3 className="card-title flex gap-2 items-center">
+                        <TrendingUp className="w-4 h-4" />
+                        {desc.goals}
+                    </h3>
+                    <ul className="list-disc list-inside">
+                        {desc.emergingTrends.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
                 </div>
-                <div className="hidden md:flex border-l items-center justify-center px-2">
-                    <p className="italic font-sans text-center">{desc.funFact}</p>
-                </div>
+
             </div>
-            {/* Fun fact for mobile */}
-            <div className="md:hidden mt-4">
+            <div id="fun-fact" className="card flex items-center justify-center">
                 <p className="italic font-sans text-center">{desc.funFact}</p>
             </div>
-        </>
+        </div>
     )
 }

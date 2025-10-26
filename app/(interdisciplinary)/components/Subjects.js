@@ -4,12 +4,12 @@ import { subjects } from '@/utils/topics';
 import React, { useEffect, useState } from 'react';
 import { experimental_useObject as useObject } from 'ai/react';
 import { namesSchema } from '@/utils/Schema';
-import { useUserData } from '../utils/ai-config';
 import { tw } from '@/utils/tw';
 import { Dices, Minus } from 'lucide-react';
+import { dataActions, useData } from '../utils/store';
 
 export const SingleSubject = tw`text-sm p-1 px-2 cursor-pointer
-    text-red-500 hover:text-white 
+    hover:text-white 
     grow-[2] text-center
     hover:bg-slate-400
     transition-colors duration-300
@@ -21,16 +21,16 @@ export const SingleSubject = tw`text-sm p-1 px-2 cursor-pointer
     `;
 
 export const SelecteSubject = tw`text-md p-1 px-2 cursor-pointer
-    text-white text-center hover:text-indigo-800
+    text-white text-center hover:text-primary-800
     grow-[2]
-    bg-indigo-800 bg-opacity-50 hover:bg-transparent
+    bg-primary-600 bg-opacity-50 hover:bg-transparent
     transition-colors duration-300
     hover:opacity-50
 `;
 
-const ButtonIcon = tw`flex items-center justify-center text-red-500 hover:text-indigo-800 p-1 rounded hover:bg-red-200`
+const ButtonIcon = tw`flex items-center justify-center hover:text-primary-800 p-1 rounded hover:bg-primary-200 transition-all duration-300`
 
-const Seperator = tw`w-full h-1 border-b `
+const Seperator = tw`w-full h-1 border-b border-neutral-300`
 
 // return the index of the first occurrence of the input in the string, normalized, or -1 if not found
 function search(s, input) {
@@ -41,7 +41,8 @@ function search(s, input) {
 
 
 export default function Subjects() {
-    const { subject1, subject2, setSubjects } = useUserData()
+    // const { subject1, subject2, setSubjects } = useUserData()
+    const currentMerge = useData(state => state.getActiveMerge());
     const { object, submit } = useObject({ api: '/api/subjects', schema: namesSchema });
     const [aiSubjects, setAiSubjects] = useState([])
     const [input, setInput] = useState('')
@@ -63,25 +64,8 @@ export default function Subjects() {
         }
     }, [object])
 
-    const selected = [subject1, subject2].filter(s => s)
-
-    const addSubject = (newSub) => {
-        if (subject1 && subject2) {
-            if (subject1 == newSub) setSubjects(newSub, null)
-            else if (subject2 == newSub) setSubjects(subject1, null)
-            else setSubjects(newSub, null)
-        } else if (subject1) {
-            if (subject1 == newSub) setSubjects(null, null)
-            else setSubjects(subject1, newSub)
-        } else setSubjects(newSub, null)
-    }
-
     const clickRandom = () => {
-        addSubject(topics[Math.floor(Math.random() * topics.length)])
-    }
-    const clearInput = () => {
-        setInput('')
-        setSubjects(null, null)
+        dataActions.toggleSubject(topics[Math.floor(Math.random() * topics.length)], currentMerge.id)
     }
 
     const list = [
@@ -93,7 +77,7 @@ export default function Subjects() {
     }
 
     return (
-        <div className="h-screen relative flex flex-col gap-2 overflow-y-auto border-l border-red-300">
+        <>
             <div className="flex justify-center items-center p-2">
                 <ButtonIcon onClick={clickRandom}>
                     <Dices className="w-4 h-4" />
@@ -103,30 +87,30 @@ export default function Subjects() {
             <div>
                 <input
                     type="text"
-                    className="text-sm text-center bg-transparent focus:outline-none text-indigo-800 font-mono w-full"
+                    className="text-sm text-center bg-transparent focus:outline-none text-primary-600 font-mono w-full"
                     placeholder="Type a subject"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                 />
             </div>
             <Seperator />
-            {selected.length > 0 && selected.map((subject, index) => (
-                <SelecteSubject key={index} onClick={() => addSubject(subject)}>
+            {currentMerge?.subjects && currentMerge?.subjects.map((subject, index) => (
+                <SelecteSubject key={index} onClick={() => dataActions.toggleSubject(subject, currentMerge.id)}>
                     {subject}
                 </SelecteSubject>
             ))
             }
             <Seperator />
-            <div className="">
+            <div className="overflow-y-auto">
                 {list.map((subject, index) => (
                     <SingleSubject key={index}
-                        onClick={() => addSubject(subject.name)}
+                        onClick={() => dataActions.toggleSubject(subject.name, currentMerge.id)}
                         {...subject}
                     >
                         {subject.name}
                     </SingleSubject>
                 ))}
             </div>
-        </div>
+        </>
     );
 }

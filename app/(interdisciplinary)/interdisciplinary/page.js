@@ -1,7 +1,5 @@
-import Link from "next/link";
-import RightSide from "../components/RightSide";
-import Subjects from "../components/Subjects";
-import { Amphora } from "lucide-react";
+import Main from "../components/Main";
+import SideBar from "../components/SideBar";
 import HomeButton from "@/app/(__components)/HomeButton";
 
 export const metadata = {
@@ -12,9 +10,9 @@ export const metadata = {
 export default function InterdisciplinaryPage() {
     return (
         <div className="flex w-full h-full">
-            <RightSide />
-            <Subjects />
-            <HomeButton />
+            <SideBar />
+            <Main />
+            {/* <HomeButton /> */}
         </div>
     );
 }
