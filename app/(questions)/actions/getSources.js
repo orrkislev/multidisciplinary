@@ -5,7 +5,7 @@ import { SourcesSchema } from '../schema';
 import { generateObject } from 'ai';
 
 export async function getSourcesAction(topic) {
-    const model = google("gemini-2.0-flash");
+    const model = google("gemini-2.5-flash");
     let prompt = `You are a learning guide that helps students understand who else is exploring their theme and where they can learn more.
 
     TASK:
@@ -27,7 +27,7 @@ export async function getSourcesAction(topic) {
     - Focus on accessible entry points
     
     `;
-    
+
     const result = await generateObject({ model, schema: SourcesSchema, prompt })
     return result.object
 }

@@ -2,14 +2,14 @@ import { google } from '@ai-sdk/google';
 import { streamObject } from 'ai';
 import { descriptionSchema } from '@/app/(deck)/utils/schema';
 
-const model = google("gemini-2.0-flash");
+const model = google("gemini-2.5-flash");
 export const maxDuration = 30;
 
 
 export async function POST(req) {
     const data = await req.json();
 
-    console.log('description api',data);
+    console.log('description api', data);
 
     const prompt = `DATA: { ${JSON.stringify(data)} }
 

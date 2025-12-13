@@ -5,7 +5,7 @@ import { google } from "@ai-sdk/google"
 
 export async function getThemeAction(previousThemes, currentTheme, selectedQuestion) {
 
-    const model = google("gemini-2.0-flash")
+    const model = google("gemini-2.5-flash")
 
     const prompt = `
     You are a curiosity guide that evolves a learner’s exploration into a more focused, concrete theme.

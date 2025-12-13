@@ -2,7 +2,7 @@ import { generateObject, streamObject } from 'ai';
 import { google } from '@ai-sdk/google';
 import { QuestionTypes, TopicSchema } from '../../schema';
 
-const model = google("gemini-2.0-flash");
+const model = google("gemini-2.5-flash");
 export const maxDuration = 60;
 
 
@@ -12,7 +12,7 @@ export async function POST(req) {
     const types = QuestionTypes.sort(() => Math.random() - 0.5).slice(0, 3)
 
     let prompt;
-    if (!data.selectedQuestion){
+    if (!data.selectedQuestion) {
         prompt = `
             You are a curiosity guide that helps people explore topics through deeper questions. 
 

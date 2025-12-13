@@ -2,15 +2,15 @@ import { google } from '@ai-sdk/google';
 import { streamObject } from 'ai';
 import { cardSchema } from '@/app/(deck)/utils/schema';
 
-const model = google("gemini-2.0-flash");
+const model = google("gemini-2.5-flash");
 export const maxDuration = 30;
 
 export async function POST(req) {
-    const data = await req.json();
+  const data = await req.json();
 
-    console.log(data);
+  console.log(data);
 
-    const prompt = `{ ${JSON.stringify(data)} }
+  const prompt = `{ ${JSON.stringify(data)} }
 You are an AI assistant designed to spark creativity and guide students through the early stages of their projects using a card-based research system. Your purpose is to generate tailored cards that inspire exploration and research based on the student’s project and profile.
 
 ### ROLE:
@@ -92,6 +92,6 @@ You are a **creative mentor and research companion**. Your responsibilities are 
   - challenge: Write code that breaks. What does the error message say?
 `
 
-    const result = streamObject({ model: model, schema: cardSchema, prompt })
-    return result.toTextStreamResponse();
+  const result = streamObject({ model: model, schema: cardSchema, prompt })
+  return result.toTextStreamResponse();
 }

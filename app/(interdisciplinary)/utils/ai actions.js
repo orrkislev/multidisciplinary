@@ -5,7 +5,7 @@ import { aiConfig } from "./ai-config"
 import { google } from "@ai-sdk/google"
 
 
-const model = google("gemini-2.0-flash")
+const model = google("gemini-2.5-flash")
 
 export async function getAIObject(id, key, data) {
     const aiconfig = aiConfig[key]

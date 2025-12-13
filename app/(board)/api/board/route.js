@@ -3,7 +3,7 @@ import { streamObject } from 'ai';
 import { boardSchema } from '../../schema';
 
 export const maxDuration = 30;
-const model = google("gemini-2.0-flash");
+const model = google("gemini-2.5-flash");
 
 export async function POST(req) {
     const { lists, changes } = await req.json();

@@ -47,16 +47,16 @@ export async function POST(req) {
     if (!prompt) {
         return new Response(JSON.stringify({ error: 'No prompt provided' }), { status: 400 });
     }
-    
+
     // Attempt to fetch an existing image from file.
     // const existingImage = fetchImageFromFile(prompt);
     // if (existingImage) {
     //     return new Response(JSON.stringify({ image: existingImage }), { status: 200 });
     // }
-    
+
     const genAI = new GoogleGenerativeAI(process.env.GOOGLE_GENERATIVE_AI_API_KEY);
     const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash-exp-image-generation",
+        model: "gemini-2.5-flash-exp-image-generation",
         generationConfig: {
             responseModalities: ['Text', 'Image']
         },
@@ -73,7 +73,7 @@ export async function POST(req) {
                 break;
             }
         }
-        if (imageDataUri) { 
+        if (imageDataUri) {
             return new Response(JSON.stringify({ image: imageDataUri }), { status: 200 });
         } else {
             return new Response(JSON.stringify({ error: 'No image generated' }), { status: 500 });

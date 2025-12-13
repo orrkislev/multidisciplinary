@@ -19,6 +19,7 @@ const config = {
         fraunces: 'var(--font-fraunces)',
         frauncesBold: 'var(--font-fraunces-bold)',
         markazi: 'var(--font-markazi-text)',
+        caveat: 'var(--font-caveat)',
       },
     },
   },

@@ -8,7 +8,7 @@ export async function getQuestionsAction(topic) {
 
     const types = QuestionTypes.sort(() => Math.random() - 0.5).slice(0, 3)
 
-    const model = google("gemini-2.0-flash")
+    const model = google("gemini-2.5-flash")
 
     const prompt = `
     // System / Instruction Prompt

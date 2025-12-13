@@ -2,7 +2,7 @@ import { generateObject, streamObject } from 'ai';
 import { google } from '@ai-sdk/google';
 import { InitialSchema, QuestionTypes, QuestionsResponseSchema, ThemeResponseSchema } from '../../schema';
 
-const model = google("gemini-2.0-flash");
+const model = google("gemini-2.5-flash");
 export const maxDuration = 60;
 
 
