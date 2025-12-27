@@ -26,7 +26,7 @@ export default function Replacement({ intervention, onOptionClick = () => { } })
                 {bottomOptions.map((opt, oi) => (
                     <div
                         key={oi}
-                        className='bg-pink-200 px-3 py-0.5 rounded cursor-pointer hover:bg-pink-300 transition-colors whitespace-nowrap'
+                        className='bg-pink-200 border-b-2 border-pink-400 px-3 py-0.5 rounded cursor-pointer hover:bg-pink-300 transition-colors whitespace-nowrap'
                         style={{
                             fontFamily: 'caveat',
                             transform: `rotate(${Math.random() * 3 - 1.5}deg)`

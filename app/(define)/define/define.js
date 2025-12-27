@@ -190,7 +190,7 @@ export default function Define() {
                                 {word.text.split('').map((ch, chIndex) => {
                                     return (
                                         <span key={chIndex} onClick={() => setCaret({ word: wordIndex, char: chIndex })}>
-                                            {wordIndex == caret.word && chIndex == caret.char && <span>|</span>}
+                                            {wordIndex == caret.word && chIndex == caret.char && <span className='caret'>|</span>}
                                             {ch}
                                             {chIndex == word.text.length - 1 && wordIndex == caret.word && chIndex + 1 == caret.char && <span className='caret'>|</span>}
                                         </span>

@@ -182,7 +182,7 @@ body {
 }
 
 .caret {
-  animation: blink 1s infinite;
+  animation: blink 1.2s infinite;
 }
 
 .caret ::after {
