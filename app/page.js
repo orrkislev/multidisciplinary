@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 const experiments = [
@@ -69,7 +70,7 @@ export default function Home() {
       </section>
 
       {/* Experiments */}
-      <section className="px-8 md:px-16 lg:px-24 py-20">
+      <section className="px-8 md:px-16 lg:px-24 py-20 bg-neutral-100">
         <h2 className="text-xs uppercase tracking-[0.3em] text-surface-50/40 mb-12">
           Experiments
         </h2>
@@ -78,19 +79,25 @@ export default function Home() {
             <Link
               key={exp.href}
               href={exp.href}
-              className="group py-5 border-b border-surface-50/10 hover:border-secondary-400 transition-colors"
+              className="group my-2 border-b border-surface-50/10 hover:border-secondary-400 transition-colors flex rounded-lg overflow-hidden"
             >
-              <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-[family-name:var(--font-magilio)] text-3xl md:text-4xl text-surface-50 group-hover:text-secondary-400 transition-colors">
-                  {exp.title}
-                </h3>
-                <span className="text-2xl text-surface-50/20 group-hover:text-secondary-400 group-hover:translate-x-2 transition-all">
-                  →
-                </span>
+              <div className="relative overflow-hidden">
+                <Image src={'/images' + exp.href + '.png'} alt={exp.title} width={150} height={100} className='h-full object-cover group-hover:rotate-2 group-hover:scale-105 transition-all duration-300' />
+                <div className="absolute inset-0 bg-gradient-to-l from-neutral-100 to-neutral-100/0" />
               </div>
-              <p className="text-surface-50/50 mt-2 group-hover:text-surface-50/70 transition-colors">
-                {exp.description}
-              </p>
+              <div className="flex flex-col p-4 w-full">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-[family-name:var(--font-magilio)] text-3xl md:text-4xl text-surface-50 group-hover:text-secondary-400 transition-colors">
+                    {exp.title}
+                  </h3>
+                  <span className="text-2xl text-surface-50/20 group-hover:text-secondary-400 group-hover:translate-x-2 transition-all">
+                    →
+                  </span>
+                </div>
+                <p className="text-surface-50/50 mt-2 group-hover:text-surface-50/70 transition-colors">
+                  {exp.description}
+                </p>
+              </div>
             </Link>
           ))}
         </div>
