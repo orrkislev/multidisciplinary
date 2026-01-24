@@ -33,9 +33,9 @@ const experiments = [
     description: "Cards that provoke thinking"
   },
   {
-    href: "/board",
-    title: "Board",
-    description: "AI-powered organization"
+    href: "/inkblot",
+    title: "Inkblot",
+    description: "You are what you see"
   },
   {
     href: "/receipt",
