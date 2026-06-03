@@ -1,11 +1,11 @@
 'use server'
 
 import { generateText } from "ai"
-import { google } from "@ai-sdk/google"
+import { models } from "@/lib/ai"
 
 export async function getThemeAction(previousThemes, currentTheme, selectedQuestion) {
 
-    const model = google("gemini-2.5-flash")
+    const model = models.real;
 
     const prompt = `
     You are a curiosity guide that evolves a learner’s exploration into a more focused, concrete theme.

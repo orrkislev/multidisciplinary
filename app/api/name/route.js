@@ -1,9 +1,9 @@
 import { aiConfig } from '@/app/(interdisciplinary)/utils/ai-config';
 import { aiSchemas } from '@/utils/Schema';
-import { google } from '@ai-sdk/google';
+import { models } from '@/lib/ai';
 import { streamObject } from 'ai';
 
-const model = google("gemini-2.5-flash");
+const model = models.real;
 export const maxDuration = 30;
 
 

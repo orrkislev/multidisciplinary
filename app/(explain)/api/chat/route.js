@@ -1,12 +1,12 @@
 import { openai } from '@ai-sdk/openai';
-import { google } from '@ai-sdk/google';
+import { models } from '@/lib/ai';
 import { anthropic } from '@ai-sdk/anthropic';
 import { streamObject, streamText } from 'ai';
 import { aiSchemas } from '@/utils/Schema';
 
 export const maxDuration = 30;
 // const model = openai('gpt-4o-mini-2024-07-18');
-const model = google("gemini-2.5-flash");
+const model = models.real;
 // const model = anthropic('claude-3-5-sonnet-20240620')
 
 

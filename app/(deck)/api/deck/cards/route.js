@@ -1,8 +1,8 @@
-import { google } from '@ai-sdk/google';
+import { models } from '@/lib/ai';
 import { streamObject } from 'ai';
 import { cardSchema } from '@/app/(deck)/utils/schema';
 
-const model = google("gemini-2.5-flash");
+const model = models.real;
 export const maxDuration = 30;
 
 export async function POST(req) {

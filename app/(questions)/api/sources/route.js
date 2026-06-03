@@ -1,8 +1,8 @@
 import { generateObject } from 'ai';
-import { google } from '@ai-sdk/google';
+import { models } from '@/lib/ai';
 import { SourcesSchema } from '../../schema';
 
-const model = google("gemini-2.5-flash");
+const model = models.real;
 export const maxDuration = 60;
 
 

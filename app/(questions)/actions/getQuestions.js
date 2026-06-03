@@ -2,13 +2,13 @@
 
 import { generateText } from "ai"
 import { QuestionTypes } from "../schema"
-import { google } from "@ai-sdk/google"
+import { models } from "@/lib/ai"
 
 export async function getQuestionsAction(topic) {
 
     const types = QuestionTypes.sort(() => Math.random() - 0.5).slice(0, 3)
 
-    const model = google("gemini-2.5-flash")
+    const model = models.real;
 
     const prompt = `
     // System / Instruction Prompt

@@ -2,10 +2,10 @@
 
 import { generateObject } from "ai"
 import { aiConfig } from "./ai-config"
-import { google } from "@ai-sdk/google"
+import { models } from "@/lib/ai"
 
 
-const model = google("gemini-2.5-flash")
+const model = models.real;
 
 export async function getAIObject(id, key, data) {
     const aiconfig = aiConfig[key]

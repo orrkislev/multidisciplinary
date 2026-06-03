@@ -1,10 +1,9 @@
 import { namesSchema } from '@/utils/Schema';
-import { groq } from '@ai-sdk/groq';
+import { models } from '@/lib/ai';
 import { streamObject } from 'ai';
 
 export const maxDuration = 30;
-const model = groq('gemma2-9b-it');
-
+const model = models.faster;
 
 export async function POST(req) {
   const data = await req.json();

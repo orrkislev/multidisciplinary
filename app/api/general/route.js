@@ -1,8 +1,8 @@
-import { google } from '@ai-sdk/google';
+import { models } from '@/lib/ai';
 import { streamText } from 'ai';
 
 export const maxDuration = 30;
-const model = google("gemini-2.5-flash");
+const model = models.real;
 
 export async function POST(req) {
   const { prompt } = await req.json();

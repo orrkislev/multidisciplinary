@@ -1,10 +1,10 @@
 'use server'
 
 import { generateObject } from 'ai';
-import { google } from '@ai-sdk/google';
+import { models } from '@/lib/ai';
 import { rorcharchSchema } from './schema';
 
-const model = google("gemini-3-flash-preview");
+const model = models.real;
 
 export async function generateRoles(labels) {
     const prompt = `

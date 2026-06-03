@@ -1,8 +1,8 @@
 import { vibeSchema } from '@/utils/vibe-config';
 import { streamObject } from 'ai';
-import { google } from '@ai-sdk/google';
+import { models } from '@/lib/ai';
 
-const model = google("gemini-2.5-flash");
+const model = models.real;
 export const maxDuration = 60;
 
 

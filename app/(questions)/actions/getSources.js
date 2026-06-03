@@ -1,11 +1,11 @@
 'use server'
 
-import { google } from '@ai-sdk/google';
+import { models } from '@/lib/ai';
 import { SourcesSchema } from '../schema';
 import { generateObject } from 'ai';
 
 export async function getSourcesAction(topic) {
-    const model = google("gemini-2.5-flash");
+    const model = models.real;
     let prompt = `You are a learning guide that helps students understand who else is exploring their theme and where they can learn more.
 
     TASK:
