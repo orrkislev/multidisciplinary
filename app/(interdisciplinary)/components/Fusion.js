@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { fusionKey, fusionSchema } from '../fusion'
 import Article from './Article'
-import Sidebar from './Sidebar'
+import Sidebar from './SideBar'
 
 const CACHE = 'interdisciplinary:articles:v3'
 const TABS = 'interdisciplinary:tabs'
