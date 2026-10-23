@@ -7,15 +7,15 @@ export default function Insersion({ intervention, onClick }) {
             <svg width="60" height="80" className='absolute z-30 bottom-full left-0 translate-y-[12px] -translate-x-[8px]'>
                 <path
                     d="M30 15 C 15 15, 12 50, 12 70"
-                    stroke="black"
+                    stroke="#24201E"
                     strokeWidth="2"
                     fill="none"
                     strokeLinecap="round"
                 />
                 <path
                     d="M12 70 L8 64 L16 64 Z"
-                    fill="black"
-                    stroke="black"
+                    fill="#24201E"
+                    stroke="#24201E"
                     strokeWidth="1"
                     strokeLinejoin="round"
                 />
@@ -27,11 +27,11 @@ export default function Insersion({ intervention, onClick }) {
                         key={oi}
                         className="relative block w-max max-w-none cursor-pointer group"
                         onClick={() => onClick(opt)}
-                        style={{ fontFamily: 'caveat', transform: `rotate(${Math.random() * 4 - 2}deg)` }}
+                        style={{ fontFamily: 'var(--font-caveat)', transform: `rotate(${Math.random() * 4 - 2}deg)` }}
                     >
                         {/* Rotated content: rotation moved here so the box keeps full natural width */}
                         <div
-                            className="relative z-20 inline-block align-top text-md px-1 py-0.5 whitespace-nowrap break-keep"
+                            className="relative z-20 inline-block align-top text-2xl px-1 py-0.5 whitespace-nowrap break-keep"
                         >
                             {opt}
                         </div>
@@ -41,7 +41,7 @@ export default function Insersion({ intervention, onClick }) {
                             {Array.from({ length: 100 }).map((_, i) => (
                                 <div
                                     key={i}
-                                    className="bg-yellow-300 h-[4px] opacity-0 group-hover:opacity-100 transition-opacity "
+                                    className="bg-stone-deep h-[4px] opacity-0 group-hover:opacity-100 transition-opacity "
                                     style={{
                                         position: 'absolute',
                                         left: 0,

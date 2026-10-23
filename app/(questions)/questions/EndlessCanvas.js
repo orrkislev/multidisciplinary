@@ -131,7 +131,7 @@ export default function EndlessCanvas({ children }) {
     }
 
     return (
-        <div className='absolute w-full h-full bg-gradient-to-b from-[#f3f3f3] to-[#f7fcf7]'>
+        <div className='absolute w-full h-full bg-ink'>
             <div className='absolute'
                 ref={canvasRef}
                 style={{
@@ -139,7 +139,7 @@ export default function EndlessCanvas({ children }) {
                     height: '20000px',
                     top: `${-pos.y - 10000}px`,
                     left: `${-pos.x - 10000}px`,
-                    backgroundImage: `radial-gradient( #00000055 1px, transparent 1px)`,
+                    backgroundImage: `radial-gradient(rgb(251 250 246 / 0.16) 1.5px, transparent 1.5px)`,
                     backgroundSize: '40px 40px',
                     backgroundPosition: '0 0',
                     touchAction: 'none',

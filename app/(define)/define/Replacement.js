@@ -9,9 +9,9 @@ export default function Replacement({ intervention, onOptionClick = () => { } })
                 {topOptions.map((opt, oi) => (
                     <div
                         key={oi}
-                        className='bg-pink-200 border-b-2 border-pink-400 px-3 py-0.5 rounded cursor-pointer hover:bg-pink-300 transition-colors whitespace-nowrap'
+                        className='bg-pink-pale border-b-2 border-primary-500 px-3 py-0.5 rounded-full text-2xl leading-tight cursor-pointer hover:bg-primary-300 transition-colors whitespace-nowrap'
                         style={{
-                            fontFamily: 'caveat',
+                            fontFamily: 'var(--font-caveat)',
                             transform: `rotate(${Math.random() * 3 - 1.5}deg)`
                         }}
                         onClick={() => onOptionClick(opt)}
@@ -26,9 +26,9 @@ export default function Replacement({ intervention, onOptionClick = () => { } })
                 {bottomOptions.map((opt, oi) => (
                     <div
                         key={oi}
-                        className='bg-pink-200 border-b-2 border-pink-400 px-3 py-0.5 rounded cursor-pointer hover:bg-pink-300 transition-colors whitespace-nowrap'
+                        className='bg-pink-pale border-b-2 border-primary-500 px-3 py-0.5 rounded-full text-2xl leading-tight cursor-pointer hover:bg-primary-300 transition-colors whitespace-nowrap'
                         style={{
-                            fontFamily: 'caveat',
+                            fontFamily: 'var(--font-caveat)',
                             transform: `rotate(${Math.random() * 3 - 1.5}deg)`
                         }}
                         onClick={() => onOptionClick(opt)}

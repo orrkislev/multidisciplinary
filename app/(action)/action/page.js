@@ -33,10 +33,10 @@ export default function ActionPage() {
 
 
     return (
-        <div className="w-full h-screen flex flex-col items-center justify-center bg-red-500 p-8">
+        <div className="w-full h-screen flex flex-col items-center justify-center bg-ink p-8">
 
             {result && (
-                <div className="text-white text-4xl font-bold" onClick={changeText}>
+                <div className="text-paper display text-4xl" onClick={changeText}>
                     {result === "timeout" ? "TRY AGAIN?" : "NEXT ONE!"}
                 </div>
             )}
@@ -61,7 +61,7 @@ function ActionTitle({ text }) {
         })
     }, [text]);
 
-    return <h1 id="text" className="text-4xl font-bold text-white text-center" >{text}</h1>
+    return <h1 id="text" className="display text-4xl text-paper text-center" >{text}</h1>
 }
 
 function Timer({ time, onComplete = (result) => { } }) {
@@ -125,13 +125,13 @@ function Timer({ time, onComplete = (result) => { } }) {
     return (
         <>
             <div className="relative">
-                <div className="text-center h-16 text-white text-4xl font-bold flex items-center justify-center">TIMEOUT</div>
-                <div id="timer" className="absolute top-0 left-1/2 -translate-x-1/2 h-16 bg-white overflow-hidden w-full flex items-center justify-center text-4xl font-bold text-red-500">
+                <div className="text-center h-16 text-paper display text-4xl flex items-center justify-center">TIMEOUT</div>
+                <div id="timer" className="absolute top-0 left-1/2 -translate-x-1/2 h-16 bg-paper overflow-hidden w-full flex items-center justify-center display text-4xl text-pink">
                     {timer && typeof timer === 'number' && timer.toFixed(2).replace('.', ':')}
                 </div>
             </div>
             {showLabel && (
-                <div className="fixed p-2 bg-white text-red-500" style={{ left: mousePos.x + 10, top: mousePos.y + 10 }}>
+                <div className="fixed px-3 py-1.5 rounded-full bg-paper text-pink text-sm font-semibold" style={{ left: mousePos.x + 10, top: mousePos.y + 10 }}>
                     CLICK ANYWHERE TO STOP THE TIMER
                 </div>
             )}

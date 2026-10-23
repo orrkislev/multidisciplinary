@@ -5,8 +5,8 @@ import { useRef } from "react"
 export function QuestionsArchive({ questions }) {
     if (questions.length == 0) return null
     return (
-        <div className="display-none md:display-block">
-            <div className="fixed top-2 left-2 flex flex-col gap-4 bg-white/50 p-4 rounded-md divide-y divide-gray-200 max-w-[250px]">
+        <div className="hidden md:block">
+            <div className="fixed top-4 left-4 z-30 flex flex-col gap-1 bg-paper/10 backdrop-blur-md text-paper p-3 rounded-[1.5rem] divide-y divide-paper/15 max-w-[260px]">
                 {questions.map((question, index) => (
                     <ArchiveQuestion key={index} question={question} index={index} />
                 ))}

@@ -7,10 +7,10 @@ import EmojiPicker from 'emoji-picker-react';
 import { Smile, ImageIcon } from 'lucide-react';
 
 
-const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-red-50 pt-16`;
-const Title = styled.h1`text-4xl md:text-6xl text-red-800 uppercase text-center select-none font-magilio`;
-const Input = styled.input`p-2 focus:outline-none w-80 font-geist border border-red-500 rounded-full bg-transparent font-geist`;
-const Button = styled.button`bg-red-500 text-white font-bold py-2 px-8 rounded-full hover:bg-red-800 transition mt-4 font-geist`;
+const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-stone-deep px-4 py-20`;
+const Title = styled.h1`display text-5xl md:text-7xl text-center select-none transition-colors duration-200 hover:text-pink hover:italic`;
+const Input = styled.input`field w-72 md:w-96`;
+const Button = styled.button`pebble-btn mt-6 px-10`;
 
 export default function VibePage() {
 	const [input, setInput] = useState("");
@@ -22,7 +22,7 @@ export default function VibePage() {
 
 	return (
 		<Container>
-			<div className="grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 mb-16 gap-2 md:gap-8">
+			<div className="grid grid-cols-2 grid-rows-4 md:grid-cols-4 md:grid-rows-2 mb-14 gap-x-4 gap-y-1 md:gap-x-8 md:gap-y-2">
 				{titleText.split(' ').map((word, i) => (
 					<Title key={i}>{word}</Title>
 				))}
@@ -30,7 +30,7 @@ export default function VibePage() {
 
 			<div className='flex flex-col items-center'>
 
-				<div className='flex gap-2 items-center'>
+				<div className='flex flex-wrap justify-center gap-2 items-center'>
 					<div className=''>
 						<Input type="text" value={input}
 							onChange={(e) => setInput(e.target.value)}
@@ -38,18 +38,18 @@ export default function VibePage() {
 						/>
 					</div>
 
-					<button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="p-2 hover:bg-red-100 rounded-full relative">
-						<Smile className="w-8 h-8 text-red-500 hover:text-orange-500 transition" />
+					<button onClick={() => setShowEmojiPicker(!showEmojiPicker)} aria-label="Add emoji" className="knead w-12 h-12 flex items-center justify-center bg-paper/60 hover:bg-paper rounded-full relative cursor-pointer">
+						<Smile className="w-6 h-6" />
 					</button>
 
-					{showEmojiPicker && <div className='fixed top-0 left-0 w-full h-full z-50 bg-black opacity-50' onClick={() => setShowEmojiPicker(false)} />}
+					{showEmojiPicker && <div className='fixed top-0 left-0 w-full h-full z-50 bg-ink/40 backdrop-blur-sm' onClick={() => setShowEmojiPicker(false)} />}
 					<div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[100]'>
 							<EmojiPicker open={showEmojiPicker} onEmojiClick={emoji => setInput(input + emoji.emoji)} previewConfig={{ showPreview: false }} />
 						</div>
 
 					<div className="">
-						<label htmlFor="imageUpload" className="cursor-pointer bg-red-200 text-red-800 py-2 px-8 rounded-full hover:bg-red-800 hover:text-white transition font-geist flex items-center gap-2">
-							<ImageIcon className="w-5 h-5" />
+						<label htmlFor="imageUpload" className="pebble-btn-soft">
+							<ImageIcon className="w-4 h-4" />
 							Upload Image
 						</label>
 						<input
@@ -81,7 +81,7 @@ export default function VibePage() {
 						setVibe(input);
 						setType('text');
 					}
-				}>GO</Button>}
+				}>Go</Button>}
 			</div>
 
 			<VibeGen vibe={vibe} type={type} />

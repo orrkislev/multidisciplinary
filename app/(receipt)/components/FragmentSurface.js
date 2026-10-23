@@ -14,8 +14,8 @@ export default function FragmentSurface() {
     return (
         <div className="space-y-4 p-6 overflow-y-auto max-h-screen">
             {isGenerating && (
-                <div className="bg-blue-50 rounded-2xl p-6 text-center">
-                    <div className="animate-pulse text-blue-600 font-medium">
+                <div className="paper p-6 text-center">
+                    <div className="shimmer inline-block px-4 py-1">
                         Generating reflection prompts...
                     </div>
                 </div>
@@ -61,7 +61,7 @@ export default function FragmentSurface() {
             })}
 
             {!isGenerating && activeFragments.length === 0 && (
-                <div className="text-center text-slate-400 py-12">
+                <div className="text-center text-ink-soft py-12">
                     No more prompts. Your receipt is ready!
                 </div>
             )}

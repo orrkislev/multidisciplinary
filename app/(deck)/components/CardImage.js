@@ -22,14 +22,15 @@ export default function CardImage({prompt}) {
     }, [prompt]);
 
     const style = {
-        backgroundImage: `url(data:image/jpeg;base64,${cardImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundColor: 'black',
+        ...(cardImage && {
+            backgroundImage: `url(data:image/jpeg;base64,${cardImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+        }),
         aspectRatio: '5/3',
     }
 
     return (
-        <div style={style} className='grayscale group-hover:grayscale-0 transition-all duration-300' />
+        <div style={style} className={`m-2 mb-0 rounded-[1.25rem] grayscale-[0.7] sepia-[0.15] group-hover/card:grayscale-0 group-hover/card:sepia-0 transition-all duration-500 ${cardImage ? '' : 'shimmer !rounded-[1.25rem]'}`} />
     );
 }

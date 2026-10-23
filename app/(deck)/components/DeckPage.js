@@ -41,34 +41,34 @@ export default function DeckPage() {
 
 
   return (
-    <div className='flex w-screen h-screen flex bg-red-300'>
+    <div className='flex w-screen h-screen bg-stone-deep'>
       {!responses.length ? (
         <Initial onInitial={(newDescription) => { addResponse({ content: newDescription, type: 'idea' }) }} />
       ) : (
         <>
           <div className='flex-1'>
-            <div className="flex gap-8 justify-center items-center h-full p-8">
+            <div className="flex gap-6 justify-center items-center h-full p-8">
               {cards.object && cards.object?.card_suggestions && cards.object?.card_suggestions.map((card, index) => (
                 <Card key={index} card={card} onSubmit={addResponse} />
               ))}
             </div>
           </div>
 
-          <div className='flex flex-col gap-8 w-[25%] bg-red-200 border-l border-red-400 p-4'>
+          <div className='flex flex-col gap-6 w-[26%] m-3 paper p-6 overflow-y-auto text-sm leading-relaxed'>
             <div>
-              <h2 className='underline'>Description</h2>
+              <h2 className='font-mono text-[0.65rem] uppercase tracking-wider text-ink-soft mb-1.5'>Description</h2>
               <div className='text-sm'>{description.object?.description || ''}</div>
             </div>
 
             <div>
-              <h2 className='underline'>Research</h2>
+              <h2 className='font-mono text-[0.65rem] uppercase tracking-wider text-ink-soft mb-1.5'>Research</h2>
               {research.map((r, index) => (
                 <div key={index} className='text-sm'>{r}</div>
               ))}
             </div>
 
             <div>
-              <h2 className='underline'>Profile</h2>
+              <h2 className='font-mono text-[0.65rem] uppercase tracking-wider text-ink-soft mb-1.5'>Profile</h2>
               <div className='text-sm'>interests: {description.object?.profile?.interests || ''}</div>
               <div className='text-sm'>style: {description.object?.profile?.style || ''}</div>
               <div className='text-sm'>goals: {description.object?.profile?.goals || ''}</div>
@@ -76,7 +76,7 @@ export default function DeckPage() {
 
 
             <div>
-              <h2 className='underline'>Analysis</h2>
+              <h2 className='font-mono text-[0.65rem] uppercase tracking-wider text-ink-soft mb-1.5'>Analysis</h2>
               <div className='text-sm'>{description.object?.analysis || ''}</div>
             </div>
           </div>

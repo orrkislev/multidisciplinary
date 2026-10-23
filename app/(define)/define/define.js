@@ -158,13 +158,13 @@ export default function Define() {
 
     const getWordStyles = (wordIndex) => {
         const ints = getInterventionsForWord(wordIndex)
-        let className = 'p-1 rounded relative'
+        let className = 'px-1 py-0.5 rounded-lg relative transition-colors'
 
         for (const int of ints) {
             if (int.type === 'question') {
-                className += ' bg-yellow-200 border-b-2 border-yellow-500 cursor-help'
+                className += ' bg-stone-deep/70 border-b-2 border-stone-deep cursor-help'
             } else if (int.type === 'replacement') {
-                className += ' bg-pink-200 cursor-pointer border-b-2 border-pink-400'
+                className += ' bg-pink-pale/80 cursor-pointer border-b-2 border-primary-500'
             }
         }
 
@@ -172,9 +172,9 @@ export default function Define() {
     }
 
     return (
-        <div className='w-screen h-screen flex items-center flex-col gap-4 justify-center bg-neutral-400'>
+        <div className='w-screen h-screen flex items-center flex-col gap-4 justify-center bg-stone-pale px-6'>
             <Loading isLoading={isLoading} />
-            <div className='p-6 bg-white text-3xl flex flex-wrap focus:outline-none'
+            <div className='paper max-w-4xl px-10 py-8 text-3xl leading-relaxed flex flex-wrap focus:outline-none focus-visible:shadow-[0_0_0_4px_rgb(217_98_122/0.35)] cursor-text'
                 tabIndex={0}
                 onKeyDown={onKeyDown}
             >
@@ -220,7 +220,7 @@ export default function Define() {
                     )
                 })}
             </div>
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-6 z-100">
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-100">
                 <ClearButton onClick={handleClear} />
                 <AIButton onClick={clickAI} isLoading={isLoading} />
             </div>

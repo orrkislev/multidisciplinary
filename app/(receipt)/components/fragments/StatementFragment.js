@@ -29,8 +29,8 @@ export default function StatementFragment({ statement, fragmentId }) {
     };
 
     return (
-        <div className="bg-white rounded-2xl p-6 shadow-md">
-            <p className="text-lg text-slate-800 mb-4 font-medium">
+        <div className="paper p-6 animate-fade-in">
+            <p className="text-lg mb-4 font-medium leading-snug">
                 "{statement}"
             </p>
 
@@ -39,9 +39,9 @@ export default function StatementFragment({ statement, fragmentId }) {
                     <button
                         key={option.value}
                         onClick={() => handleSelect(option)}
-                        className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all ${selected === option.value
-                                ? 'bg-blue-600 text-white shadow-md'
-                                : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        className={`knead flex-1 py-2 px-3 rounded-full text-sm font-medium cursor-pointer ${selected === option.value
+                                ? 'bg-ink text-paper'
+                                : 'bg-stone hover:bg-stone'
                             }`}
                     >
                         {option.label}

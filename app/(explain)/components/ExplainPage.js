@@ -6,27 +6,27 @@ import { useState } from "react";
 import { ExplainChat } from "./ExplainChat";
 import { styled } from '@/utils/tw';
 
-const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-red-50 pt-16`;
-const Title = styled.h1`text-4xl md:text-3xl text-red-800 select-none font-geistMono`;
-const Form = styled.form`flex flex-col items-center`;
-const Input = styled.input`border border-red-500 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-80 font-geistMono`;
-const Button = styled.button`bg-red-500 text-white font-bold py-2 px-8 hover:bg-red-800 transition mt-4 font-geistMono`;
-const Loading = styled.div`text-2xl font-geistMono`;
+const Container = styled.div`min-h-screen flex flex-col items-center justify-center bg-stone-deep px-4`;
+const Title = styled.h1`display text-4xl md:text-6xl select-none`;
+const Form = styled.form`flex flex-col items-center gap-6`;
+const Input = styled.input`field w-80 md:w-96 text-center`;
+const Button = styled.button`pebble-btn px-10`;
 
 
 export default function ExplainPage() {
     const [input, setInput] = useState('');
-    const [readyToChat, setReadyToChat] = useState(false);
+    const [started, setStarted] = useState(false);
+    const [ready, setReady] = useState(false);
     const character = useObject({
         api: '/api/name',
         schema: aiSchemas.character,
-        onFinish: (object, error) => {
-            if (object) setReadyToChat(true);
-        }
+        onFinish: ({ object }) => { if (object) setReady(true) }
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!input.trim()) return;
+        setStarted(true);
         character.submit({
             prompt: `Objective:
 Given a user-provided subject, generate a character who is genuinely unfamiliar with it. Prioritize historically plausible human characters, but use non-human/fictional characters when they would create especially compelling perspective gaps.
@@ -61,7 +61,9 @@ Avoid:
 - Barriers that make explanation impossible
 
 [OUTPUT FORMAT]:
-Name/Title: [Name] the [Role] ([Era/Origin]) - use surprising names, dont be boring
+name: just their name - surprising, not boring
+title: their role and place only, without the name or the year (e.g. "Bell-ringer of Saint Oswin's, Northumbria")
+year: the year they live in, as a number
 Description: (2-3 sentences establishing character and their specific knowledge gap)
 Scenario: (a few words about their environment and era)
 Physical: (a few words about their physical appearance)
@@ -91,10 +93,10 @@ The user-provided subject is: ${input}
 
     const titleText = 'What do you know about?'
 
-    if (!readyToChat)
+    if (!started)
         return (
             <Container>
-                <div className="grid grid-cols-2 md:grid-cols-2 mb-16 gap-2 md:gap-2">
+                <div className="flex flex-wrap justify-center max-w-2xl text-center mb-12 gap-x-4 gap-y-1">
                     {titleText.split(' ').map((word, i) => (
                         <Title key={i}>{word}</Title>
                     ))}
@@ -107,11 +109,11 @@ The user-provided subject is: ${input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder='Settlers of Catan, yoga, quantum computing...'
                     />
-                    {character.object ? <Loading>...Loading...</Loading> : <Button type="submit">GO</Button>}
+                    <Button type="submit">Go</Button>
                 </Form>
             </Container>
         );
 
-    else return <ExplainChat character={character.object} subject={input} />
+    else return <ExplainChat character={character.object} ready={ready} subject={input} />
 }
 

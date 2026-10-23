@@ -1,190 +1,221 @@
-/* app.css (Tailwind v4+) */
 @import "tailwindcss";
 
-/* Design System tokens → Tailwind utilities via @theme */
 @theme {
-  /* Brand & functional color scales (OKLCH for consistent steps) */
-  /* Primary */
-  --color-primary-50: oklch(0.98 0.02 275);
-  --color-primary-100: oklch(0.96 0.03 275);
-  --color-primary-200: oklch(0.93 0.05 275);
-  --color-primary-300: oklch(0.88 0.08 275);
-  --color-primary-400: oklch(0.82 0.10 275);
-  --color-primary-500: oklch(0.74 0.12 275);
-  --color-primary-600: oklch(0.66 0.12 275);
-  --color-primary-700: oklch(0.58 0.11 275);
-  --color-primary-800: oklch(0.50 0.10 275);
-  --color-primary-900: oklch(0.42 0.09 275);
+  /* Primary — hot pink scale */
+  --color-primary-50: oklch(0.98 0.015 355);
+  --color-primary-100: oklch(0.95 0.035 355);
+  --color-primary-200: oklch(0.91 0.06 355);
+  --color-primary-300: oklch(0.85 0.1 355);
+  --color-primary-400: oklch(0.77 0.15 355);
+  --color-primary-500: oklch(0.68 0.22 358);
+  --color-primary-600: oklch(0.62 0.24 360);
+  --color-primary-700: oklch(0.52 0.2 360);
+  --color-primary-800: oklch(0.4 0.14 360);
+  --color-primary-900: oklch(0.26 0.04 350);
 
-  /* Secondary */
-  --color-secondary-50: oklch(0.98 0.02 25);
-  --color-secondary-100: oklch(0.96 0.03 25);
-  --color-secondary-200: oklch(0.93 0.05 25);
-  --color-secondary-300: oklch(0.88 0.08 25);
-  --color-secondary-400: oklch(0.82 0.10 25);
-  --color-secondary-500: oklch(0.74 0.12 25);
-  --color-secondary-600: oklch(0.66 0.12 25);
-  --color-secondary-700: oklch(0.58 0.11 25);
-  --color-secondary-800: oklch(0.50 0.10 25);
-  --color-secondary-900: oklch(0.42 0.09 25);
+  /* Secondary — warm gray scale */
+  --color-secondary-50: oklch(0.98 0.004 70);
+  --color-secondary-100: oklch(0.95 0.005 70);
+  --color-secondary-200: oklch(0.91 0.007 70);
+  --color-secondary-300: oklch(0.86 0.008 70);
+  --color-secondary-400: oklch(0.76 0.009 70);
+  --color-secondary-500: oklch(0.64 0.01 70);
+  --color-secondary-600: oklch(0.53 0.01 70);
+  --color-secondary-700: oklch(0.43 0.01 70);
+  --color-secondary-800: oklch(0.33 0.008 70);
+  --color-secondary-900: oklch(0.24 0.006 70);
 
-  /* Semantic states */
-  --color-success-50: oklch(0.98 0.02 145);
-  --color-success-500: oklch(0.74 0.11 145);
-  --color-success-700: oklch(0.58 0.10 145);
+  /* Warm gray surfaces; pink only for highlights */
+  --color-stone: #E8E5E0;
+  --color-stone-deep: #DAD5CE;
+  --color-stone-pale: #F1EFEB;
+  --color-paper: #FAF9F7;
+  --color-ink: #24201E;
+  --color-ink-soft: #6F6863;
+  --color-pink: #FF2D87;
+  --color-pink-mid: #FF8DBE;
+  --color-pink-pale: #FFD9E8;
 
-  --color-warning-50: oklch(0.98 0.03 85);
-  --color-warning-500: oklch(0.85 0.11 85);
-  --color-warning-700: oklch(0.68 0.10 85);
+  --font-display: var(--font-grenze), Georgia, serif;
+  --font-body: var(--font-figtree);
+  --font-mono: var(--font-martian), ui-monospace, monospace;
+  --font-hand: var(--font-caveat);
+  /* legacy names used around the experiments */
+  --font-magilio: var(--font-display);
+  --font-markazi: var(--font-display);
+  --font-geist: var(--font-figtree);
+  --font-geistMono: var(--font-mono);
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
 
-  --color-danger-50: oklch(0.98 0.03 25);
-  --color-danger-500: oklch(0.65 0.15 25);
-  --color-danger-700: oklch(0.52 0.13 25);
+  --radius-paper: 0.5rem;
 
-  /* Surfaces & text */
-  --color-surface-50: oklch(0.98 0.01 270);
-  --color-surface-100: oklch(0.96 0.01 270);
-  --color-surface-900: oklch(0.20 0.02 270);
-  --color-text-900: oklch(0.20 0.03 270);
-  --color-text-50: oklch(0.98 0.01 270);
+  --ease-squish: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Typography scale */
-  --font-sans: ui-sans-serif, system-ui, "Inter", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  /* Font families mapped to CSS variables */
-  --font-magilio: var(--font-magilio);
-  --font-cylburn: var(--font-cylburn);
-  --font-geist-sans: var(--font-geist-sans);
-  --font-geist-mono: var(--font-geist-mono);
-  --font-fraunces: var(--font-fraunces);
-  --font-fraunces-bold: var(--font-fraunces-bold);
-  --font-markazi: var(--font-markazi-text);
-
-  /* Line-heights & tracking */
-  --leading-tight: 1.25;
-  --leading-normal: 1.5;
-  --tracking-tight: -0.01em;
-  --tracking-normal: 0;
-
-  /* Spacing scale (affects padding/margin/size utilities) */
-  --spacing-0: 0rem;
-  --spacing-1: 0.25rem;
-  --spacing-2: 0.5rem;
-  --spacing-3: 0.75rem;
-  --spacing-4: 1rem;
-  --spacing-6: 1.5rem;
-  --spacing-8: 2rem;
-  --spacing-12: 3rem;
-
-  /* Radii */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-
-  /* Shadows */
-  --shadow-2xs: 0 1px rgb(0 0 0 / 0.05);
-  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.08);
-  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-
-  /* Breakpoints as variants */
-  --breakpoint-sm: 40rem;
-  /* 640px */
-  --breakpoint-md: 48rem;
-  /* 768px */
-  --breakpoint-lg: 64rem;
-  /* 1024px */
-  --breakpoint-xl: 80rem;
-  /* 1280px */
+  --animate-breathe: breathe 6s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.5s ease-out both;
+  --animate-twitch: twitch 0.35s ease-in-out infinite;
 }
 
-/* Optional: dark mode token swaps (prefers-color-scheme) */
-@media (prefers-color-scheme: dark) {
-  @theme {
-    --color-surface-50: oklch(0.12 0.02 270);
-    --color-surface-100: oklch(0.16 0.02 270);
-    --color-surface-900: oklch(0.98 0.01 270);
-    --color-text-900: oklch(0.94 0.02 270);
-
-    /* Slightly brighter fills for contrast in dark */
-    --color-primary-500: oklch(0.78 0.12 275);
-    --color-secondary-500: oklch(0.78 0.10 25);
-
-    /* Deeper shadows in dark */
-    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.35), 0 1px 2px -1px rgb(0 0 0 / 0.35);
-  }
+@keyframes breathe {
+  0%, 100% { transform: translateY(0) scale(1, 1); }
+  50% { transform: translateY(-3%) scale(1.02, 0.985); }
 }
 
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+}
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --midnight: #002F5E;
+@keyframes twitch {
+  0%, 100% { transform: skewX(0deg) translateX(0); }
+  25% { transform: skewX(-6deg) translateX(-1px); }
+  75% { transform: skewX(5deg) translateX(1px); }
+}
+
+@keyframes blink {
+  0%, 60% { opacity: 1; }
+  70% { opacity: 0; }
 }
 
 body {
-  color: var(--foreground);
-  font-family: MagilioRegular;
+  background: var(--color-stone);
+  color: var(--color-ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--color-pink);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-pink);
+  outline-offset: 3px;
 }
 
 .rtl {
   direction: rtl;
 }
 
-/* Define your custom component in the Tailwind components layer */
+.caret {
+  animation: blink 1.2s infinite;
+}
+
 @layer components {
+  /* Display type: an old anatomical-plate serif */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 0.9;
+  }
+
+  /* Anything you can press gives a little under your finger */
+  .knead {
+    transition: transform 0.45s var(--ease-squish), box-shadow 0.2s ease, background-color 0.3s ease;
+    transform-origin: 50% 100%;
+  }
+  .knead:hover {
+    transform: scale(1.012, 0.992);
+  }
+  .knead:active {
+    transform: scale(1.04, 0.93);
+    transition-duration: 0.12s;
+  }
+
+  /* Cut paper glued onto the page */
+  .paper {
+    background: var(--color-paper);
+    border-radius: var(--radius-paper);
+    box-shadow: 0 0 0 1px rgb(36 32 30 / 0.12), 0 10px 28px -16px rgb(36 32 30 / 0.35);
+  }
+
+  .pebble-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 font-semibold cursor-pointer select-none;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    transition: transform 0.45s var(--ease-squish), background-color 0.2s ease;
+  }
+  .pebble-btn:hover {
+    background: var(--color-pink);
+    color: var(--color-ink);
+  }
+  .pebble-btn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+
+  .pebble-btn-soft {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 font-medium cursor-pointer select-none;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: 0 0 0 1px rgb(36 32 30 / 0.2);
+    transition: transform 0.45s var(--ease-squish), box-shadow 0.2s ease, background-color 0.2s ease;
+  }
+  .pebble-btn-soft:hover {
+    box-shadow: 0 0 0 1.5px var(--color-pink);
+  }
+  .pebble-btn:hover, .pebble-btn-soft:hover { transform: scale(1.03, 0.97); }
+  .pebble-btn:active, .pebble-btn-soft:active {
+    transform: scale(1.08, 0.9);
+    transition-duration: 0.12s;
+  }
+
+  .field {
+    @apply rounded-full px-5 py-3 outline-none transition-shadow;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: 0 0 0 1px rgb(36 32 30 / 0.22);
+  }
+  .field::placeholder {
+    color: rgb(36 32 30 / 0.4);
+    font-style: italic;
+  }
+  .field:focus {
+    box-shadow: 0 0 0 1.5px var(--color-pink);
+  }
+
+  .shimmer {
+    background: linear-gradient(100deg, rgb(36 32 30 / 0.06) 30%, rgb(36 32 30 / 0.13) 50%, rgb(36 32 30 / 0.06) 70%);
+    background-size: 300% 100%;
+    animation: shimmer 1.4s ease-in-out infinite;
+    border-radius: 0.4rem;
+    color: transparent;
+  }
+
+  /* Interdisciplinary article cards */
   .card {
-    @apply bg-white p-4 rounded-lg transition-all duration-200 flex flex-col gap-2 p-4;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    @apply p-6 flex flex-col gap-2 animate-fade-in;
+    background: var(--color-paper);
+    border-radius: var(--radius-paper);
+    box-shadow: 0 0 0 1px rgb(36 32 30 / 0.12), 0 10px 28px -16px rgb(36 32 30 / 0.35);
   }
-
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
-  }
-
   .card-title {
-    @apply font-markazi text-xl font-bold mb-4;
+    @apply text-2xl mb-3;
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
   }
-
   .card-subtitle {
-    @apply font-markazi text-lg text-gray-500 -mt-8;
+    @apply text-base -mt-3 mb-2 italic;
+    font-family: var(--font-display);
+    color: var(--color-ink-soft);
   }
-
   .card-description {
-    @apply text-base;
+    @apply text-base leading-relaxed;
   }
-
   .card-list {
     @apply list-disc list-inside;
   }
 }
 
-@keyframes blink {
-  0% {
-    opacity: 1;
-  }
-
-  60% {
-    opacity: 1;
-  }
-
-  70% {
-    opacity: 0;
-  }
+@keyframes shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: 0 0; }
 }
 
-.caret {
-  animation: blink 1.2s infinite;
-}
-
-.caret ::after {
-  content: "|";
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

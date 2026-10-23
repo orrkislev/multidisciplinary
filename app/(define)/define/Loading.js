@@ -12,12 +12,14 @@ export default function Loading({ isLoading }) {
     const canvasRef = useRef(null);
     const nodesRef = useRef([]);
     const ctxRef = useRef(null);
+    const rafRef = useRef(null);
 
     useEffect(() => {
         if (!isLoading) return;
         ctxRef.current = canvasRef.current.getContext('2d');
         canvasRef.current.width = window.innerWidth * 2;
         canvasRef.current.height = window.innerHeight * 2;
+        ctxRef.current.strokeStyle = 'rgba(36, 32, 30, 0.18)';
         const newNodes = Array.from({ length: 200 }, () => ({
             x: Math.random() * canvasRef.current.width,
             y: Math.random() * canvasRef.current.height,
@@ -26,9 +28,7 @@ export default function Loading({ isLoading }) {
         }));
         nodesRef.current = newNodes;
         animate();
-        return () => {
-            cancelAnimationFrame(animate);
-        }
+        return () => cancelAnimationFrame(rafRef.current)
     }, [isLoading]);
 
     const line = (x1, y1, x2, y2) => {
@@ -45,6 +45,7 @@ export default function Loading({ isLoading }) {
     }
 
     const animate = () => {
+        if (!canvasRef.current) return
         ctxRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
         nodesRef.current.forEach(node => {
             node.x += node.velX;
@@ -62,14 +63,14 @@ export default function Loading({ isLoading }) {
                 checkTwoNodes(n1, n2);
             });
         });
-        requestAnimationFrame(animate);
+        rafRef.current = requestAnimationFrame(animate);
     }
 
 
     if (!isLoading) return null;
 
     return (
-        <div className="fixed inset-0 backdrop-blur-xs z-60 animateIn" >
+        <div className="fixed inset-0 backdrop-blur-xs bg-stone-pale/30 z-60 animateIn" >
             <canvas ref={canvasRef} className="w-full h-full" />
             <style jsx>{`
                 .animateIn {

@@ -1,22 +1,24 @@
+// Plate illustrations via Gemini's image model. Returns { image: base64, mimeType }.
+const MODEL = 'gemini-3.1-flash-lite-image';
+
+export const maxDuration = 60;
+
 export async function POST(req) {
-    const data = await req.json();
-    if (req.method !== "POST") return res.status(405).json({ message: "Only POST requests are allowed" });
-    if (!data.prompt) return Response.json({ error: 'Missing prompt' });
+    const { prompt, aspectRatio = '1:1' } = await req.json();
+    if (typeof prompt !== 'string' || !prompt.trim() || prompt.length > 2000) {
+        return Response.json({ error: 'Send a prompt up to 2000 characters.' }, { status: 400 });
+    }
 
-    // const url = 'https://api.getimg.ai/v1/flux-schnell/text-to-image';
-    const url = 'https://api.getimg.ai/v1/stable-diffusion-xl/text-to-image';
-
-    const options = {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`, {
         method: 'POST',
-        headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
-            Authorization: `Bearer ${process.env.GETIMG_API_KEY}`
-        },
-        body: JSON.stringify(data)
-    };
-
-    const res = await fetch(url, options)
+        headers: { 'x-goog-api-key': process.env.GOOGLE_GENERATIVE_AI_API_KEY, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { responseModalities: ['IMAGE'], imageConfig: { aspectRatio } },
+        }),
+    });
     const json = await res.json();
-    return Response.json(json);
+    const data = json?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData;
+    if (!data) return Response.json({ error: 'The image model returned no image.' }, { status: 502 });
+    return Response.json({ image: data.data, mimeType: data.mimeType });
 }

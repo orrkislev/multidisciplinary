@@ -40,6 +40,7 @@ export async function POST(req) {
     - NO generic suggestions (e.g., "read a book about X").  
     - Prioritize interdisciplinary, tactile, or humorous angles.  
     - 1 quest must involve a low-fi DIY project.  
+    - 1 quest must be a pure research/reading route: no building. Its path is reading, watching and investigating, its outcome is a question worth pursuing or an annotated reading list, and its resources are real, existing books, papers or articles.  
 `
 
     // output: {

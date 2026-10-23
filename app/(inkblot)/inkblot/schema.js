@@ -7,5 +7,7 @@ export const rorcharchSchema = z.object({
         description: z.string(),
         constraint: z.string(),
         obsession: z.string(),
+        readFirst: z.string(),
+        digInto: z.string(),
     })).length(3),
 });

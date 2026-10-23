@@ -96,26 +96,26 @@ export default function ReceiptLayout() {
     };
 
     return (
-        <div className="flex h-screen bg-gradient-to-br from-slate-50 to-slate-100">
+        <div className="flex h-screen bg-stone-deep">
             {/* Left Panel - Fragment Surface */}
             <div className="w-3/5 overflow-hidden">
                 <FragmentSurface />
             </div>
 
             {/* Right Panel - Receipt */}
-            <div className="w-2/5 bg-slate-200 p-8 overflow-y-auto flex flex-col items-center">
+            <div className="w-2/5 p-8 overflow-y-auto flex flex-col items-center">
                 <ReceiptDisplay />
 
                 <div className="mt-6 flex gap-3">
                     <button
                         onClick={handleExport}
-                        className="bg-slate-800 text-white px-6 py-2 rounded-lg hover:bg-slate-900 transition-all text-sm font-medium"
+                        className="pebble-btn text-sm"
                     >
                         Export
                     </button>
                     <button
                         onClick={() => window.location.reload()}
-                        className="bg-white text-slate-800 px-6 py-2 rounded-lg hover:bg-slate-50 transition-all text-sm font-medium border border-slate-300"
+                        className="pebble-btn-soft text-sm"
                     >
                         New Receipt
                     </button>

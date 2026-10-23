@@ -25,6 +25,8 @@ Rules for the JSON fields:
 - description: A grounded path for exploration. 2-3 sentences max.
 - constraint: A specific "Thou shalt not" that forces creativity.
 - obsession: A niche, grounded focus that links the three labels.
+- readFirst: One real, existing book, essay or paper (title + author) to start reading. No invented sources.
+- digInto: A research route, not a project: an open question or field to investigate, with 2-3 search terms.
 `
 
     const { object } = await generateObject({

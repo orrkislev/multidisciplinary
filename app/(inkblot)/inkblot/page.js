@@ -20,6 +20,7 @@ uniform float u_time;
 uniform vec2 u_resolution;
 uniform float u_scale;
 uniform float u_strength;
+uniform float u_sym; // 0: none, 2: mirror, 3/4: kaleidoscope
 
 // simplex-style noise
 vec3 mod289(vec3 x) { return x - floor(x * (1.0/289.0)) * 289.0; }
@@ -51,8 +52,19 @@ float snoise(vec2 v) {
     return 130.0 * dot(m, g);
 }
 
+vec2 fold(vec2 uv) {
+    if (u_sym < 1.0) return uv;
+    if (u_sym < 2.5) return vec2(0.5 + abs(uv.x - 0.5), uv.y);
+    vec2 p = uv - 0.5;
+    float r = length(p);
+    float sector = 6.2831853 / u_sym;
+    float a = mod(atan(p.y, p.x), sector);
+    if (a > sector * 0.5) a = sector - a;
+    return 0.5 + r * vec2(cos(a), sin(a));
+}
+
 void main() {
-    vec2 uv = v_uv;
+    vec2 uv = fold(v_uv);
     float aspect = u_resolution.x / u_resolution.y;
 
     // domain warping: displace UV with layered noise
@@ -110,8 +122,9 @@ function initGL(canvas, sourceCanvas) {
     const uRes = gl.getUniformLocation(prog, 'u_resolution');
     const uScale = gl.getUniformLocation(prog, 'u_scale');
     const uStrength = gl.getUniformLocation(prog, 'u_strength');
+    const uSym = gl.getUniformLocation(prog, 'u_sym');
 
-    return { gl, uTime, uRes, uScale, uStrength };
+    return { gl, uTime, uRes, uScale, uStrength, uSym };
 }
 
 export default function Page() {
@@ -191,7 +204,7 @@ export default function Page() {
             const wave = Math.sin(dist * 0.08) * 0.4 + Math.sin(dist * 0.03) * 0.3;
             drawCtx.lineWidth = base * speedThin + wave;
 
-            drawCtx.strokeStyle = drawCanvas.dataset.color || 'black';
+            drawCtx.strokeStyle = drawCanvas.dataset.color === 'white' ? '#FAF9F7' : '#24201E';
             drawCtx.beginPath();
             drawCtx.moveTo(lastX, lastY);
             drawCtx.lineTo(x, y);
@@ -236,11 +249,13 @@ export default function Page() {
 
         const random = (a = 1, b = 0) => Math.random() * (b - a) + a;
 
-        for (let i = 0; i < 25; i++) {
+        ctx.fillStyle = '#24201E';
+        // blobs scattered inside a central disc, so folded blots come out round rather than boxy
+        for (let i = 0; i < 12; i++) {
+            const angle = random(0, Math.PI * 2), dist = Math.sqrt(random(0, 1)) * width * .3;
             ctx.beginPath();
-            ctx.arc(random(width * .25, width * .75),
-                random(height * .25, height * .75),
-                random(width * .01,width * .1), 0, Math.PI * 2);
+            ctx.arc(width / 2 + Math.cos(angle) * dist, height / 2 + Math.sin(angle) * dist,
+                random(width * .03, width * .1), 0, Math.PI * 2);
             ctx.fill();
         }
 
@@ -252,11 +267,17 @@ export default function Page() {
         const state = initGL(glCanvas, offscreen);
         if (!state) return;
 
-        const { gl, uTime, uRes, uScale, uStrength } = state;
+        const { gl, uTime, uRes, uScale, uStrength, uSym } = state;
         gl.viewport(0, 0, width, height);
         gl.uniform2f(uRes, width, height);
-        gl.uniform1f(uScale, random() < .2 ? 100 : random(2));
-        gl.uniform1f(uStrength, random(0.04,0.1));
+        gl.uniform1f(uScale, random(1, 2.5));
+        gl.uniform1f(uStrength, random(0.015, 0.04));
+        // most blots are symmetric, like the real cards
+        gl.uniform1f(uSym, random() < 0.15 ? 0 : [2, 2, 3, 4][Math.floor(random(0, 4))]);
+
+        // a new blot starts with a clean drawing layer
+        const draw = drawRef.current;
+        if (draw) draw.getContext('2d').clearRect(0, 0, draw.width, draw.height);
 
         let frame;
         const start = performance.now();
@@ -272,41 +293,47 @@ export default function Page() {
 
     if (labels.length >= 3) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen gap-8 p-5">
+            <div className="flex flex-col items-center justify-center min-h-screen gap-8 p-5 bg-stone">
                 <div className="flex gap-3 flex-wrap justify-center">
                     {labels.map((label, i) => (
-                        <span key={i} className="bg-gray-100 rounded-2xl px-4 py-1.5 text-sm">
+                        <span key={i} className="bg-paper rounded-full px-4 py-1.5 text-sm">
                             {label}
                         </span>
                     ))}
                 </div>
 
                 {loading && (
-                    <div className="w-10 h-10 rounded-full bg-black animate-pulse" />
+                    <div className="w-14 h-14 bg-ink rounded-[46%_54%_50%_50%/55%_50%_50%_45%] animate-breathe" />
                 )}
 
                 {roles && (
                     <>
                         <div className="flex gap-4 flex-wrap justify-center max-w-[700px]">
                             {roles.map((role, i) => (
-                                <div key={i} className="bg-gray-50 rounded-xl p-5 flex-[1_1_200px] min-w-[180px] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:bg-white cursor-default">
-                                    <div className="font-bold text-lg">{role.title}</div>
-                                    <div className="text-lg text-gray-500 leading-tight">{role.question}</div>
-                                    <div className="text-sm text-gray-500 mt-2">{role.description}</div>
-                                    <div className="text-xs text-gray-500 mt-4">
+                                <div key={i} className="paper knead p-6 flex-[1_1_200px] min-w-[180px] cursor-default animate-fade-in">
+                                    <div className="display text-xl mb-2">{role.title}</div>
+                                    <div className="text-lg leading-snug font-medium">{role.question}</div>
+                                    <div className="text-sm text-ink-soft mt-2 leading-relaxed">{role.description}</div>
+                                    <div className="text-xs mt-4 bg-stone rounded-2xl px-3 py-2">
                                         <strong>Constraint:</strong> {role.constraint}
                                     </div>
-                                    <div className="text-[11px] text-gray-400 mt-6">
+                                    <div className="text-xs text-ink-soft mt-3">
                                         <strong>Obsession:</strong> {role.obsession}
+                                    </div>
+                                    <div className="text-xs text-ink-soft mt-3">
+                                        <strong>Read first:</strong> {role.readFirst}
+                                    </div>
+                                    <div className="text-xs text-ink-soft mt-3">
+                                        <strong>Dig into:</strong> {role.digInto}
                                     </div>
                                 </div>
                             ))}
                         </div>
                         <button
                             onClick={() => { setLabels([]); setRoles(null); triggered.current = false; }}
-                            className="text-sm px-5 py-2 border border-gray-300 rounded-md bg-white cursor-pointer transition-all duration-150 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:shadow-none"
+                            className="pebble-btn"
                         >
-                            Try Again
+                            Try again
                         </button>
                     </>
                 )}
@@ -316,8 +343,8 @@ export default function Page() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen gap-5 p-5">
-            <h1 className="text-2xl font-light tracking-widest">tell me what you see</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen gap-5 p-5 bg-stone">
+            <h1 className="display text-4xl md:text-5xl text-center">Tell me what you see</h1>
 
             <div className="flex gap-2.5 items-center">
                 <input
@@ -325,12 +352,12 @@ export default function Page() {
                     onChange={e => setInputValue(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && addLabel()}
                     placeholder="what do you see?"
-                    className="text-sm px-3 py-1.5 border border-gray-300 rounded-md w-[200px] transition-all duration-150 focus:outline-none focus:border-gray-500 focus:shadow-[0_0_0_3px_rgba(0,0,0,0.05)]"
+                    className="field text-sm w-56"
                 />
                 <button
                     onClick={addLabel}
                     disabled={!inputValue.trim()}
-                    className="text-sm px-3 py-1.5 border border-gray-300 rounded-md cursor-pointer bg-white transition-all duration-150 hover:border-gray-400 hover:bg-gray-50 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-40 disabled:cursor-default disabled:hover:translate-y-0 disabled:hover:bg-white"
+                    className="pebble-btn text-sm"
                 >
                     Add
                 </button>
@@ -339,11 +366,11 @@ export default function Page() {
             {labels.length > 0 && (
                 <div className="flex gap-2 flex-wrap justify-center">
                     {labels.map((label, i) => (
-                        <span key={i} className="bg-gray-100 rounded-xl px-3 py-1 text-xs flex items-center gap-1 transition-all duration-150 hover:bg-gray-200">
+                        <span key={i} className="bg-paper rounded-full pl-3 pr-2 py-1 text-sm flex items-center gap-1.5 animate-fade-in">
                             {label}
                             <button
                                 onClick={() => setLabels(prev => prev.filter((_, j) => j !== i))}
-                                className="bg-transparent border-none cursor-pointer text-xs text-gray-400 transition-all duration-150 hover:text-red-400 hover:scale-125"
+                                aria-label="Remove" className="bg-transparent border-none cursor-pointer text-ink-soft transition-all duration-150 hover:text-pink hover:scale-125"
                             >
                                 ×
                             </button>
@@ -352,26 +379,26 @@ export default function Page() {
                 </div>
             )}
 
-            <div className="relative w-[70vmin] h-[70vmin]">
+            <div className="relative w-[70vmin] h-[70vmin] paper overflow-hidden">
                 <canvas ref={canvasRef} className="w-full h-full" />
                 <canvas ref={drawRef} className="absolute top-0 left-0 w-full h-full cursor-crosshair" />
-                <div className="absolute top-2.5 right-2.5 flex gap-1.5">
+                <div className="absolute top-3 right-3 flex gap-2">
                     <button
                         onClick={() => setColor('black')}
-                        className={`w-7 h-7 rounded-full bg-black cursor-pointer transition-all duration-150 hover:scale-110 ${color === 'black' ? 'border-[3px] border-gray-500 scale-110' : 'border-2 border-gray-300'}`}
+                        aria-label="Ink" className={`w-8 h-8 rounded-full bg-ink cursor-pointer transition-transform duration-300 ease-squish hover:scale-110 ${color === 'black' ? 'ring-4 ring-stone scale-110' : ''}`}
                     />
                     <button
                         onClick={() => setColor('white')}
-                        className={`w-7 h-7 rounded-full bg-white cursor-pointer transition-all duration-150 hover:scale-110 ${color === 'white' ? 'border-[3px] border-gray-500 scale-110' : 'border-2 border-gray-300'}`}
+                        aria-label="Eraser" className={`w-8 h-8 rounded-full bg-paper shadow-[inset_0_0_0_2px_rgb(36_32_30/0.15)] cursor-pointer transition-transform duration-300 ease-squish hover:scale-110 ${color === 'white' ? 'ring-4 ring-stone scale-110' : ''}`}
                     />
                 </div>
             </div>
 
             <button
                 onClick={() => setCanvasKey(k => k + 1)}
-                className="text-sm px-4 py-2 border border-gray-300 rounded-md cursor-pointer bg-white transition-all duration-150 hover:border-gray-400 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:shadow-none"
+                className="pebble-btn-soft"
             >
-                New Drawing
+                New blot
             </button>
             <HomeButton />
         </div>

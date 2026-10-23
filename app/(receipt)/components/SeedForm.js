@@ -33,32 +33,32 @@ export default function SeedForm({ onComplete }) {
     };
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-8">
-            <div className="w-full max-w-2xl bg-white rounded-2xl shadow-xl p-12">
+        <div className="flex items-center justify-center min-h-screen bg-stone-deep p-8">
+            <div className="w-full max-w-2xl paper p-8 md:p-12">
                 <div className="mb-8">
-                    <h1 className="text-4xl font-bold text-slate-900 mb-3">Receipt</h1>
-                    <p className="text-lg text-slate-600">
+                    <h1 className="display text-5xl mb-3">Receipt</h1>
+                    <p className="text-lg text-ink-soft">
                         Transform your project into a learning receipt
                     </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-2">
+                        <label className="block text-sm font-semibold mb-2">
                             What did you work on?
                         </label>
                         <textarea
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             placeholder="I painted a portrait of my grandmother from an old photograph. Oil on canvas. First time doing a realistic portrait."
-                            className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-none"
+                            className="field !rounded-[1.25rem] w-full resize-none"
                             rows={4}
                             required
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-2">
+                        <label className="block text-sm font-semibold mb-2">
                             How long did it take?
                         </label>
                         <input
@@ -66,14 +66,14 @@ export default function SeedForm({ onComplete }) {
                             value={duration}
                             onChange={(e) => setDuration(e.target.value)}
                             placeholder="About 3 weeks"
-                            className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                            className="field w-full"
                             required
                         />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-4 px-6 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                        className="pebble-btn w-full !py-4"
                     >
                         Generate Receipt
                     </button>

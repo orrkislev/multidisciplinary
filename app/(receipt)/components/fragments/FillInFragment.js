@@ -28,8 +28,8 @@ export default function FillInFragment({ prompt, fragmentId }) {
     };
 
     return (
-        <div className="bg-white rounded-2xl p-6 shadow-md">
-            <p className="text-slate-700 mb-3 font-medium">
+        <div className="paper p-6 animate-fade-in">
+            <p className="mb-3 font-medium">
                 {prompt}
             </p>
 
@@ -37,7 +37,7 @@ export default function FillInFragment({ prompt, fragmentId }) {
                 value={text}
                 onChange={(e) => !submitted && setText(e.target.value)}
                 placeholder="Type your response..."
-                className="w-full px-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all resize-none mb-3"
+                className="field !rounded-[1.25rem] w-full resize-none mb-3"
                 rows={2}
                 maxLength={120}
                 disabled={submitted}
@@ -48,13 +48,13 @@ export default function FillInFragment({ prompt, fragmentId }) {
                     <button
                         onClick={handleSubmit}
                         disabled={!text.trim()}
-                        className="flex-1 bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition-all disabled:bg-slate-300 disabled:cursor-not-allowed"
+                        className="pebble-btn flex-1 text-sm"
                     >
                         Add to receipt
                     </button>
                     <button
                         onClick={handleSkip}
-                        className="px-4 py-2 text-sm text-slate-600 hover:text-slate-800 transition-all"
+                        className="px-4 py-2 text-sm text-ink-soft hover:text-ink transition-colors cursor-pointer"
                     >
                         Skip
                     </button>
@@ -62,7 +62,7 @@ export default function FillInFragment({ prompt, fragmentId }) {
             )}
 
             {submitted && text && (
-                <div className="text-center text-sm text-green-600 font-medium">
+                <div className="text-center text-sm text-pink font-medium">
                     ✓ Added to receipt
                 </div>
             )}

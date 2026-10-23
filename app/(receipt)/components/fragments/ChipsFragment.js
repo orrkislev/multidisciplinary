@@ -29,8 +29,8 @@ export default function ChipsFragment({ chips, fragmentId }) {
     };
 
     return (
-        <div className="bg-white rounded-2xl p-6 shadow-md">
-            <h3 className="text-sm font-semibold text-slate-600 mb-4 uppercase tracking-wide">
+        <div className="paper p-6 animate-fade-in">
+            <h3 className="font-mono text-[0.65rem] text-ink-soft mb-4 uppercase tracking-wider">
                 Skills & Concepts
             </h3>
             <div className="flex flex-wrap gap-2">
@@ -38,9 +38,9 @@ export default function ChipsFragment({ chips, fragmentId }) {
                     <button
                         key={index}
                         onClick={() => toggleChip(chip)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all transform hover:scale-105 ${selectedChips.has(chip)
-                            ? 'bg-blue-600 text-white shadow-md'
-                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        className={`knead px-4 py-2 rounded-full text-sm font-medium cursor-pointer ${selectedChips.has(chip)
+                            ? 'bg-ink text-paper'
+                            : 'bg-stone hover:bg-stone'
                             }`}
                     >
                         {selectedChips.has(chip) && '✓ '}

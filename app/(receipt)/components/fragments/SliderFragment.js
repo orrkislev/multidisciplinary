@@ -25,11 +25,11 @@ export default function SliderFragment({ slider, fragmentId }) {
     };
 
     return (
-        <div className="bg-white rounded-2xl p-6 shadow-md">
+        <div className="paper p-6 animate-fade-in">
             <div className="mb-4">
-                <div className="flex justify-between text-sm text-slate-600 mb-3">
-                    <span className={value < 40 ? 'font-semibold text-slate-900' : ''}>{slider.left}</span>
-                    <span className={value > 60 ? 'font-semibold text-slate-900' : ''}>{slider.right}</span>
+                <div className="flex justify-between text-sm text-ink-soft mb-3">
+                    <span className={value < 40 ? 'font-semibold text-ink' : ''}>{slider.left}</span>
+                    <span className={value > 60 ? 'font-semibold text-ink' : ''}>{slider.right}</span>
                 </div>
 
                 <div className="relative">
@@ -39,7 +39,7 @@ export default function SliderFragment({ slider, fragmentId }) {
                         max="100"
                         value={value}
                         onChange={(e) => !committed && setValue(Number(e.target.value))}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer slider-thumb"
+                        className="w-full accent-[#24201E] cursor-pointer"
                         disabled={committed}
                     />
                 </div>
@@ -48,14 +48,14 @@ export default function SliderFragment({ slider, fragmentId }) {
             {!committed && (
                 <button
                     onClick={handleCommit}
-                    className="w-full bg-blue-600 text-white text-sm font-medium py-2 px-4 rounded-lg hover:bg-blue-700 transition-all"
+                    className="pebble-btn w-full text-sm"
                 >
                     Add to Receipt
                 </button>
             )}
 
             {committed && (
-                <div className="text-center text-sm text-green-600 font-medium">
+                <div className="text-center text-sm text-pink font-medium">
                     ✓ Added to receipt
                 </div>
             )}
